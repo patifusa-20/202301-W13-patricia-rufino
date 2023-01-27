@@ -1,6 +1,8 @@
+<img align="right" width="179" height="118" alt="ISDI CODER LOGO" src="/public/assets/isdi_logo_hq.jpg">
+
 **PROYECTO FINAL BOOTCAMP**
 
-### Creador de cartas digitales de restaurante
+### :zap: Creador de cartas digitales de restaurante
 
 ---
 
@@ -62,3 +64,13 @@ Funcionalidades:
 **DISEÑO UI FIGMA**
 
 [https://www.figma.com/file/fFDXQn6EbSN4rmSgR0ZNNT/Final-Project?node-id=0%3A1&t=2nRYWgCNFbrWuJhh-1](https://www.figma.com/file/fFDXQn6EbSN4rmSgR0ZNNT/Final-Project?node-id=0%3A1&t=2nRYWgCNFbrWuJhh-1)
+
+## Resultado
+
+https://patricia-challenge-w13.netlify.app/
+
+https://sonarcloud.io/summary/overall?id=patifusa-20_202301-W13-patricia-rufino
+
+## Tecnologías usadas
+
+![Logos of used technologies](/public/assets/tech_logos_v2.jpg)
