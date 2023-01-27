@@ -1,46 +1,64 @@
-# Getting Started with Create React App
+**PROYECTO FINAL BOOTCAMP**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Creador de cartas digitales de restaurante
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+**DESCRIPCIÓN DEL PROYECTO**
 
-### `npm start`
+Aplicación web dirigida a propietarios de restaurantes que necesitan crear y mantener actualizada la carta de su restaurante.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+La aplicación permitirá al usuario crear una carta de restaurante donde podrá hacer un CRUD de productos.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Funcionalidades:
 
-### `npm test`
+-   Perfil de usuario. El usuario podrá añadir el logo, la imagen principal de la carta, nombre de su restaurante y su nombre.
+-   Carta. Esta carta contendrá un listado de Productos.
+-   CRUD Producto. El usuario podrá crear los productos que quiere ofrecer en su carta uno a uno mediante un formulario. Cada producto que cree, será añadido automáticamente a la carta.
+-   CRUD Producto - Extra. El usuario podrá elegir una imagen para su producto de un listado de imágenes que comparten la query correspondiente a la categoría del producto de la API de **[Unsplash](https://unsplash.com/documentation#get-a-topic)**.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+**MODELO DE DATOS**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![Modelo de datos](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/96d6a354-8dce-4825-8e49-8db52e7b3c20/Untitled.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**COMPONENTES Y RESPONSABILIDADES**
 
-### `npm run eject`
+**Componentes**
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+-   **LOGIN_BTN.** Permitirá al usuario hacer login con Google.
+-   **LOGOUT_BTN.** Permitirá al usuario hacer logout.
+-   **PROFILE**. Recibirá el **_UserType_** y mostrará sus datos en un formulario que se podrá editar.
+-   **PROFILE_BTN**. Dará acceso a PROFILE.
+-   **MENUS**. Mostrará el listado de Menus **_Array<MenuType>_** existentes.
+-   **MENU.** Cargará en una estructura de “card” algunos datos del producto **_MenuType_** y enrutará a PRODUCTSPAGE.
+-   **PRODUCTS_FILTER**. Mostrará el listado de categorías **_Array<CategoryType>_** y recibirá el **_MenuType_** correspondiente al usuario logado. Pasará a PRODUCTS un listado de productos **_Array<ProductType>_** filtrados por la categoría seleccionada por el usuario ( ProductType[category][id] === CategoryType[id]) .
+-   **PRODUCTS**. Mostrará el listado de Productos **_Array<ProductType>_** y dará acceso al modo “edición de productos” si el propietario de dicha carta está logado.
+-   **ADD_PRODUCT_BTN.** Indicar a PRODUCT_ADD que lo se va a editar es un nuevo producto.
+-   **PRODUCT**. Cargará en una estructura de “card” algunos datos del producto **_ProductType._** Si no está logado**_,_** abrirá la página de detalle del producto DETAILSPAGE Si está logado, abrirá la página de Añadir/Actualizar producto ADDPAGE.
+-   **PRODUCT_DETAILS.** Mostrará los datos del producto **_ProductType._**
+-   **PRODUCT_ADD**. Contendrá un formulario que recogerá todos los datos introducidos para el producto **_ProductType_**.
+-   **ADD_IMAGE**. Mostrará modal con 2 opciones para cargar imagen. Desde local (Se almacenará en Firebase Storage) o desde librería pública (UNSPLASH).
+-   **MODAL_EXT_IMAGE.** Recibe query procedente de **_CategoryType_** y carga listado de imágenes **_Array<ImageType>_** procedentes de API pública.
+-   **IMAGE_CARD.** Carga una estructura de “card” con algunos datos de la imagen **_ImageType_** procedentes de la API pública.
+-   **HEADER.** Contendrá el enrutado a PROFILEPAGE desde PROFILE_BTN si el usuario se loguea.
+-   ROUTES.
+-   LAYOUT.
+-   APP.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Páginas**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+-   **HOMEPAGE.** Mostrará LOGIN_BTN y MENUS.
+-   **ADDPAGE.** Mostrará el formulario de producto. PRODUCT_ADD.
+-   **DETAILSPAGE.** Mostrará el detalle del producto. PRODUCT_DETAILS.
+-   **PRODUCTSPAGE.** Mostrará PRODUCTS_FILTER, PRODUCTS y si cumple condición ADD_PRODUCT_BTN.
+-   **PROFILEPAGE.** Mostrará PROFILE, LOGOUTBTN, ADD_IMAGE.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+---
 
-## Learn More
+**DISEÑO UI FIGMA**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+[https://www.figma.com/file/fFDXQn6EbSN4rmSgR0ZNNT/Final-Project?node-id=0%3A1&t=2nRYWgCNFbrWuJhh-1](https://www.figma.com/file/fFDXQn6EbSN4rmSgR0ZNNT/Final-Project?node-id=0%3A1&t=2nRYWgCNFbrWuJhh-1)
