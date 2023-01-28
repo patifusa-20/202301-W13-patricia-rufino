@@ -1,13 +1,14 @@
 import React from "react";
-import "./App.css";
+import { Filters } from "../filters/filters";
 
 function App() {
     return (
-        <div className="App">
-            <header className="App-header">
+        <>
+            <header>
                 <p>Hello world.</p>
             </header>
-        </div>
+            <Filters></Filters>
+        </>
     );
 }
 
