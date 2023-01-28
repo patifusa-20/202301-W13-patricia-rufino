@@ -6,6 +6,7 @@ import { GenericModel } from "../model/generic.model";
 import { ProductsContextStructure } from "../types/products.context.type";
 
 export const initialContext: ProductsContextStructure = {
+    products: [],
     allergen: new GenericModel("", ""),
     allergens: allergensData,
     category: new GenericModel("", ""),
@@ -14,6 +15,9 @@ export const initialContext: ProductsContextStructure = {
         //
     },
     handleAllergen: async () => {
+        //
+    },
+    handleLoad: async () => {
         //
     },
 };
