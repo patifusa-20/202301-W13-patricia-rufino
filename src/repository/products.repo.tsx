@@ -1,7 +1,6 @@
 import { ProductStructure } from "../types/product.type";
 import { RepositoryProducts } from "../types/repo";
 
-const invalidIdError = new Error("Invalid ID");
 export class ProductRepo implements RepositoryProducts<ProductStructure> {
     constructor(
         public url = "https://digital-menu-app-5cd01-default-rtdb.europe-west1.firebasedatabase.app/products.json"
