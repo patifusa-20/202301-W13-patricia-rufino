@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { createContext } from "react";
 import { categoriesData } from "../data/categories.data";
 import { GenericModel } from "../model/generic.model";
