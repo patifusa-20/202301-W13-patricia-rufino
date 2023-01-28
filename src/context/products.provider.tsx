@@ -7,11 +7,32 @@ export function ProductsContextProvider({
 }: {
     children: JSX.Element;
 }) {
-    const { item, items, handleFilter } = useProducts();
+    const {
+        allergen,
+        allergens,
+        category,
+        categories,
+        handleFilter,
+        handleAllergen,
+    } = useProducts();
 
     const context = useMemo(
-        () => ({ item, items, handleFilter }),
-        [item, handleFilter]
+        () => ({
+            allergen,
+            allergens,
+            category,
+            categories,
+            handleFilter,
+            handleAllergen,
+        }),
+        [
+            allergen,
+            allergens,
+            category,
+            categories,
+            handleFilter,
+            handleAllergen,
+        ]
     );
 
     return (
