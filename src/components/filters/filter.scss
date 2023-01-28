@@ -15,7 +15,8 @@
         padding: 0.7rem;
 
         &.active {
-            box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.15);
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.15);
+            width: 5rem;
         }
     }
     &_title {
