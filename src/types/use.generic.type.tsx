@@ -1,6 +1,6 @@
-import { GenericStructure } from "./generic.type.ts";
+import { GenericStructure } from "./generic.type";
 
-export type UseProductsStructure = {
+export type UseGenericStructure = {
     allergen: GenericStructure;
     allergens: Array<GenericStructure>;
     category: GenericStructure;

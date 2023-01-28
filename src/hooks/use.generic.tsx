@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { allergensData } from "../data/allergens.data";
 import { categoriesData } from "../data/categories.data";
-import { GenericStructure } from "../types/generic.type.ts";
-import { UseProductsStructure } from "../types/use.products.type";
+import { GenericStructure } from "../types/generic.type";
+import { UseGenericStructure } from "../types/use.generic.type";
 
-export function useProducts(): UseProductsStructure {
+export function useGeneric(): UseGenericStructure {
     const categories = categoriesData;
     const initialCategoryState = categories[0];
     const [category, setCategory] = useState(initialCategoryState);

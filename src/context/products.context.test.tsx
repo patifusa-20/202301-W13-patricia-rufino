@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { useContext } from "react";
-import { GenericStructure } from "../types/generic.type.ts";
+import { GenericStructure } from "../types/generic.type";
 import { initialContext, ProductsContext } from "./products.context";
 
 const mockCategory: GenericStructure = {

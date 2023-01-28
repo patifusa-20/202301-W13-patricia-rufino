@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { GenericStructure } from "../types/generic.type.ts";
-import { useProducts } from "./use.products";
+import { GenericStructure } from "../types/generic.type";
+import { useGeneric } from "./use.generic";
 
 const mockCategory: GenericStructure = {
     id: "1",
@@ -15,13 +15,13 @@ const mockAllergen: GenericStructure = {
     icon: "Test icon",
     isSelected: true,
 };
-describe(`Given useProducts (custom hook)
+describe(`Given useGeneric (custom hook)
             render with a virtual component`, () => {
     let TestComponent: () => JSX.Element;
     let buttons: Array<HTMLElement>;
     beforeEach(() => {
         TestComponent = () => {
-            const { categories, handleFilter } = useProducts();
+            const { categories, handleFilter } = useGeneric();
             return (
                 <>
                     <div>
@@ -51,13 +51,13 @@ describe(`Given useProducts (custom hook)
     });
 });
 
-describe(`Given useProducts (custom hook)
+describe(`Given useGeneric (custom hook)
             render with a virtual component`, () => {
     let TestComponent: () => JSX.Element;
     let buttons: Array<HTMLElement>;
     beforeEach(() => {
         TestComponent = () => {
-            const { allergens, handleAllergen } = useProducts();
+            const { allergens, handleAllergen } = useGeneric();
             return (
                 <>
                     <div>

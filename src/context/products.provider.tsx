@@ -1,5 +1,6 @@
 import { useMemo } from "react";
-import { useProducts } from "../hooks/use.products";
+import { useGeneric } from "../hooks/use.generic";
+import { useProduct } from "../hooks/use.product";
 import { ProductsContext } from "./products.context";
 
 export function ProductsContextProvider({
@@ -14,24 +15,30 @@ export function ProductsContextProvider({
         categories,
         handleFilter,
         handleAllergen,
-    } = useProducts();
+    } = useGeneric();
+
+    const { products, handleLoad } = useProduct();
 
     const context = useMemo(
         () => ({
+            products,
             allergen,
             allergens,
             category,
             categories,
             handleFilter,
             handleAllergen,
+            handleLoad,
         }),
         [
+            products,
             allergen,
             allergens,
             category,
             categories,
             handleFilter,
             handleAllergen,
+            handleLoad,
         ]
     );
 
