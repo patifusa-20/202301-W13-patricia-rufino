@@ -3,45 +3,45 @@ import userEvent from "@testing-library/user-event";
 import { ProductsContext } from "../../context/products.context";
 import { GenericModel } from "../../model/generic.model";
 import { ProductsContextStructure } from "../../types/products.context.type";
-import { Filter } from "./filter";
+import { Allergen } from "./allergen";
 
-describe('Given "Filter" component', () => {
-    const handleFilter = jest.fn();
+describe('Given "Allergen" component', () => {
+    const handleAllergen = jest.fn();
     const mockContext = {
-        handleFilter,
+        handleAllergen,
     } as unknown as ProductsContextStructure;
-    const mockCategory = new GenericModel("Test Category", "Test icon");
-    mockCategory.id = "30";
+    const mockAllergen = new GenericModel("Test Allergen", "Test icon");
+    mockAllergen.id = "30";
     describe("When data are provided in the component", () => {
-        test("Then Category data is rendered on screen", async () => {
-            render(<Filter category={mockCategory}></Filter>);
+        test("Then Allergen data is rendered on screen", async () => {
+            render(<Allergen allergen={mockAllergen}></Allergen>);
 
-            const elements = screen.getByText(/category/i);
-            expect(elements).toBeInTheDocument();
+            const element = screen.getByAltText(/allergen/i);
+            expect(element).toBeInTheDocument();
         });
     });
-    describe("When a category is selected", () => {
+    describe("When a allergen is selected", () => {
         test("Then className active exist", async () => {
-            mockCategory.isSelected = true;
-            render(<Filter category={mockCategory}></Filter>);
-            const categorySelected = screen.getByRole("button");
-            expect(categorySelected).toHaveClass("active");
+            mockAllergen.isSelected = true;
+            render(<Allergen allergen={mockAllergen}></Allergen>);
+            const AllergenSelected = screen.getByRole("button");
+            expect(AllergenSelected).toHaveClass("active");
         });
         test("Then it should change boolean", () => {
-            expect(mockCategory).toHaveProperty("isSelected", true);
+            expect(mockAllergen).toHaveProperty("isSelected", true);
         });
     });
     describe("When data are provided in the component", () => {
         test("Then user could interact with them", async () => {
             render(
                 <ProductsContext.Provider value={mockContext}>
-                    <Filter category={mockCategory}></Filter>
+                    <Allergen allergen={mockAllergen}></Allergen>
                 </ProductsContext.Provider>
             );
 
             const element = screen.getByRole("button");
             userEvent.click(element);
-            expect(handleFilter).toHaveBeenCalledTimes(1);
+            expect(handleAllergen).toHaveBeenCalledTimes(1);
         });
     });
 });

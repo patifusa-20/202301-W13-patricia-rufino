@@ -1,5 +1,5 @@
 import { ProductsContext } from "../../context/products.context";
-import { GenericStructure } from "../../types/generic.type.ts";
+import { GenericStructure } from "../../types/generic.type";
 import { useContext } from "react";
 
 export function Allergen({ allergen }: { allergen: GenericStructure }) {

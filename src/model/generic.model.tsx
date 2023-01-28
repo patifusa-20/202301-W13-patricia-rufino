@@ -1,4 +1,4 @@
-import { GenericStructure } from "../types/generic.type.ts";
+import { GenericStructure } from "../types/generic.type";
 
 export class GenericModel implements GenericStructure {
     static generateId() {
