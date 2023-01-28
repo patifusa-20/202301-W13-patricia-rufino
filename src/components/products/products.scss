@@ -1,0 +1,32 @@
+@import "../../scss/variables.scss";
+@import "../../scss/mixins.scss";
+
+.cards {
+    @include flexbox(flex, center, center);
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.card {
+    display: inline-block;
+    background-color: $secondary-color;
+    width: 25%;
+    max-width: 200px;
+    border-radius: 15% 15% 0 0;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+    &_image {
+        background-size: cover;
+        background-position: center;
+        height: 150px;
+        border-radius: 15% 15% 0 0;
+        p {
+            background-color: $secondary-color;
+        }
+    }
+    &_title {
+        padding: 1rem;
+        font-size: 1rem;
+        color: $secondary-dark-color;
+        text-align: center;
+    }
+}
