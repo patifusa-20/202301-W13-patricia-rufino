@@ -1,0 +1,24 @@
+@import "../../scss/variables.scss";
+@import "../../scss/mixins.scss";
+
+.allergens {
+    @include flexbox(flex, center, center);
+    gap: 2rem;
+}
+
+.allergen {
+    text-align: center;
+    &_icon {
+        background-color: $secondary-color;
+        border-radius: 25%;
+        width: 4rem;
+        padding: 0.7rem;
+
+        &.active {
+            background-color: $secondary-dark-color;
+        }
+    }
+    &_title {
+        text-transform: capitalize;
+    }
+}

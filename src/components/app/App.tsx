@@ -1,4 +1,5 @@
 import React from "react";
+import { Allergens } from "../allergens/allergens";
 import { Filters } from "../filters/filters";
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
                 <p>Hello world.</p>
             </header>
             <Filters></Filters>
+            <Allergens></Allergens>
         </>
     );
 }
