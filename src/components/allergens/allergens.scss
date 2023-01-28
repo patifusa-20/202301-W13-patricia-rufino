@@ -1,22 +1,21 @@
 @import "../../scss/variables.scss";
 @import "../../scss/mixins.scss";
 
-.filters {
+.allergens {
     @include flexbox(flex, center, center);
     gap: 2rem;
 }
 
-.filter {
+.allergen {
     text-align: center;
     &_icon {
         background-color: $secondary-color;
-        border-radius: 50%;
+        border-radius: 25%;
         width: 4rem;
         padding: 0.7rem;
 
         &.active {
-            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.15);
-            width: 5rem;
+            background-color: $secondary-dark-color;
         }
     }
     &_title {

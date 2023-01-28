@@ -4,11 +4,11 @@ import { Filter } from "../filter/filter";
 import "./filter.scss";
 
 export function Filters() {
-    const { items } = useContext(ProductsContext);
+    const { categories } = useContext(ProductsContext);
     return (
         <>
             <ul className="filters">
-                {items.map((item) => {
+                {categories.map((item) => {
                     return <Filter category={item} key={item.id}></Filter>;
                 })}
             </ul>

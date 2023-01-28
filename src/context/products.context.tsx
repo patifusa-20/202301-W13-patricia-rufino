@@ -1,13 +1,19 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { createContext } from "react";
+import { allergensData } from "../data/allergens.data";
 import { categoriesData } from "../data/categories.data";
 import { GenericModel } from "../model/generic.model";
 import { ProductsContextStructure } from "../types/products.context.type";
 
 export const initialContext: ProductsContextStructure = {
-    item: new GenericModel("", ""),
-    items: categoriesData,
+    allergen: new GenericModel("", ""),
+    allergens: allergensData,
+    category: new GenericModel("", ""),
+    categories: categoriesData,
     handleFilter: async () => {
+        //
+    },
+    handleAllergen: async () => {
         //
     },
 };
