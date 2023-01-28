@@ -17,8 +17,7 @@ describe("Given the context ProductsContext", () => {
     describe("When a Test Component is wrapper with this context", () => {
         beforeEach(() => {
             TestComponent = () => {
-                const { item, items, handleFilter } =
-                    useContext(ProductsContext);
+                const { items, handleFilter } = useContext(ProductsContext);
                 handleFilter(mockItem);
                 return <>{items[0].name}</>;
             };

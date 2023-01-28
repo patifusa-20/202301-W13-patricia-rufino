@@ -16,7 +16,7 @@ describe(`Given useProducts (custom hook)
     let buttons: Array<HTMLElement>;
     beforeEach(() => {
         TestComponent = () => {
-            const { item, items, handleFilter } = useProducts();
+            const { items, handleFilter } = useProducts();
             return (
                 <>
                     <div>
