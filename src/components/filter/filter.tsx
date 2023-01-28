@@ -13,7 +13,7 @@ export function Filter({ category }: { category: GenericStructure }) {
     return (
         <>
             <li className="filter">
-                <div
+                <button
                     onClick={handleFilterSelected}
                     className={
                         category.isSelected
@@ -22,7 +22,7 @@ export function Filter({ category }: { category: GenericStructure }) {
                     }
                 >
                     <img src={category.icon} alt={category.name} />
-                </div>
+                </button>
                 <p className="filter_title">{category.name}</p>
             </li>
         </>
