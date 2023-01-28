@@ -1,8 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
 
-// TODO: Replace the following with your app's Firebase project configuration
-// See: https://firebase.google.com/docs/web/learn-more#config-object
 const firebaseConfig = {
     apiKey: "AIzaSyATLWK1n7_cjMpnfwdgPGKSfnXSYM8rqI4",
     authDomain: "digital-menu-app-5cd01.firebaseapp.com",
