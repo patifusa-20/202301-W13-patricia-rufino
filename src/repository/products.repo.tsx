@@ -22,4 +22,19 @@ export class ProductRepo implements RepositoryProducts<ProductStructure> {
         }
         return Object.values(response);
     }
+
+    async create(
+        payload: Partial<ProductStructure>
+    ): Promise<ProductStructure> {
+        const resp = await fetch(this.url, {
+            method: "POST",
+            body: JSON.stringify(payload),
+            headers: {
+                "Content-type": "application/json",
+            },
+        });
+        if (!resp.ok)
+            throw new Error(`Error ${resp.status}: ${resp.statusText}`);
+        return await resp.json();
+    }
 }
