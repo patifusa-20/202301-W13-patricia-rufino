@@ -5,14 +5,13 @@ import { ProductModel } from "../../model/product.model";
 import { ProductsContextStructure } from "../../types/products.context.type";
 import { Products } from "./products";
 
-const mockCategory = new GenericModel("Test category", "Test category icon");
+const mockCategory = [new GenericModel("Test category", "Test category icon")];
 const mockAllergen = [new GenericModel("Test allergen", "Test allergen icon")];
 const mockData = [
     new ProductModel(
-        "0001",
         "Test name 1",
-        "Test price 1",
         "Test image 1",
+        "Test price 1",
         mockCategory,
         mockAllergen
     ),

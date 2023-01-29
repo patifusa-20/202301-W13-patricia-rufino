@@ -13,9 +13,14 @@ export function useProduct(): UseProductStructure {
         setProducts(productsLoad);
     }, []);
 
+    const handleAdd = async function (product: ProductStructure) {
+        setProducts([...products, product]);
+        await repo.create(product);
+    };
+
     useEffect(() => {
         handleLoad();
     }, [handleLoad]);
 
-    return { products, handleLoad };
+    return { products, handleLoad, handleAdd };
 }
