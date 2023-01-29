@@ -1,17 +1,13 @@
 import React from "react";
-import { Allergens } from "../allergens/allergens";
-import { Filters } from "../filters/filters";
-import { Products } from "../products/products";
+import { Layout } from "../layout/layout";
+import { AppRoutes } from "../routes/app.routes";
 
 function App() {
     return (
         <>
-            <header>
-                <p>Hello world.</p>
-            </header>
-            <Filters></Filters>
-            <Allergens></Allergens>
-            <Products></Products>
+            <Layout>
+                <AppRoutes></AppRoutes>
+            </Layout>
         </>
     );
 }

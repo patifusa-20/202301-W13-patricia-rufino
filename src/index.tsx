@@ -4,6 +4,7 @@ import "./index.scss";
 import App from "./components/app/App";
 import reportWebVitals from "./reportWebVitals";
 import { ProductsContextProvider } from "./context/products.provider";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
@@ -11,7 +12,9 @@ const root = ReactDOM.createRoot(
 root.render(
     <React.StrictMode>
         <ProductsContextProvider>
-            <App />
+            <Router>
+                <App />
+            </Router>
         </ProductsContextProvider>
     </React.StrictMode>
 );

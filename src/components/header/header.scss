@@ -1,0 +1,14 @@
+@import "../../scss/variables.scss";
+@import "../../scss/mixins.scss";
+
+header {
+    background-color: $secondary-color;
+    color: $secondary-dark-color;
+    font-size: 0.5rem;
+    padding: 0.5rem;
+    span {
+        background-color: $secondary-dark-color;
+        color: $secondary-color;
+        padding: 0 0.3rem;
+    }
+}
