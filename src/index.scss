@@ -9,6 +9,15 @@ body {
     -moz-osx-font-smoothing: grayscale;
     background-color: $primary-color;
     color: $text-color;
+    min-height: 100vh;
+}
+
+#root {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    text-align: center;
+    font-size: 16px;
+    min-height: 100vh;
 }
 
 code {
@@ -22,7 +31,8 @@ ul {
     padding: 0;
 }
 
-button {
+button,
+input {
     border: 0;
 }
 
