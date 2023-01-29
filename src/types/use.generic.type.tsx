@@ -7,4 +7,5 @@ export type UseGenericStructure = {
     categories: Array<GenericStructure>;
     handleFilter: (category: GenericStructure) => void;
     handleAllergen: (allergen: GenericStructure) => void;
+    handleCategory: (category: GenericStructure) => void;
 };

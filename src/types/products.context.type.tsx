@@ -9,5 +9,7 @@ export type ProductsContextStructure = {
     categories: Array<GenericStructure>;
     handleFilter: (category: GenericStructure) => void;
     handleAllergen: (allergen: GenericStructure) => void;
+    handleCategory: (category: GenericStructure) => void;
     handleLoad: () => void;
+    handleAdd: (product: ProductStructure) => void;
 };

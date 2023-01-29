@@ -17,7 +17,13 @@ export const initialContext: ProductsContextStructure = {
     handleAllergen: async () => {
         //
     },
+    handleCategory: async () => {
+        //
+    },
     handleLoad: async () => {
+        //
+    },
+    handleAdd: async () => {
         //
     },
 };
