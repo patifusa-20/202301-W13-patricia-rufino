@@ -2,16 +2,19 @@
 @import "../../scss/mixins.scss";
 
 .allergens {
-    @include flexbox(flex, center, center);
+    @include flexbox(flex, flex-start, center);
     gap: 2rem;
 }
 
 .allergen {
     text-align: center;
+    button {
+        @include flexbox(flex, center, center);
+    }
     &_icon {
         background-color: $secondary-color;
         border-radius: 25%;
-        width: 4rem;
+        width: 3rem;
         padding: 0.7rem;
 
         &.active {

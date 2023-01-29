@@ -19,6 +19,7 @@ export function Allergen({ allergen }: { allergen: GenericStructure }) {
                             ? "allergen_icon active"
                             : "allergen_icon"
                     }
+                    type="button"
                 >
                     <img src={allergen.icon} alt={allergen.name} />
                 </button>
