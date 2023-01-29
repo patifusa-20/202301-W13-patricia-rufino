@@ -2,9 +2,9 @@ import { GenericStructure } from "./generic.type";
 
 export type ProductStructure = {
     id: string;
-    name: string;
+    productName: string;
     image: string;
     price: string;
-    category: GenericStructure;
+    category: Array<GenericStructure>;
     allergens: Array<GenericStructure>;
 };

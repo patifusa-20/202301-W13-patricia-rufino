@@ -10,7 +10,7 @@ export function Product({ product }: { product: ProductStructure }) {
                 >
                     <p>{product.price}</p>
                 </div>
-                <p className="card_title">{product.name}</p>
+                <p className="card_title">{product.productName}</p>
             </li>
         </>
     );

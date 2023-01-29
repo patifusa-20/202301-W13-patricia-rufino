@@ -4,18 +4,16 @@ import { ProductModel } from "../../model/product.model";
 import { Product } from "./product";
 
 describe('Given "Product" component', () => {
-    const mockCategory = new GenericModel(
-        "Test category",
-        "Test category icon"
-    );
+    const mockCategory = [
+        new GenericModel("Test category", "Test category icon"),
+    ];
     const mockAllergen = [
         new GenericModel("Test allergen", "Test allergen icon"),
     ];
     const mockData = new ProductModel(
-        "0001",
         "Test name 1",
-        "Test price 1",
         "Test image 1",
+        "Test price 1",
         mockCategory,
         mockAllergen
     );
