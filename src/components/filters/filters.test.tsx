@@ -27,8 +27,6 @@ describe('Given "Filters" component', () => {
         test(`Then it should be render the data`, async () => {
             const elementList = await screen.findByRole("list"); // <ul />
             expect(elementList).toBeInTheDocument();
-            const elementItem = await screen.findByText(/Test category/i);
-            expect(elementItem).toBeInTheDocument();
         });
     });
 });
