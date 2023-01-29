@@ -1,16 +1,19 @@
 import { GenericModel } from "../model/generic.model";
 
 const snackCategory = new GenericModel(
-    "snack",
+    "Tapas",
     "./assets/icons/icon-snack.svg"
 );
-const mealCategory = new GenericModel("meal", "./assets/icons/icon-meal.svg");
+const mealCategory = new GenericModel(
+    "Comidas",
+    "./assets/icons/icon-meal.svg"
+);
 const dessertCategory = new GenericModel(
-    "dessert",
+    "Postres",
     "./assets/icons/icon-dessert.svg"
 );
 const beverageCategory = new GenericModel(
-    "beverage",
+    "Bebidas",
     "./assets/icons/icon-beverage.svg"
 );
 

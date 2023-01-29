@@ -5,12 +5,12 @@ import { useGeneric } from "./use.generic";
 
 const mockCategory: GenericStructure = {
     id: "1",
-    name: "snack",
+    name: "Comidas",
     icon: "Test icon",
     isSelected: true,
 };
 const mockAllergen: GenericStructure = {
-    id: "1",
+    id: "2",
     name: "gluten",
     icon: "Test icon",
     isSelected: true,

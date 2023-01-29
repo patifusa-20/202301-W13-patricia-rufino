@@ -19,6 +19,9 @@ export function useGeneric(): UseGenericStructure {
     const handleAllergen = (allergen: GenericStructure) => {
         setAllergen({ ...allergen });
     };
+    const handleCategory = (category: GenericStructure) => {
+        setCategory({ ...category });
+    };
 
     return {
         allergen,
@@ -27,5 +30,6 @@ export function useGeneric(): UseGenericStructure {
         categories,
         handleFilter,
         handleAllergen,
+        handleCategory,
     };
 }
