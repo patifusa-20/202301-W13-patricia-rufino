@@ -13,6 +13,9 @@ export function useGeneric(): UseGenericStructure {
     const initialAllergenState = allergens[0];
     const [allergen, setAllergen] = useState(initialAllergenState);
 
+    const initialStateModal = false;
+    const [showModal, setModal] = useState(initialStateModal);
+
     const handleFilter = (category: GenericStructure) => {
         setCategory({ ...category });
     };
@@ -23,13 +26,19 @@ export function useGeneric(): UseGenericStructure {
         setCategory({ ...category });
     };
 
+    const handleModal = () => {
+        setModal(!showModal);
+    };
+
     return {
         allergen,
         allergens,
         category,
         categories,
+        showModal,
         handleFilter,
         handleAllergen,
         handleCategory,
+        handleModal,
     };
 }

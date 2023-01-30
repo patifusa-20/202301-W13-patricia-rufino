@@ -11,6 +11,7 @@ export const initialContext: ProductsContextStructure = {
     allergens: allergensData,
     category: new GenericModel("", ""),
     categories: categoriesData,
+    showModal: false,
     handleFilter: async () => {
         //
     },
@@ -24,6 +25,9 @@ export const initialContext: ProductsContextStructure = {
         //
     },
     handleAdd: async () => {
+        //
+    },
+    handleModal: async () => {
         //
     },
 };

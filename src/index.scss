@@ -1,8 +1,13 @@
 @import "./scss/variables.scss";
 @import "./scss/mixins.scss";
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
+    padding: 0;
     font-size: 0;
     font-family: $primary-font, sans-serif;
     -webkit-font-smoothing: antialiased;

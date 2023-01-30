@@ -13,9 +13,11 @@ export function ProductsContextProvider({
         allergens,
         category,
         categories,
+        showModal,
         handleFilter,
         handleAllergen,
         handleCategory,
+        handleModal,
     } = useGeneric();
 
     const { products, handleLoad, handleAdd } = useProduct();
@@ -27,11 +29,13 @@ export function ProductsContextProvider({
             allergens,
             category,
             categories,
+            showModal,
             handleFilter,
             handleAllergen,
             handleCategory,
             handleLoad,
             handleAdd,
+            handleModal,
         }),
         [
             products,
@@ -39,11 +43,13 @@ export function ProductsContextProvider({
             allergens,
             category,
             categories,
+            showModal,
             handleFilter,
             handleAllergen,
             handleCategory,
             handleLoad,
             handleAdd,
+            handleModal,
         ]
     );
 

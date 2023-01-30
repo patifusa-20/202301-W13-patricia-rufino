@@ -10,4 +10,35 @@
     box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
     font-weight: 600;
     font-size: 1rem;
+    &:hover {
+        box-shadow: 3px 3px 8px rgba(0, 0, 0, 0);
+    }
+}
+
+.icon-btn {
+    @include flexbox(flex, center, center);
+    background-color: $secondary-color;
+    border-radius: 25%;
+    width: 3rem;
+    padding: 0.7rem;
+
+    &:hover {
+        background-color: $secondary-dark-color;
+    }
+}
+.secondary-btn {
+    background-color: $secondary-color;
+    color: $secondary-dark-color;
+    padding: 1.2rem;
+    border-radius: 1rem;
+    margin: 1rem auto;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+    font-size: 1rem;
+    span {
+        padding-left: 0.3rem;
+        font-weight: 600;
+    }
+    &:hover {
+        box-shadow: 3px 3px 8px rgba(0, 0, 0, 0);
+    }
 }
