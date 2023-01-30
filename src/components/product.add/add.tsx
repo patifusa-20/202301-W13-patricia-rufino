@@ -52,38 +52,26 @@ export function Add() {
 
     const handleSubmit = (ev: SyntheticEvent) => {
         ev.preventDefault();
-        formData.isExtImage
-            ? getDownloadURL(ref(storage, formData.image))
-                  .then((url) => {
-                      formData.image = url;
-                  })
-                  .then(() => {
-                      handleAdd(
-                          new ProductModel(
-                              formData.productName as string,
-                              formData.image as string,
-                              formData.price as string,
-                              categories.filter(
-                                  (category) => category.isSelected
-                              ),
-                              allergens.filter(
-                                  (allergen) => allergen.isSelected
-                              )
-                          )
-                      );
-                  })
-                  .catch((error) => {
-                      console.log(error);
-                  })
-            : handleAdd(
-                  new ProductModel(
-                      formData.productName as string,
-                      formData.image as string,
-                      formData.price as string,
-                      categories.filter((category) => category.isSelected),
-                      allergens.filter((allergen) => allergen.isSelected)
-                  )
-              );
+        const addProduct = new ProductModel(
+            formData.productName as string,
+            formData.image as string,
+            formData.price as string,
+            categories.filter((category) => category.isSelected),
+            allergens.filter((allergen) => allergen.isSelected)
+        );
+        const addLocalImage = () => {
+            getDownloadURL(ref(storage, formData.image))
+                .then((url) => {
+                    setFormData({ ...formData, image: url });
+                })
+                .then(() => {
+                    handleAdd(addProduct);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        };
+        formData.isExtImage ? handleAdd(addProduct) : addLocalImage();
 
         categories.map((category) => {
             category.isSelected = false;
