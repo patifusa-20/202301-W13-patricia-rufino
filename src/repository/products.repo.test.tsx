@@ -1,5 +1,6 @@
 import { GenericModel } from "../model/generic.model";
 import { ProductModel } from "../model/product.model";
+import { ProductStructure } from "../types/product.type";
 import { ProductRepo } from "./products.repo";
 
 describe("Given a Products Repository", () => {
@@ -51,6 +52,48 @@ describe("Given a Products Repository", () => {
             });
             await expect(async () => {
                 await repo.load();
+            }).rejects.toThrowError();
+            expect(global.fetch).toHaveBeenCalled();
+        });
+    });
+    describe("When we use create method", () => {
+        test(`Then if the data are VALID, we received the product
+            created in the repo with its own new id`, async () => {
+            const mockNewProductPayload: Partial<ProductStructure> = {
+                productName: "New product name",
+                image: "New image",
+                price: "New price",
+                category: mockCategory,
+                allergens: mockAllergen,
+            };
+            global.fetch = jest.fn().mockResolvedValue({
+                ok: true,
+                json: jest.fn().mockResolvedValue(mockNewProductPayload),
+            });
+
+            const data = await repo.create(mockNewProductPayload);
+            expect(data).toHaveProperty(
+                "productName",
+                mockNewProductPayload.productName
+            );
+            expect(data).toHaveProperty("image", mockNewProductPayload.image);
+            expect(data).toHaveProperty("price", mockNewProductPayload.price);
+            expect(data).toHaveProperty(
+                "category",
+                mockNewProductPayload.category
+            );
+            expect(data).toHaveProperty(
+                "allergens",
+                mockNewProductPayload.allergens
+            );
+        });
+        test(`Then if the data are NOT VALID, we received a rejected promise`, async () => {
+            global.fetch = jest.fn().mockResolvedValue({
+                ok: false,
+            });
+
+            await expect(async () => {
+                await repo.create({});
             }).rejects.toThrowError();
             expect(global.fetch).toHaveBeenCalled();
         });
