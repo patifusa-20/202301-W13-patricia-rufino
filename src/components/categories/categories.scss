@@ -3,7 +3,7 @@
 
 .categories {
     @include flexbox(flex, flex-start, center);
-    gap: 2rem;
+    gap: 1rem;
 }
 
 .category {

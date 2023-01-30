@@ -7,7 +7,7 @@ export function Categories() {
     const { categories } = useContext(ProductsContext);
     return (
         <>
-            <label className="add-product__label">Categorías</label>
+            <label className="add-product__label">Categorías*</label>
             <ul className="categories">
                 {categories.map((item) => {
                     return <Category category={item} key={item.id}></Category>;
