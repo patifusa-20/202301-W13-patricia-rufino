@@ -1,0 +1,15 @@
+@import "../../scss/variables.scss";
+@import "../../scss/mixins.scss";
+
+.custom-list {
+    @include flexbox(flex, center, center);
+    flex-wrap: wrap;
+    gap: 1rem;
+    li {
+        width: 25%;
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+}

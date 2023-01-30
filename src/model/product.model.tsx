@@ -3,6 +3,7 @@ import { ProductStructure } from "../types/product.type";
 
 export class ProductModel implements ProductStructure {
     id: string;
+    isExtImage: boolean;
     constructor(
         public productName: string,
         public image: string,
@@ -11,5 +12,6 @@ export class ProductModel implements ProductStructure {
         public allergens: Array<GenericStructure>
     ) {
         this.id = "temporal-id";
+        this.isExtImage = false;
     }
 }
