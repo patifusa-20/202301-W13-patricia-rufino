@@ -1,8 +1,8 @@
 import { lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { Add } from "../product.add/add";
 
 const Products = lazy(() => import("../../pages/products/products.page"));
+const Add = lazy(() => import("../../pages/add/add.page"));
 
 export function AppRoutes() {
     return (

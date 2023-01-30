@@ -1,6 +1,6 @@
 import { Add } from "../../components/product.add/add";
 
-export default function ProductsPage() {
+export default function AddPage() {
     return (
         <>
             <section>
