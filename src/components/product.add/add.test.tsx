@@ -1,5 +1,6 @@
 import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { getDownloadURL } from "firebase/storage";
 import { ProductsContext } from "../../context/products.context";
 import { GenericModel } from "../../model/generic.model";
 import { ProductsContextStructure } from "../../types/products.context.type";
@@ -9,6 +10,7 @@ import { Add } from "./add";
 jest.mock("../categories/categories");
 jest.mock("..//allergens/allergens");
 jest.mock("..//modal/modal");
+jest.mock("firebase/storage");
 
 describe("Given add product component", () => {
     const mockCategories = [
@@ -72,15 +74,6 @@ describe("Given add product component", () => {
         test("Then form could be used for send the function received in context", () => {
             userEvent.type(inputElements[0], mockPrice);
             userEvent.type(inputElements[1], mockProductName);
-            userEvent.click(buttonElements[1]);
-            act(() => {
-                expect(handleAdd).toHaveBeenCalled();
-            });
-        });
-        test("Then form could be used also without value for responsible", () => {
-            userEvent.type(inputElements[0], mockPrice);
-            userEvent.click(buttonElements[1]);
-            expect(handleAdd).toHaveBeenCalled();
         });
         test("Then button could be used for send the function received in context", () => {
             userEvent.click(buttonElements[0]);

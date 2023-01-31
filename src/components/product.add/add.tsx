@@ -41,7 +41,7 @@ export function Add() {
     const handleFileInput = async (ev: SyntheticEvent) => {
         const element = ev.target as HTMLFormElement;
         const fileObj: File = element.files[0];
-        const storageRef = ref(storage, fileObj.name);
+        const storageRef = ref(storage, "images/" + fileObj.name);
         const metadata = {
             contentType: "image/jpeg",
         };

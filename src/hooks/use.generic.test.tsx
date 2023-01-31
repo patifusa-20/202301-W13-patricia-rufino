@@ -27,7 +27,7 @@ describe(`Given useGeneric (custom hook)
                     <div>
                         <ul>
                             {categories.map((item) => (
-                                <li key={item.id}>
+                                <li key={item.icon}>
                                     <button
                                         onClick={() =>
                                             handleFilter(mockCategory)
@@ -63,7 +63,7 @@ describe(`Given useGeneric (custom hook)
                     <div>
                         <ul>
                             {allergens.map((item) => (
-                                <li key={item.id}>
+                                <li key={item.icon}>
                                     <button
                                         onClick={() =>
                                             handleAllergen(mockAllergen)
@@ -99,7 +99,7 @@ describe(`Given useGeneric (custom hook)
                     <div>
                         <ul>
                             {categories.map((item) => (
-                                <li key={item.id}>
+                                <li key={item.icon}>
                                     <button
                                         onClick={() =>
                                             handleCategory(mockCategory)
