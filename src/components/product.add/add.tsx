@@ -66,6 +66,7 @@ export function Add() {
                 })
                 .then(() => {
                     handleAdd(addProduct);
+                    setFormData(initialFormData);
                 })
                 .catch((error) => {
                     console.log(error);

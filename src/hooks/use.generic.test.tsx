@@ -6,13 +6,13 @@ import { useGeneric } from "./use.generic";
 const mockCategory: GenericStructure = {
     id: "1",
     name: "Comidas",
-    icon: "Test icon",
+    icon: "Test category icon",
     isSelected: true,
 };
 const mockAllergen: GenericStructure = {
     id: "2",
     name: "gluten",
-    icon: "Test icon",
+    icon: "Test allergen icon",
     isSelected: true,
 };
 describe(`Given useGeneric (custom hook)
@@ -21,7 +21,8 @@ describe(`Given useGeneric (custom hook)
     let buttons: Array<HTMLElement>;
     beforeEach(() => {
         TestComponent = () => {
-            const { categories, handleFilter } = useGeneric();
+            const { categories, allergens, handleFilter, handleAllergen } =
+                useGeneric();
             return (
                 <>
                     <div>
@@ -38,29 +39,6 @@ describe(`Given useGeneric (custom hook)
                                 </li>
                             ))}
                         </ul>
-                    </div>
-                </>
-            );
-        };
-        render(<TestComponent />);
-        buttons = screen.getAllByRole("button");
-    });
-    test("Then its function handleFilter should be used", async () => {
-        userEvent.click(buttons[0]);
-        expect(await screen.findByText(mockCategory.name)).toBeInTheDocument();
-    });
-});
-
-describe(`Given useGeneric (custom hook)
-            render with a virtual component`, () => {
-    let TestComponent: () => JSX.Element;
-    let buttons: Array<HTMLElement>;
-    beforeEach(() => {
-        TestComponent = () => {
-            const { allergens, handleAllergen } = useGeneric();
-            return (
-                <>
-                    <div>
                         <ul>
                             {allergens.map((item) => (
                                 <li key={item.icon}>
@@ -81,8 +59,12 @@ describe(`Given useGeneric (custom hook)
         render(<TestComponent />);
         buttons = screen.getAllByRole("button");
     });
-    test("Then its function handleAllergen should be used", async () => {
+    test("Then its function handleFilter should be used", async () => {
         userEvent.click(buttons[0]);
+        expect(await screen.findByText(mockCategory.name)).toBeInTheDocument();
+    });
+    test("Then its function handleAllergen should be used", async () => {
+        userEvent.click(buttons[1]);
         expect(await screen.findByText(mockAllergen.name)).toBeInTheDocument();
     });
 });
