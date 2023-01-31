@@ -9,7 +9,6 @@ describe("Given Modal component", () => {
     const mockhandleClickModal = jest.fn();
     const mockhandleFileInput = jest.fn();
     const mockhandleSelectExtImage = jest.fn();
-    const mockhandleExtImageBtn = jest.fn();
     describe("When it is render in the screen", () => {
         let buttonElements: Array<HTMLElement>;
         beforeEach(() => {

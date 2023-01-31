@@ -73,10 +73,10 @@ export function Add() {
         };
         formData.isExtImage ? handleAdd(addProduct) : addLocalImage();
 
-        categories.map((category) => {
+        categories.forEach((category) => {
             category.isSelected = false;
         });
-        allergens.map((allergen) => {
+        allergens.forEach((allergen) => {
             allergen.isSelected = false;
         });
 
