@@ -1,26 +1,26 @@
-import { GenericModel } from '../model/generic.model';
-import { ProductModel } from '../model/product.model';
-import { ProductStructure } from '../types/product.type';
-import { ProductRepo } from './products.repo';
+import { GenericModel } from "../model/generic.model";
+import { ProductModel } from "../model/product.model";
+import { ProductStructure } from "../types/product.type";
+import { ProductRepo } from "./products.repo";
 
-describe('Given a Products Repository', () => {
-    const mockCategory = 'Test category';
+describe("Given a Products Repository", () => {
+    const mockCategory = "Test category";
     const mockAllergen = [
-        new GenericModel('Test allergen', 'Test allergen icon'),
+        new GenericModel("Test allergen", "Test allergen icon"),
     ];
     const mockData = [
         new ProductModel(
-            'Test name 1',
-            'Test image 1',
-            'Test price 1',
+            "Test name 1",
+            "Test image 1",
+            "Test price 1",
             mockCategory,
             mockAllergen,
             false
         ),
         new ProductModel(
-            'Test name 2',
-            'Test image 2',
-            'Test price 2',
+            "Test name 2",
+            "Test image 2",
+            "Test price 2",
             mockCategory,
             mockAllergen,
             false
@@ -36,17 +36,17 @@ describe('Given a Products Repository', () => {
         });
     });
 
-    test('Then we can instantiate it', () => {
+    test("Then we can instantiate it", () => {
         expect(repo).toBeInstanceOf(ProductRepo);
     });
 
-    describe('When we use load method', () => {
-        test('Then we received the products in the repo', async () => {
+    describe("When we use load method", () => {
+        test("Then we received the products in the repo", async () => {
             const data = await repo.load();
             expect(global.fetch).toHaveBeenCalled();
             expect(data).toEqual(mockData);
         });
-        test('Then if there are NO DATA, we received a rejected promise', async () => {
+        test("Then if there are NO DATA, we received a rejected promise", async () => {
             global.fetch = jest.fn().mockResolvedValue({
                 ok: false,
             });
@@ -56,13 +56,13 @@ describe('Given a Products Repository', () => {
             expect(global.fetch).toHaveBeenCalled();
         });
     });
-    describe('When we use create method', () => {
+    describe("When we use create method", () => {
         test(`Then if the data are VALID, we received the product
             created in the repo with its own new id`, async () => {
             const mockNewProductPayload: Partial<ProductStructure> = {
-                productName: 'New product name',
-                image: 'New image',
-                price: 'New price',
+                productName: "New product name",
+                image: "New image",
+                price: "New price",
                 category: mockCategory,
                 allergens: mockAllergen,
             };
@@ -73,17 +73,17 @@ describe('Given a Products Repository', () => {
 
             const data = await repo.create(mockNewProductPayload);
             expect(data).toHaveProperty(
-                'productName',
+                "productName",
                 mockNewProductPayload.productName
             );
-            expect(data).toHaveProperty('image', mockNewProductPayload.image);
-            expect(data).toHaveProperty('price', mockNewProductPayload.price);
+            expect(data).toHaveProperty("image", mockNewProductPayload.image);
+            expect(data).toHaveProperty("price", mockNewProductPayload.price);
             expect(data).toHaveProperty(
-                'category',
+                "category",
                 mockNewProductPayload.category
             );
             expect(data).toHaveProperty(
-                'allergens',
+                "allergens",
                 mockNewProductPayload.allergens
             );
         });

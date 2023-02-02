@@ -1,27 +1,21 @@
-import { SyntheticEvent, useContext, useState } from 'react';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { storage } from '../../firebase.config';
-import { ProductsContext } from '../../context/products.context';
-import { ProductModel } from '../../model/product.model';
-import { ProductStructure } from '../../types/product.type';
-import { Allergens } from '../allergens/allergens';
-import { Categories } from '../categories/categories';
-import { Modal } from '../modal/modal';
+import { SyntheticEvent, useContext, useState } from "react";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../../firebase.config";
+import { ProductsContext } from "../../context/products.context";
+import { ProductModel } from "../../model/product.model";
+import { ProductStructure } from "../../types/product.type";
+import { Allergens } from "../allergens/allergens";
+import { Categories } from "../categories/categories";
+import { Modal } from "../modal/modal";
 
 export function Add() {
-    const {
-        category,
-        categories,
-        allergens,
-        handleAdd,
-        showModal,
-        handleModal,
-    } = useContext(ProductsContext);
+    const { category, allergens, handleAdd, showModal, handleModal } =
+        useContext(ProductsContext);
 
     const initialFormData: Partial<ProductStructure> = {
-        productName: '',
-        image: '',
-        price: '',
+        productName: "",
+        image: "",
+        price: "",
         isExtImage: false,
         category: category.name,
     };
@@ -47,10 +41,10 @@ export function Add() {
     const handleFileInput = async (ev: SyntheticEvent) => {
         const element = ev.target as HTMLFormElement;
         const fileObj: File = element.files[0];
-        const fileStorage = ref(storage, 'images');
+        const fileStorage = ref(storage, "images");
         const storageRef = ref(fileStorage, fileObj.name);
         const metadata = {
-            contentType: 'image/jpeg',
+            contentType: "image/jpeg",
         };
         await uploadBytes(storageRef, fileObj, metadata);
         setFormData({ ...formData, [element.name]: fileObj.name });
@@ -156,7 +150,7 @@ export function Add() {
                     queryImage={formData.productName as string}
                 ></Modal>
             ) : (
-                ''
+                ""
             )}
         </section>
     );
