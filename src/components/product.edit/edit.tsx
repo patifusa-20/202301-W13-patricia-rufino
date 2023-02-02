@@ -1,21 +1,15 @@
-import { SyntheticEvent, useContext, useState } from 'react';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { storage } from '../../firebase.config';
-import { ProductsContext } from '../../context/products.context';
-import { ProductStructure } from '../../types/product.type';
-import { Allergens } from '../allergens/allergens';
-import { Categories } from '../categories/categories';
-import { Modal } from '../modal/modal';
+import { SyntheticEvent, useContext, useState } from "react";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../../firebase.config";
+import { ProductsContext } from "../../context/products.context";
+import { ProductStructure } from "../../types/product.type";
+import { Allergens } from "../allergens/allergens";
+import { Categories } from "../categories/categories";
+import { Modal } from "../modal/modal";
 
 export function Edit({ product }: { product: ProductStructure }) {
-    const {
-        categories,
-        allergens,
-        handleUpdate,
-        showModal,
-        handleModal,
-        handleDelete,
-    } = useContext(ProductsContext);
+    const { handleUpdate, showModal, handleModal, handleDelete } =
+        useContext(ProductsContext);
 
     const initialFormData: Partial<ProductStructure> = {
         id: product.id,
@@ -47,10 +41,10 @@ export function Edit({ product }: { product: ProductStructure }) {
     const handleFileInput = async (ev: SyntheticEvent) => {
         const element = ev.target as HTMLFormElement;
         const fileObj: File = element.files[0];
-        const fileStorage = ref(storage, 'images');
+        const fileStorage = ref(storage, "images");
         const storageRef = ref(fileStorage, fileObj.name);
         const metadata = {
-            contentType: 'image/jpeg',
+            contentType: "image/jpeg",
         };
         await uploadBytes(storageRef, fileObj, metadata);
         setFormData({ ...formData, [element.name]: fileObj.name });
@@ -147,7 +141,7 @@ export function Edit({ product }: { product: ProductStructure }) {
                     queryImage={formData.productName as string}
                 ></Modal>
             ) : (
-                ''
+                ""
             )}
             <button
                 type="button"

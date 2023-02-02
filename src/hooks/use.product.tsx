@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ProductRepo } from '../repository/products.repo';
-import { ProductStructure } from '../types/product.type';
-import { UseProductStructure } from '../types/use.product.type';
+import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ProductRepo } from "../repository/products.repo";
+import { ProductStructure } from "../types/product.type";
+import { UseProductStructure } from "../types/use.product.type";
 export function useProduct(): UseProductStructure {
     const repo = new ProductRepo();
     const initialProductState: Array<ProductStructure> = [];
@@ -19,7 +19,7 @@ export function useProduct(): UseProductStructure {
     const handleAdd = async function (product: ProductStructure) {
         setProducts([...products, product]);
         await repo.create(product);
-        navigate('products');
+        navigate("products");
     };
 
     const handleUpdate = async function (product: Partial<ProductStructure>) {
@@ -29,13 +29,13 @@ export function useProduct(): UseProductStructure {
             )
         );
         await repo.update(product);
-        navigate('products');
+        navigate("products");
     };
 
-    const handleDelete = async function (id: ProductStructure['id']) {
+    const handleDelete = async function (id: ProductStructure["id"]) {
         setProducts(products.filter((item) => item.id !== id));
         await repo.delete(id);
-        navigate('products');
+        navigate("products");
     };
 
     useEffect(() => {

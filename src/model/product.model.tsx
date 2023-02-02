@@ -1,5 +1,5 @@
-import { GenericStructure } from '../types/generic.type';
-import { ProductStructure } from '../types/product.type';
+import { GenericStructure } from "../types/generic.type";
+import { ProductStructure } from "../types/product.type";
 
 export class ProductModel implements ProductStructure {
     id: string;
@@ -11,6 +11,6 @@ export class ProductModel implements ProductStructure {
         public allergens: Array<GenericStructure>,
         public isExtImage: boolean
     ) {
-        this.id = 'temporal-id';
+        this.id = "temporal-id";
     }
 }
