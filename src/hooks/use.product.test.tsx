@@ -1,34 +1,37 @@
-import { act, render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { GenericModel } from "../model/generic.model";
-import { ProductModel } from "../model/product.model";
-import { ProductRepo } from "../repository/products.repo";
-import { useProduct } from "./use.product";
+import { act, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { BrowserRouter } from 'react-router-dom';
+import { GenericModel } from '../model/generic.model';
+import { ProductModel } from '../model/product.model';
+import { ProductRepo } from '../repository/products.repo';
+import { useProduct } from './use.product';
 
-jest.mock("../repository/products.repo");
+jest.mock('../repository/products.repo');
 ProductRepo.prototype.load = jest.fn();
 ProductRepo.prototype.create = jest.fn();
 
-const mockCategory = [new GenericModel("Test category", "Test category icon")];
-const mockAllergen = [new GenericModel("Test allergen", "Test allergen icon")];
+const mockCategory = 'Test category';
+const mockAllergen = [new GenericModel('Test allergen', 'Test allergen icon')];
 const mockProduct = new ProductModel(
-    "Test name 1",
-    "Test image 1",
-    "Test price 1",
+    'Test name 1',
+    'Test image 1',
+    'Test price 1',
     mockCategory,
-    mockAllergen
+    mockAllergen,
+    false
 );
-mockProduct.id = "0030";
+mockProduct.id = '0030';
 
 const mockProducts = [mockProduct];
 const mockAddProduct = new ProductModel(
-    "Test name added",
-    "Test image added",
-    "Test price added",
+    'Test name added',
+    'Test image added',
+    'Test price added',
     mockCategory,
-    mockAllergen
+    mockAllergen,
+    false
 );
-mockAddProduct.id = "0040";
+mockAddProduct.id = '0040';
 
 const mockRepoResponse = () => {
     (ProductRepo.prototype.load as jest.Mock).mockResolvedValue(mockProducts);
@@ -62,13 +65,17 @@ describe(`Given useProduct (custom hook)
                 </>
             );
         };
-        render(<TestComponent />);
-        buttons = screen.getAllByRole("button");
+        render(
+            <BrowserRouter>
+                <TestComponent />
+            </BrowserRouter>
+        );
+        buttons = screen.getAllByRole('button');
     });
     describe(`When the repo is working OK`, () => {
         beforeEach(mockRepoResponse);
 
-        test("Then its function handleLoad should be add Products to the state", async () => {
+        test('Then its function handleLoad should be add Products to the state', async () => {
             userEvent.click(buttons[0]);
             expect(ProductRepo.prototype.load).toHaveBeenCalled();
             expect(
@@ -76,7 +83,7 @@ describe(`Given useProduct (custom hook)
             ).toBeInTheDocument();
         });
 
-        test("Then its function handleAdd should be used", async () => {
+        test('Then its function handleAdd should be used', async () => {
             userEvent.click(buttons[0]);
             act(async () => {
                 userEvent.click(buttons[1]);

@@ -30,6 +30,12 @@ export const initialContext: ProductsContextStructure = {
     handleModal: async () => {
         //
     },
+    handleUpdate: async () => {
+        //
+    },
+    handleDelete: async () => {
+        //
+    },
 };
 
 export const ProductsContext = createContext(initialContext);

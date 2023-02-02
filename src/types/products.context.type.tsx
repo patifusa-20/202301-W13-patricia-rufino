@@ -14,4 +14,6 @@ export type ProductsContextStructure = {
     handleLoad: () => void;
     handleAdd: (product: ProductStructure) => void;
     handleModal: () => void;
+    handleUpdate: (product: Partial<ProductStructure>) => void;
+    handleDelete: (id: ProductStructure["id"]) => void;
 };

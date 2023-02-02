@@ -2,28 +2,28 @@ import { SyntheticEvent, useContext, useState } from 'react';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../../firebase.config';
 import { ProductsContext } from '../../context/products.context';
-import { ProductModel } from '../../model/product.model';
 import { ProductStructure } from '../../types/product.type';
 import { Allergens } from '../allergens/allergens';
 import { Categories } from '../categories/categories';
 import { Modal } from '../modal/modal';
 
-export function Add() {
+export function Edit({ product }: { product: ProductStructure }) {
     const {
-        category,
         categories,
         allergens,
-        handleAdd,
+        handleUpdate,
         showModal,
         handleModal,
+        handleDelete,
     } = useContext(ProductsContext);
 
     const initialFormData: Partial<ProductStructure> = {
-        productName: '',
-        image: '',
-        price: '',
-        isExtImage: false,
-        category: category.name,
+        id: product.id,
+        productName: product.productName,
+        image: product.image,
+        price: product.price,
+        isExtImage: product.isExtImage,
+        category: product.category,
     };
 
     const [formData, setFormData] = useState(initialFormData);
@@ -57,40 +57,31 @@ export function Add() {
         handleModal();
     };
 
+    const handleClickDelete = () => {
+        handleDelete(formData.id as string);
+    };
+
     const handleSubmit = (ev: SyntheticEvent) => {
         ev.preventDefault();
-        const addProduct = new ProductModel(
-            formData.productName as string,
-            formData.image as string,
-            formData.price as string,
-            category.name as string,
-            allergens.filter((allergen) => allergen.isSelected),
-            formData.isExtImage as boolean
-        );
         const addLocalImage = () => {
-            getDownloadURL(ref(storage, `images/${formData.image}`))
-                .then((url) => {
-                    formData.image = url;
-                    setFormData({ ...formData });
-                })
-                .then(() => {
-                    handleAdd(
-                        new ProductModel(
-                            formData.productName as string,
-                            formData.image as string,
-                            formData.price as string,
-                            category.name as string,
-                            allergens.filter((allergen) => allergen.isSelected),
-                            formData.isExtImage as boolean
-                        )
-                    );
-                    setFormData(initialFormData);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+            if (formData.image !== product.image) {
+                getDownloadURL(ref(storage, `images/${formData.image}`))
+                    .then((url) => {
+                        formData.image = url;
+                        setFormData({ ...formData });
+                    })
+                    .then(() => {
+                        handleUpdate(formData);
+                        setFormData(initialFormData);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            } else {
+                handleUpdate(formData);
+            }
         };
-        formData.isExtImage ? handleAdd(addProduct) : addLocalImage();
+        formData.isExtImage ? handleUpdate(formData) : addLocalImage();
 
         setFormData(initialFormData);
     };
@@ -158,6 +149,13 @@ export function Add() {
             ) : (
                 ''
             )}
+            <button
+                type="button"
+                className="outline-btn"
+                onClick={handleClickDelete}
+            >
+                ELIMINAR PRODUCTO
+            </button>
         </section>
     );
 }

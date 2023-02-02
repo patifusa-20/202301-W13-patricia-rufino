@@ -20,7 +20,8 @@ export function ProductsContextProvider({
         handleModal,
     } = useGeneric();
 
-    const { products, handleLoad, handleAdd } = useProduct();
+    const { products, handleLoad, handleAdd, handleUpdate, handleDelete } =
+        useProduct();
 
     const context = useMemo(
         () => ({
@@ -36,6 +37,8 @@ export function ProductsContextProvider({
             handleLoad,
             handleAdd,
             handleModal,
+            handleUpdate,
+            handleDelete,
         }),
         [
             products,
@@ -50,6 +53,8 @@ export function ProductsContextProvider({
             handleLoad,
             handleAdd,
             handleModal,
+            handleUpdate,
+            handleDelete,
         ]
     );
 

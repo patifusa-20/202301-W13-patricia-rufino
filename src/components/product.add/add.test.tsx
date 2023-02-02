@@ -70,10 +70,6 @@ describe("Given add product component", () => {
             expect(inputElements[0]).toHaveValue(mockPrice);
             expect(inputElements[1]).toHaveValue(mockProductName);
         });
-        test("Then form could be used for send the function received in context", () => {
-            userEvent.type(inputElements[0], mockPrice);
-            userEvent.type(inputElements[1], mockProductName);
-        });
         test("Then button could be used for send the function received in context", () => {
             userEvent.click(buttonElements[0]);
             act(() => {
