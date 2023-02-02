@@ -3,10 +3,11 @@ import { ProductsContext } from "../../context/products.context";
 import { GenericStructure } from "../../types/generic.type";
 
 export function Category({ category }: { category: GenericStructure }) {
-    const { handleCategory } = useContext(ProductsContext);
+    const { handleCategory, categories } = useContext(ProductsContext);
 
     const handleCategorySelected = () => {
-        category.isSelected = !category.isSelected;
+        categories.forEach((item) => (item.isSelected = false));
+        category.isSelected = true;
         handleCategory(category);
     };
 

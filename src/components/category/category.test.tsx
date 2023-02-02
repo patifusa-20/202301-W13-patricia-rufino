@@ -7,11 +7,13 @@ import { Category } from "./category";
 
 describe('Given "Category" component', () => {
     const handleCategory = jest.fn();
-    const mockContext = {
-        handleCategory,
-    } as unknown as ProductsContextStructure;
     const mockCategory = new GenericModel("Test category", "Test icon");
     mockCategory.id = "30";
+    const categories = [mockCategory];
+    const mockContext = {
+        categories,
+        handleCategory,
+    } as unknown as ProductsContextStructure;
     describe("When data are provided in the component", () => {
         test("Then Category data is rendered on screen", async () => {
             render(<Category category={mockCategory}></Category>);

@@ -12,20 +12,18 @@ jest.mock("..//modal/modal");
 jest.mock("firebase/storage");
 
 describe("Given add product component", () => {
-    const mockCategories = [
-        new GenericModel("Test Category", "Test Category icon"),
-    ];
+    const mockCategory = "Test Category";
     const mockAllergens = [
         new GenericModel("Test allergen", "Test allergen icon"),
     ];
     const handleAdd = jest.fn();
     const handleModal = jest.fn();
-    const categories = mockCategories;
+    const category = mockCategory;
     const allergens = mockAllergens;
     const showModal = false;
 
     const mockContext = {
-        categories,
+        category,
         allergens,
         handleAdd,
         showModal,
