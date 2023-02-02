@@ -9,14 +9,12 @@ export default function EditPage() {
 
     return (
         <>
-            <section>
-                <h1>Edit product</h1>
-                {products.map((item) => {
-                    if (item.id === pathName.id) {
-                        return <Edit key={item.id} product={item}></Edit>;
-                    }
-                })}
-            </section>
+            <h1>Editar producto</h1>
+            {products.map((item) => {
+                if (item.id === pathName.id) {
+                    return <Edit key={item.id} product={item}></Edit>;
+                }
+            })}
         </>
     );
 }
