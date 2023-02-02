@@ -1,6 +1,7 @@
 import { GenericStructure } from "./generic.type";
 
 export type UseGenericStructure = {
+    id?: string;
     allergen: GenericStructure;
     allergens: Array<GenericStructure>;
     category: GenericStructure;

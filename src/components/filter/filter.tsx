@@ -3,10 +3,11 @@ import { ProductsContext } from "../../context/products.context";
 import { GenericStructure } from "../../types/generic.type";
 
 export function Filter({ category }: { category: GenericStructure }) {
-    const { handleFilter } = useContext(ProductsContext);
+    const { handleFilter, categories } = useContext(ProductsContext);
 
     const handleFilterSelected = () => {
-        category.isSelected = !category.isSelected;
+        categories.forEach((item) => (item.isFiltered = false));
+        category.isFiltered = true;
         handleFilter(category);
     };
 
@@ -16,7 +17,7 @@ export function Filter({ category }: { category: GenericStructure }) {
                 <button
                     onClick={handleFilterSelected}
                     className={
-                        category.isSelected
+                        category.isFiltered
                             ? "filter_icon active"
                             : "filter_icon"
                     }

@@ -6,10 +6,12 @@ export class GenericModel implements GenericStructure {
         window.crypto?.getRandomValues(aNumbers);
         return ("000000" + aNumbers[0]).slice(-6);
     }
-    id: string;
+    public id: string;
     isSelected: boolean;
+    isFiltered?: boolean;
     constructor(public name: string, public icon: string) {
         this.id = GenericModel.generateId();
         this.isSelected = false;
+        this.isFiltered = false;
     }
 }

@@ -5,7 +5,7 @@ export type ProductStructure = {
     productName: string;
     image: string;
     price: string;
-    category: Array<GenericStructure>;
+    category: string;
     allergens: Array<GenericStructure>;
     isExtImage: boolean;
 };

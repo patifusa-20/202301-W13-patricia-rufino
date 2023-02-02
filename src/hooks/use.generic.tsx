@@ -6,8 +6,8 @@ import { UseGenericStructure } from "../types/use.generic.type";
 
 export function useGeneric(): UseGenericStructure {
     const categories = categoriesData;
-    const initialCategoryState = categories[0];
-    const [category, setCategory] = useState(initialCategoryState);
+    const defaultFilter = categories[1];
+    const [category, setCategory] = useState(defaultFilter);
 
     const allergens = allergensData;
     const initialAllergenState = allergens[0];
