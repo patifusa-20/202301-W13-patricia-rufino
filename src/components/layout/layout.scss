@@ -10,6 +10,7 @@
     box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
     font-weight: 600;
     font-size: 1rem;
+    width: 100%;
     &:hover {
         box-shadow: 3px 3px 8px rgba(0, 0, 0, 0);
     }
@@ -40,5 +41,74 @@
     }
     &:hover {
         box-shadow: 3px 3px 8px rgba(0, 0, 0, 0);
+    }
+}
+
+.outline-btn {
+    background-color: transparent;
+    border: 2px solid $secondary-dark-color;
+    color: $secondary-dark-color;
+    padding: 0.8rem 1.2rem;
+    border-radius: 1rem;
+    margin: 1rem auto;
+    font-size: 0.8rem;
+    font-weight: 600;
+    &:hover {
+        background-color: $secondary-dark-color;
+        color: $secondary-color;
+    }
+}
+
+.add-product {
+    @include flexbox(flex, center, stretch);
+    flex-direction: column;
+    max-width: 400px;
+    margin: auto;
+    text-align: left;
+    &__label {
+        display: block;
+        margin-top: 1rem;
+        margin-bottom: 0.4rem;
+    }
+    &__input {
+        min-height: 36px;
+        width: 100%;
+        padding: 0.3rem 1rem;
+        border-radius: 0.8rem;
+    }
+    > div:nth-child(2) {
+        input {
+            width: 30%;
+        }
+    }
+    .icon-btn {
+        margin: 2rem 0 1rem 0;
+        align-self: flex-end;
+    }
+}
+
+.bg-preview-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    min-height: 350px;
+    z-index: -1;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 0 0 10% 10%;
+    &::after {
+        content: "";
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        min-height: 350px;
+        border-radius: 0 0 10% 10%;
     }
 }

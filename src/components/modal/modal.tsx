@@ -6,10 +6,12 @@ export function Modal({
     handleClickModal,
     handleFileInput,
     handleSelectExtImage,
+    queryImage,
 }: {
     handleClickModal: () => void;
     handleFileInput: (ev: SyntheticEvent) => void;
     handleSelectExtImage: (ev: SyntheticEvent) => void;
+    queryImage: string;
 }) {
     const initialState = false;
     const [showExtImages, setExtImages] = useState(initialState);
@@ -25,7 +27,7 @@ export function Modal({
                         <h3>Seleccionar imagen</h3>
                         <button type="button" onClick={handleClickModal}>
                             <img
-                                src="./assets/icons/icon-close.svg"
+                                src="../../assets/icons/icon-close.svg"
                                 alt="Close modal"
                             ></img>
                         </button>
@@ -50,6 +52,7 @@ export function Modal({
                         {showExtImages ? (
                             <ExtImages
                                 handleSelectExtImage={handleSelectExtImage}
+                                queryImage={queryImage}
                             ></ExtImages>
                         ) : (
                             ""

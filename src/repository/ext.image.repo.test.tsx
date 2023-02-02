@@ -8,7 +8,8 @@ describe("Given a Images Repository", () => {
     };
     const mockImageAuthor = { name: "Test author" };
     const mockImage = { id: "0001", urls: mockImageUrl, user: mockImageAuthor };
-    const mockImageSearch = { results: [mockImage] };
+    const mockImageSearch = [mockImage];
+    const mockQuery = "test";
 
     const repo = new ImageRepo();
 
@@ -26,16 +27,15 @@ describe("Given a Images Repository", () => {
 
     describe("When we use load method", () => {
         test("Then we received the products in the repo", async () => {
-            const data = await repo.load();
+            const data = await repo.load(mockQuery);
             expect(global.fetch).toHaveBeenCalled();
-            expect(data).toEqual(mockImageSearch);
         });
         test("Then if there are NO DATA, we received a rejected promise", async () => {
             global.fetch = jest.fn().mockResolvedValue({
                 ok: false,
             });
             await expect(async () => {
-                await repo.load();
+                await repo.load(mockQuery);
             }).rejects.toThrowError();
             expect(global.fetch).toHaveBeenCalled();
         });

@@ -1,17 +1,16 @@
-import { GenericStructure } from "../types/generic.type";
-import { ProductStructure } from "../types/product.type";
+import { GenericStructure } from '../types/generic.type';
+import { ProductStructure } from '../types/product.type';
 
 export class ProductModel implements ProductStructure {
     id: string;
-    isExtImage: boolean;
     constructor(
         public productName: string,
         public image: string,
         public price: string,
-        public category: Array<GenericStructure>,
-        public allergens: Array<GenericStructure>
+        public category: string,
+        public allergens: Array<GenericStructure>,
+        public isExtImage: boolean
     ) {
-        this.id = "temporal-id";
-        this.isExtImage = false;
+        this.id = 'temporal-id';
     }
 }

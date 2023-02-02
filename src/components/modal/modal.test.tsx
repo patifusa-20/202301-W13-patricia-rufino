@@ -9,6 +9,7 @@ describe("Given Modal component", () => {
     const mockhandleClickModal = jest.fn();
     const mockhandleFileInput = jest.fn();
     const mockhandleSelectExtImage = jest.fn();
+    const mockQuery = "test";
     describe("When it is render in the screen", () => {
         let buttonElements: Array<HTMLElement>;
         beforeEach(() => {
@@ -20,6 +21,7 @@ describe("Given Modal component", () => {
                     handleClickModal={mockhandleClickModal}
                     handleFileInput={mockhandleFileInput}
                     handleSelectExtImage={mockhandleSelectExtImage}
+                    queryImage={mockQuery}
                 />
             );
             buttonElements = screen.getAllByRole("button");

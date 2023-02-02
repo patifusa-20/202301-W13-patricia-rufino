@@ -5,8 +5,10 @@ import "./ext.images.scss";
 
 export function ExtImages({
     handleSelectExtImage,
+    queryImage,
 }: {
     handleSelectExtImage: (ev: SyntheticEvent) => void;
+    queryImage: string;
 }) {
     const repo = new ImageRepo();
     const initialState: Array<ImageStructure> = [];
@@ -14,8 +16,8 @@ export function ExtImages({
     const [images, setImages] = useState(initialState);
 
     const handleLoad = useCallback(async () => {
-        const imagesSearch = await repo.load();
-        setImages(imagesSearch.results);
+        const imagesSearch = await repo.load(queryImage);
+        setImages(imagesSearch);
     }, []);
 
     useEffect(() => {
@@ -30,11 +32,7 @@ export function ExtImages({
                     return (
                         <li key={image.id}>
                             <img
-                                src={
-                                    images.length
-                                        ? image.urls.small
-                                        : "./logo192.png"
-                                }
+                                src={image.urls.small}
                                 alt="image"
                                 onClick={handleSelectExtImage}
                                 id={image.id}

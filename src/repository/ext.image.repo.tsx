@@ -1,14 +1,14 @@
-import { ImagesSearchStructure } from "../types/ext.image.type";
+import { ImageStructure } from "../types/ext.image.type";
 import { RepositoryImages } from "../types/repo.images.type";
 
-export class ImageRepo implements RepositoryImages<ImagesSearchStructure> {
+export class ImageRepo implements RepositoryImages<ImageStructure> {
     constructor(
-        public url = "https://api.unsplash.com/search/photos?per_page=5&query=bread"
+        public url = "https://api.unsplash.com/search/photos?lang=es&per_page=21&query="
     ) {
         //
     }
-    async load(): Promise<ImagesSearchStructure> {
-        const resp = await fetch(this.url, {
+    async load(query: string): Promise<ImageStructure[]> {
+        const resp = await fetch(this.url + query, {
             headers: {
                 Authorization:
                     "Client-ID wXts438c87awZdZh3YMHVFJshIWUc0DcuZxqToHa6Zc",
@@ -16,6 +16,7 @@ export class ImageRepo implements RepositoryImages<ImagesSearchStructure> {
         });
         if (!resp.ok)
             throw new Error(`Error ${resp.status}: ${resp.statusText}`);
-        return await resp.json();
+        const imagesObj = await resp.json();
+        return imagesObj.results;
     }
 }

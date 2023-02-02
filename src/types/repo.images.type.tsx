@@ -1,3 +1,3 @@
 export interface RepositoryImages<T> {
-    load: () => Promise<T>;
+    load: (query: string) => Promise<T[]>;
 }
