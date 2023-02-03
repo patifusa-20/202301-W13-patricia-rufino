@@ -1,14 +1,13 @@
-import { SyntheticEvent, useContext, useState } from "react";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { storage } from "../../firebase.config";
+import { useContext } from "react";
 import { ProductsContext } from "../../context/products.context";
 import { ProductStructure } from "../../types/product.type";
 import { Allergens } from "../allergens/allergens";
 import { Categories } from "../categories/categories";
 import { Modal } from "../modal/modal";
+import { useForm } from "../../hooks/use.form";
 
 export function Edit({ product }: { product: ProductStructure }) {
-    const { handleUpdate, showModal, handleModal, handleDelete } =
+    const { showModal, handleModal, handleDelete } =
         useContext(ProductsContext);
 
     const initialFormData: Partial<ProductStructure> = {
@@ -20,64 +19,20 @@ export function Edit({ product }: { product: ProductStructure }) {
         category: product.category,
     };
 
-    const [formData, setFormData] = useState(initialFormData);
-
-    const handleInput = (ev: SyntheticEvent) => {
-        const element = ev.target as HTMLFormElement;
-        setFormData({ ...formData, [element.name]: element.value });
-    };
+    const {
+        formData,
+        handleInput,
+        handleSelectExtImage,
+        handleFileInput,
+        handleUpdateSubmit,
+    } = useForm(initialFormData);
 
     const handleClickModal = () => {
         handleModal();
     };
 
-    const handleSelectExtImage = (ev: SyntheticEvent) => {
-        const element = ev.target as HTMLImageElement;
-        formData.isExtImage = true;
-        setFormData({ ...formData, [element.alt]: element.src });
-        handleModal();
-    };
-
-    const handleFileInput = async (ev: SyntheticEvent) => {
-        const element = ev.target as HTMLFormElement;
-        const fileObj: File = element.files[0];
-        const fileStorage = ref(storage, "images");
-        const storageRef = ref(fileStorage, fileObj.name);
-        const metadata = {
-            contentType: "image/jpeg",
-        };
-        await uploadBytes(storageRef, fileObj, metadata);
-        setFormData({ ...formData, [element.name]: fileObj.name });
-        handleModal();
-    };
-
     const handleClickDelete = () => {
         handleDelete(formData.id as string);
-    };
-
-    const handleSubmit = (ev: SyntheticEvent) => {
-        ev.preventDefault();
-        const addLocalImage = () => {
-            if (formData.image !== product.image) {
-                getDownloadURL(ref(storage, `images/${formData.image}`))
-                    .then((url) => {
-                        formData.image = url;
-                        setFormData({ ...formData });
-                    })
-                    .then(() => {
-                        handleUpdate(formData);
-                        setFormData(initialFormData);
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
-            } else {
-                handleUpdate(formData);
-            }
-        };
-        formData.isExtImage ? handleUpdate(formData) : addLocalImage();
-
-        setFormData(initialFormData);
     };
 
     return (
@@ -86,7 +41,7 @@ export function Edit({ product }: { product: ProductStructure }) {
                 className="bg-preview-image"
                 style={{ backgroundImage: `url(${formData.image})` }}
             ></div>
-            <form className="add-product" onSubmit={handleSubmit}>
+            <form className="add-product" onSubmit={handleUpdateSubmit}>
                 <div>
                     <label className="add-product__label" htmlFor="productName">
                         Nombre del producto*

@@ -1,5 +1,5 @@
-import { act, render, screen, waitFor } from "@testing-library/react";
-import { BrowserRouter, MemoryRouter } from "react-router-dom";
+import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import { ProductsContext } from "../../context/products.context";
 import { GenericModel } from "../../model/generic.model";
 import { ProductModel } from "../../model/product.model";
@@ -31,7 +31,6 @@ describe('Given "Products" component', () => {
             (Product as jest.Mock).mockImplementation(() => {
                 return <p>Mock Product</p>;
             });
-
             render(
                 <MemoryRouter>
                     <ProductsContext.Provider value={mockContext}>
