@@ -44,7 +44,6 @@ describe("Given EditPage component", () => {
                     </ProductsContext.Provider>
                 </MemoryRouter>
             );
-            screen.debug();
         });
         test("Then the heading should be in the screen", () => {
             const element = screen.getByRole("heading", {

@@ -21,8 +21,7 @@ describe(`Given useGeneric (custom hook)
     let buttons: Array<HTMLElement>;
     beforeEach(() => {
         TestComponent = () => {
-            const { categories, allergens, handleFilter, handleAllergen } =
-                useGeneric();
+            const { categories, handleFilter } = useGeneric();
             return (
                 <>
                     <div>
@@ -39,6 +38,29 @@ describe(`Given useGeneric (custom hook)
                                 </li>
                             ))}
                         </ul>
+                    </div>
+                </>
+            );
+        };
+        render(<TestComponent />);
+        buttons = screen.getAllByRole("button");
+    });
+    test("Then its function handleFilter should be used", async () => {
+        userEvent.click(buttons[0]);
+        expect(await screen.findByText(mockCategory.name)).toBeInTheDocument();
+    });
+});
+
+describe(`Given useGeneric (custom hook)
+            render with a virtual component`, () => {
+    let TestComponent: () => JSX.Element;
+    let buttons: Array<HTMLElement>;
+    beforeEach(() => {
+        TestComponent = () => {
+            const { allergens, handleAllergen } = useGeneric();
+            return (
+                <>
+                    <div>
                         <ul>
                             {allergens.map((item) => (
                                 <li key={item.icon}>
@@ -59,12 +81,8 @@ describe(`Given useGeneric (custom hook)
         render(<TestComponent />);
         buttons = screen.getAllByRole("button");
     });
-    test("Then its function handleFilter should be used", async () => {
-        userEvent.click(buttons[0]);
-        expect(await screen.findByText(mockCategory.name)).toBeInTheDocument();
-    });
     test("Then its function handleAllergen should be used", async () => {
-        userEvent.click(buttons[1]);
+        userEvent.click(buttons[0]);
         expect(await screen.findByText(mockAllergen.name)).toBeInTheDocument();
     });
 });
