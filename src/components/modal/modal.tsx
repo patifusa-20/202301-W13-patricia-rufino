@@ -1,24 +1,31 @@
-import { SyntheticEvent, useState } from "react";
+import { useContext, useState } from "react";
+import { ProductsContext } from "../../context/products.context";
+import { useForm } from "../../hooks/use.form";
+import { ProductStructure } from "../../types/product.type";
 import { ExtImages } from "../ext.images/ext.images";
 import "./modal.scss";
 
 export function Modal({
-    handleClickModal,
-    handleFileInput,
-    handleSelectExtImage,
+    formData,
     queryImage,
 }: {
-    handleClickModal: () => void;
-    handleFileInput: (ev: SyntheticEvent) => void;
-    handleSelectExtImage: (ev: SyntheticEvent) => void;
+    formData: Partial<ProductStructure>;
     queryImage: string;
 }) {
+    const { handleModal } = useContext(ProductsContext);
+    const { handleSelectExtImage, handleFileInput } = useForm(formData);
+
     const initialState = false;
     const [showExtImages, setExtImages] = useState(initialState);
 
     const handleExtImageBtn = () => {
         setExtImages(!showExtImages);
     };
+
+    const handleClickModal = () => {
+        handleModal();
+    };
+
     return (
         <>
             <div className="modal__back">
