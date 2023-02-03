@@ -6,8 +6,6 @@ export function Filter({ category }: { category: GenericStructure }) {
     const { handleFilter, categories } = useContext(ProductsContext);
 
     const handleFilterSelected = () => {
-        categories.forEach((item) => (item.isFiltered = false));
-        category.isFiltered = true;
         handleFilter(category);
     };
 
