@@ -36,17 +36,16 @@ export function useForm(initialFormData: Partial<ProductStructure>) {
         handleModal();
     };
 
-    const addProduct = new ProductModel(
-        formData.productName as string,
-        formData.image as string,
-        formData.price as string,
-        category.name,
-        allergens.filter((allergen) => allergen.isSelected),
-        formData.isExtImage as boolean
-    );
-
     const handleAddSubmit = (ev: SyntheticEvent) => {
         ev.preventDefault();
+        const addProduct = new ProductModel(
+            formData.productName as string,
+            formData.image as string,
+            formData.price as string,
+            category.name,
+            allergens.filter((allergen) => allergen.isSelected),
+            formData.isExtImage as boolean
+        );
         const addLocalImage = () => {
             getDownloadURL(ref(storage, `images/${formData.image}`))
                 .then((url) => {
@@ -59,7 +58,7 @@ export function useForm(initialFormData: Partial<ProductStructure>) {
                             formData.productName as string,
                             formData.image as string,
                             formData.price as string,
-                            category.name as string,
+                            category.name,
                             allergens.filter((allergen) => allergen.isSelected),
                             formData.isExtImage as boolean
                         )
@@ -97,7 +96,7 @@ export function useForm(initialFormData: Partial<ProductStructure>) {
         ev.preventDefault();
         formData.category = category.name;
         formData.isExtImage ? handleUpdate(formData) : addLocalImage();
-        setFormData(formData);
+        setFormData({ ...formData });
     };
 
     return {
