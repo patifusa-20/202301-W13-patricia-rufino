@@ -3,7 +3,7 @@ import { ProductsContext } from "../../context/products.context";
 import { GenericStructure } from "../../types/generic.type";
 
 export function Category({ category }: { category: GenericStructure }) {
-    const { handleCategory, categories } = useContext(ProductsContext);
+    const { handleCategory } = useContext(ProductsContext);
 
     const handleCategorySelected = () => {
         handleCategory(category);
