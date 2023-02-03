@@ -134,8 +134,8 @@ describe(`Given useProduct (custom hook)
             });
         });
         test("Then its function handleUpdate should be used", async () => {
-            userEvent.click(buttons[0]);
-            userEvent.click(buttons[2]);
+            await userEvent.click(buttons[0]);
+            await userEvent.click(buttons[2]);
             waitFor(() => {
                 expect(ProductRepo.prototype.update).toHaveBeenCalled();
                 expect(

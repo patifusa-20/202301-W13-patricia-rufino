@@ -27,7 +27,7 @@ describe("Given a Images Repository", () => {
 
     describe("When we use load method", () => {
         test("Then we received the products in the repo", async () => {
-            const data = await repo.load(mockQuery);
+            await repo.load(mockQuery);
             expect(global.fetch).toHaveBeenCalled();
         });
         test("Then if there are NO DATA, we received a rejected promise", async () => {
