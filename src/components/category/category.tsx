@@ -3,7 +3,8 @@ import { ProductsContext } from "../../context/products.context";
 import { GenericStructure } from "../../types/generic.type";
 
 export function Category({ category }: { category: GenericStructure }) {
-    const { handleCategory } = useContext(ProductsContext);
+    const { category: categorySelected, handleCategory } =
+        useContext(ProductsContext);
 
     const handleCategorySelected = () => {
         handleCategory(category);
@@ -16,7 +17,7 @@ export function Category({ category }: { category: GenericStructure }) {
                     type="button"
                     onClick={handleCategorySelected}
                     className={
-                        category.isSelected
+                        category.name === categorySelected.name
                             ? "category_btn active"
                             : "category_btn"
                     }
