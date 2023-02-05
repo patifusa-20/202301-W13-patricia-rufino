@@ -18,10 +18,10 @@ const mockAllergen: GenericStructure = {
 };
 describe(`Given useGeneric (custom hook)
             render with a virtual component`, () => {
-    let TestComponent: () => JSX.Element;
+    let TestComponentFilter: () => JSX.Element;
     let buttons: Array<HTMLElement>;
     beforeEach(() => {
-        TestComponent = () => {
+        TestComponentFilter = () => {
             const { categories, handleFilter } = useGeneric();
             return (
                 <>
@@ -45,7 +45,7 @@ describe(`Given useGeneric (custom hook)
         };
         render(
             <BrowserRouter>
-                <TestComponent />
+                <TestComponentFilter />
             </BrowserRouter>
         );
         buttons = screen.getAllByRole("button");
@@ -58,10 +58,10 @@ describe(`Given useGeneric (custom hook)
 
 describe(`Given useGeneric (custom hook)
             render with a virtual component`, () => {
-    let TestComponent: () => JSX.Element;
+    let TestComponentAllergen: () => JSX.Element;
     let buttons: Array<HTMLElement>;
     beforeEach(() => {
-        TestComponent = () => {
+        TestComponentAllergen = () => {
             const { allergens, handleAllergen } = useGeneric();
             return (
                 <>
@@ -85,7 +85,7 @@ describe(`Given useGeneric (custom hook)
         };
         render(
             <BrowserRouter>
-                <TestComponent />
+                <TestComponentAllergen />
             </BrowserRouter>
         );
         buttons = screen.getAllByRole("button");
@@ -98,10 +98,10 @@ describe(`Given useGeneric (custom hook)
 
 describe(`Given useGeneric (custom hook)
             render with a virtual component`, () => {
-    let TestComponent: () => JSX.Element;
+    let TestComponentCategory: () => JSX.Element;
     let buttons: Array<HTMLElement>;
     beforeEach(() => {
-        TestComponent = () => {
+        TestComponentCategory = () => {
             const { categories, handleCategory } = useGeneric();
             return (
                 <>
@@ -125,7 +125,7 @@ describe(`Given useGeneric (custom hook)
         };
         render(
             <BrowserRouter>
-                <TestComponent />
+                <TestComponentCategory />
             </BrowserRouter>
         );
         buttons = screen.getAllByRole("button");
