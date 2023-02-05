@@ -60,9 +60,9 @@ describe("Given Modal component", () => {
             });
             const fileInput = inputElement;
             expect(fileInput.files?.length).toBe(0);
-            await userEvent.upload(fileInput, mockImageFile);
+            userEvent.upload(fileInput, mockImageFile);
             expect(fileInput.files?.length).toBe(1);
-            waitFor(async () => expect(await handleModal).toHaveBeenCalled());
+            waitFor(() => expect(handleModal).toHaveBeenCalled());
         });
     });
 });

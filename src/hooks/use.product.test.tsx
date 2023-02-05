@@ -113,8 +113,6 @@ describe(`Given useProduct (custom hook)
         buttons = screen.getAllByRole("button");
     });
     describe(`When the repo is working OK`, () => {
-        //beforeEach(mockRepoResponse);
-
         test("Then its function handleLoad should be add Products to the state", async () => {
             userEvent.click(buttons[0]);
             await act(async () => {
