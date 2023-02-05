@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useGeneric } from "../hooks/use.generic";
 import { useProduct } from "../hooks/use.product";
+import { useUser } from "../hooks/use.user";
 import { ProductsContext } from "./products.context";
 
 export function ProductsContextProvider({
@@ -23,8 +24,11 @@ export function ProductsContextProvider({
     const { products, handleLoad, handleAdd, handleUpdate, handleDelete } =
         useProduct();
 
+    const { user } = useUser();
+
     const context = useMemo(
         () => ({
+            user,
             products,
             allergen,
             allergens,
@@ -41,6 +45,7 @@ export function ProductsContextProvider({
             handleDelete,
         }),
         [
+            user,
             products,
             allergen,
             allergens,

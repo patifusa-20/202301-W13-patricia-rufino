@@ -8,6 +8,7 @@ import { ProductStructure } from "../types/product.type";
 import { ProductsContextStructure } from "../types/products.context.type";
 
 export const initialContext: ProductsContextStructure = {
+    user: { id: "", userName: "", token: "", menu: { id: "", products: [] } },
     products: [],
     allergen: new GenericModel("", ""),
     allergens: allergensData,
