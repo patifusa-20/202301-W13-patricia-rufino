@@ -1,4 +1,4 @@
-import { SyntheticEvent, useContext, useState } from "react";
+import { SyntheticEvent, useContext, useEffect, useState } from "react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../firebase.config";
 import { ProductsContext } from "../../context/products.context";
@@ -27,6 +27,13 @@ export function ProductForm({
     } = useContext(ProductsContext);
 
     const [form, setFormData] = useState(formData);
+
+    useEffect(() => {
+        setFormData({
+            ...form,
+            category: category.name,
+        });
+    }, [category]);
 
     const handleInput = (ev: SyntheticEvent) => {
         const element = ev.target as HTMLFormElement;

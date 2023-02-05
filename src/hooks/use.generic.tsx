@@ -1,17 +1,23 @@
 import { useContext, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { ProductsContext } from "../context/products.context";
 import { allergensData } from "../data/allergens.data";
 import { GenericStructure } from "../types/generic.type";
 import { UseGenericStructure } from "../types/use.generic.type";
 
 export function useGeneric(): UseGenericStructure {
-    const { categories } = useContext(ProductsContext);
+    const { category: categorySelected, categories } =
+        useContext(ProductsContext);
+
+    const location = useLocation();
+
+    const defaultCategory =
+        location.pathname === "/add-product" ? categories[1] : categorySelected;
 
     const allergens = allergensData;
     const initialAllergenState = allergens[0];
     const [allergen, setAllergen] = useState(initialAllergenState);
 
-    const defaultCategory = categories[1];
     const [category, setCategory] = useState(defaultCategory);
 
     const initialStateModal = false;

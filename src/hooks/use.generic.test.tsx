@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { BrowserRouter } from "react-router-dom";
 import { GenericStructure } from "../types/generic.type";
 import { useGeneric } from "./use.generic";
 
@@ -17,10 +18,10 @@ const mockAllergen: GenericStructure = {
 };
 describe(`Given useGeneric (custom hook)
             render with a virtual component`, () => {
-    let TestComponent: () => JSX.Element;
+    let TestComponentFilter: () => JSX.Element;
     let buttons: Array<HTMLElement>;
     beforeEach(() => {
-        TestComponent = () => {
+        TestComponentFilter = () => {
             const { categories, handleFilter } = useGeneric();
             return (
                 <>
@@ -42,7 +43,11 @@ describe(`Given useGeneric (custom hook)
                 </>
             );
         };
-        render(<TestComponent />);
+        render(
+            <BrowserRouter>
+                <TestComponentFilter />
+            </BrowserRouter>
+        );
         buttons = screen.getAllByRole("button");
     });
     test("Then its function handleFilter should be used", async () => {
@@ -53,10 +58,10 @@ describe(`Given useGeneric (custom hook)
 
 describe(`Given useGeneric (custom hook)
             render with a virtual component`, () => {
-    let TestComponent: () => JSX.Element;
+    let TestComponentAllergen: () => JSX.Element;
     let buttons: Array<HTMLElement>;
     beforeEach(() => {
-        TestComponent = () => {
+        TestComponentAllergen = () => {
             const { allergens, handleAllergen } = useGeneric();
             return (
                 <>
@@ -78,7 +83,11 @@ describe(`Given useGeneric (custom hook)
                 </>
             );
         };
-        render(<TestComponent />);
+        render(
+            <BrowserRouter>
+                <TestComponentAllergen />
+            </BrowserRouter>
+        );
         buttons = screen.getAllByRole("button");
     });
     test("Then its function handleAllergen should be used", async () => {
@@ -89,10 +98,10 @@ describe(`Given useGeneric (custom hook)
 
 describe(`Given useGeneric (custom hook)
             render with a virtual component`, () => {
-    let TestComponent: () => JSX.Element;
+    let TestComponentCategory: () => JSX.Element;
     let buttons: Array<HTMLElement>;
     beforeEach(() => {
-        TestComponent = () => {
+        TestComponentCategory = () => {
             const { categories, handleCategory } = useGeneric();
             return (
                 <>
@@ -114,7 +123,11 @@ describe(`Given useGeneric (custom hook)
                 </>
             );
         };
-        render(<TestComponent />);
+        render(
+            <BrowserRouter>
+                <TestComponentCategory />
+            </BrowserRouter>
+        );
         buttons = screen.getAllByRole("button");
     });
     test("Then its function handleCategory should be used", async () => {
@@ -140,7 +153,11 @@ describe(`Given useGeneric (custom hook)
                 </>
             );
         };
-        render(<TestComponent />);
+        render(
+            <BrowserRouter>
+                <TestComponent />
+            </BrowserRouter>
+        );
         button = screen.getByRole("button");
     });
     test("Then its function handleModal should be used", async () => {
