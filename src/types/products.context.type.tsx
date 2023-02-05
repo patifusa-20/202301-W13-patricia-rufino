@@ -1,7 +1,9 @@
 import { GenericStructure } from "./generic.type";
 import { ProductStructure } from "./product.type";
+import { UserStructure } from "./user.type";
 
 export type ProductsContextStructure = {
+    user: UserStructure;
     products: Array<ProductStructure>;
     allergen: GenericStructure;
     allergens: Array<GenericStructure>;
