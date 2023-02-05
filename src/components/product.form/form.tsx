@@ -80,7 +80,7 @@ export function ProductForm({
                             form.isExtImage as boolean
                         )
                     );
-                    setFormData(form);
+                    setFormData({ ...form });
                 })
                 .catch((error) => {
                     console.log(error);
