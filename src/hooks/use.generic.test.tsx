@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { BrowserRouter } from "react-router-dom";
 import { GenericStructure } from "../types/generic.type";
 import { useGeneric } from "./use.generic";
 
@@ -42,7 +43,11 @@ describe(`Given useGeneric (custom hook)
                 </>
             );
         };
-        render(<TestComponent />);
+        render(
+            <BrowserRouter>
+                <TestComponent />
+            </BrowserRouter>
+        );
         buttons = screen.getAllByRole("button");
     });
     test("Then its function handleFilter should be used", async () => {
@@ -78,7 +83,11 @@ describe(`Given useGeneric (custom hook)
                 </>
             );
         };
-        render(<TestComponent />);
+        render(
+            <BrowserRouter>
+                <TestComponent />
+            </BrowserRouter>
+        );
         buttons = screen.getAllByRole("button");
     });
     test("Then its function handleAllergen should be used", async () => {
@@ -114,7 +123,11 @@ describe(`Given useGeneric (custom hook)
                 </>
             );
         };
-        render(<TestComponent />);
+        render(
+            <BrowserRouter>
+                <TestComponent />
+            </BrowserRouter>
+        );
         buttons = screen.getAllByRole("button");
     });
     test("Then its function handleCategory should be used", async () => {
@@ -140,7 +153,11 @@ describe(`Given useGeneric (custom hook)
                 </>
             );
         };
-        render(<TestComponent />);
+        render(
+            <BrowserRouter>
+                <TestComponent />
+            </BrowserRouter>
+        );
         button = screen.getByRole("button");
     });
     test("Then its function handleModal should be used", async () => {
