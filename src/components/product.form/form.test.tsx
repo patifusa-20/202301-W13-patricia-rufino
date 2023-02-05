@@ -1,5 +1,6 @@
 import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { BrowserRouter } from "react-router-dom";
 import { ProductsContext } from "../../context/products.context";
 import { GenericModel } from "../../model/generic.model";
 import { ProductsContextStructure } from "../../types/products.context.type";
@@ -19,6 +20,8 @@ describe("Given Form component", () => {
     ];
     const handleAdd = jest.fn();
     const handleModal = jest.fn();
+    const handleUpdate = jest.fn();
+    const handleDelete = jest.fn();
     const category = mockCategory;
     const allergens = mockAllergens;
     const showModal = false;
@@ -27,7 +30,9 @@ describe("Given Form component", () => {
         category,
         allergens,
         handleAdd,
+        handleUpdate,
         showModal,
+        handleDelete,
         handleModal,
     } as unknown as ProductsContextStructure;
 
@@ -47,15 +52,17 @@ describe("Given Form component", () => {
             return <p>Mock Allergens</p>;
         });
         render(
-            <ProductsContext.Provider value={mockContext}>
-                <ProductForm formData={mockFormData}></ProductForm>
-            </ProductsContext.Provider>
+            <BrowserRouter>
+                <ProductsContext.Provider value={mockContext}>
+                    <ProductForm formData={mockFormData}></ProductForm>
+                </ProductsContext.Provider>
+            </BrowserRouter>
         );
     });
 
     describe("When component is call with a DOM implementation", () => {
         test(`Then it should be render with a labels`, () => {
-            const element = screen.getByLabelText("Nombre del producto*"); // <h1>
+            const element = screen.getByLabelText("Nombre del producto*");
             expect(element).toBeInTheDocument();
         });
     });
@@ -87,6 +94,26 @@ describe("Given Form component", () => {
             userEvent.click(buttonElements[0]);
             act(() => {
                 expect(handleModal).toHaveBeenCalled();
+            });
+        });
+        test("Then button could be used for send the function received in context", () => {
+            userEvent.click(buttonElements[1]);
+            act(() => {
+                expect(handleUpdate).toHaveBeenCalled();
+            });
+        });
+        // Test pendiente de validar
+        // test("Then button could be used for send the function received in context", () => {
+        //     location.pathname = "/add-product";
+        //     userEvent.click(buttonElements[1]);
+        //     act(() => {
+        //         expect(handleAdd).toHaveBeenCalled();
+        //     });
+        // });
+        test("Then button could be used for send the function received in context", () => {
+            userEvent.click(buttonElements[2]);
+            act(() => {
+                expect(handleDelete).toHaveBeenCalled();
             });
         });
     });

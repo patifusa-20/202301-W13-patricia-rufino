@@ -1,19 +1,18 @@
-import { useContext, useState } from "react";
+import { SyntheticEvent, useContext, useState } from "react";
 import { ProductsContext } from "../../context/products.context";
-import { useForm } from "../../hooks/use.form";
-import { ProductStructure } from "../../types/product.type";
 import { ExtImages } from "../ext.images/ext.images";
 import "./modal.scss";
 
 export function Modal({
-    formData,
     queryImage,
+    handleFileInput,
+    handleSelectExtImage,
 }: {
-    formData: Partial<ProductStructure>;
     queryImage: string;
+    handleSelectExtImage: (ev: SyntheticEvent) => void;
+    handleFileInput: (ev: SyntheticEvent) => void;
 }) {
     const { handleModal } = useContext(ProductsContext);
-    const { handleSelectExtImage, handleFileInput } = useForm(formData);
 
     const initialState = false;
     const [showExtImages, setExtImages] = useState(initialState);
@@ -47,6 +46,7 @@ export function Modal({
                             id="image"
                             accept="image/png, image/jpeg"
                             onChange={handleFileInput}
+                            data-testid="inputFile"
                         />
                         <button
                             type="button"

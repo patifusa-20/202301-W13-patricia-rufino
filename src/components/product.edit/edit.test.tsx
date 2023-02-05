@@ -42,15 +42,8 @@ describe("Given edit product component", () => {
 
     describe("When component is call with a DOM implementation", () => {
         test(`Then it should be render with a labels`, () => {
-            const element = screen.getByText("Mock Product Form"); // <h1>
+            const element = screen.getByText("Mock Product Form");
             expect(element).toBeInTheDocument();
-        });
-        test("Then button could be used for send the function received in context", () => {
-            const buttonElement: HTMLElement = screen.getByRole("button");
-            userEvent.click(buttonElement);
-            act(() => {
-                expect(handleDelete).toHaveBeenCalled();
-            });
         });
     });
 });

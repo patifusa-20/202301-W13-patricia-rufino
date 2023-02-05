@@ -61,11 +61,9 @@ const mockRepoResponse = () => {
         mockAddProduct
     );
     (ProductRepo.prototype.update as jest.Mock).mockResolvedValue(
-        mockAddProduct
+        mockUpdateProduct
     );
-    (ProductRepo.prototype.delete as jest.Mock).mockResolvedValue(
-        mockAddProduct
-    );
+    (ProductRepo.prototype.delete as jest.Mock).mockResolvedValue(mockProduct1);
 };
 ProductRepo.prototype.load = jest.fn();
 ProductRepo.prototype.create = jest.fn();
@@ -76,7 +74,7 @@ describe(`Given useProduct (custom hook)
             render with a virtual component`, () => {
     let TestComponent: () => JSX.Element;
     let buttons: Array<HTMLElement>;
-    beforeEach(() => {
+    beforeEach(async () => {
         TestComponent = () => {
             const { handleLoad, handleAdd, handleUpdate, handleDelete } =
                 useProduct();
@@ -104,15 +102,18 @@ describe(`Given useProduct (custom hook)
                 </>
             );
         };
-        render(
-            <MemoryRouter>
-                <TestComponent />
-            </MemoryRouter>
+        mockRepoResponse();
+        await act(() =>
+            render(
+                <MemoryRouter>
+                    <TestComponent />
+                </MemoryRouter>
+            )
         );
         buttons = screen.getAllByRole("button");
     });
     describe(`When the repo is working OK`, () => {
-        beforeEach(mockRepoResponse);
+        //beforeEach(mockRepoResponse);
 
         test("Then its function handleLoad should be add Products to the state", async () => {
             userEvent.click(buttons[0]);
@@ -134,8 +135,8 @@ describe(`Given useProduct (custom hook)
             });
         });
         test("Then its function handleUpdate should be used", async () => {
-            await userEvent.click(buttons[0]);
-            await userEvent.click(buttons[2]);
+            userEvent.click(buttons[0]);
+            userEvent.click(buttons[2]);
             waitFor(() => {
                 expect(ProductRepo.prototype.update).toHaveBeenCalled();
                 expect(
@@ -152,7 +153,6 @@ describe(`Given useProduct (custom hook)
                 expect(
                     screen.findByText(mockProduct.productName)
                 ).toBeInTheDocument();
-
                 expect(() =>
                     screen.findByText(mockProduct1.productName)
                 ).rejects.toThrowError();

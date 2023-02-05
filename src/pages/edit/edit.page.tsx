@@ -15,7 +15,11 @@ export default function EditPage() {
     return (
         <>
             <h1>Editar producto</h1>
-            <Edit key={productToEdit.id} product={productToEdit}></Edit>
+            {productToEdit ? (
+                <Edit key={productToEdit.id} product={productToEdit}></Edit>
+            ) : (
+                <p>Producto eliminado correctamente</p>
+            )}
         </>
     );
 }
