@@ -9,9 +9,9 @@ describe('Given "Category" component', () => {
     const handleCategory = jest.fn();
     const mockCategory = new GenericModel("Test category", "Test icon");
     mockCategory.id = "30";
-    const categories = [mockCategory];
+    const category = mockCategory;
     const mockContext = {
-        categories,
+        category,
         handleCategory,
     } as unknown as ProductsContextStructure;
     describe("When data are provided in the component", () => {
@@ -24,14 +24,19 @@ describe('Given "Category" component', () => {
     });
     describe("When a Category is selected", () => {
         test("Then className active exist", async () => {
-            mockCategory.isSelected = true;
-            render(<Category category={mockCategory}></Category>);
+            //mockCategory.isSelected = true;
+            mockCategory.name = category.name;
+            render(
+                <ProductsContext.Provider value={mockContext}>
+                    <Category category={mockCategory}></Category>
+                </ProductsContext.Provider>
+            );
             const CategorySelected = screen.getByRole("button");
             expect(CategorySelected).toHaveClass("active");
         });
-        test("Then it should change boolean", () => {
-            expect(mockCategory).toHaveProperty("isSelected", true);
-        });
+        // test("Then it should change boolean", () => {
+        //     expect(mockCategory).toHaveProperty("isSelected", true);
+        // });
     });
     describe("When data are provided in the component", () => {
         test("Then user could interact with them", async () => {

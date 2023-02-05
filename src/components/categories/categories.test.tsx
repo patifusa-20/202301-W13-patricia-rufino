@@ -4,9 +4,8 @@ import { act, render, screen } from "@testing-library/react";
 import { ProductsContext } from "../../context/products.context";
 import { Categories } from "./categories";
 
-const mockCategories = [
-    new GenericModel("Test Category", "Test Category icon"),
-];
+const mockCategory = new GenericModel("Test Category", "Test Category icon");
+const mockCategories = [mockCategory];
 
 describe('Given "Categories" component', () => {
     let mockContext: ProductsContextStructure;
@@ -14,6 +13,7 @@ describe('Given "Categories" component', () => {
     describe("When it load the data from useContext", () => {
         beforeEach(async () => {
             mockContext = {
+                category: mockCategory,
                 categories: mockCategories,
             } as unknown as ProductsContextStructure;
             await act(async () => {
