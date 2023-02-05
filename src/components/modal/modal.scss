@@ -1,0 +1,42 @@
+@import "../../scss/variables.scss";
+@import "../../scss/mixins.scss";
+
+.modal__back {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    @include flexbox(flex, center, flex-end);
+}
+
+.modal {
+    background-color: $primary-color;
+    width: 100%;
+    border-radius: 3rem 3rem 0 0;
+    overflow-y: scroll;
+    max-height: 100vh;
+    &__header {
+        @include flexbox(flex, space-between, center);
+        padding: 1rem 3rem;
+        button {
+            background-color: transparent;
+            img {
+                width: 2.5rem;
+            }
+        }
+    }
+    &__body {
+        padding: 1rem 0;
+        input {
+            background-color: $secondary-color;
+            color: $secondary-dark-color;
+            padding: 1.2rem;
+            border-radius: 1rem;
+            margin: 1rem auto;
+            box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+            font-size: 1rem;
+        }
+    }
+}

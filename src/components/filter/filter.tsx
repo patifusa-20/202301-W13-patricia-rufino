@@ -6,7 +6,6 @@ export function Filter({ category }: { category: GenericStructure }) {
     const { handleFilter } = useContext(ProductsContext);
 
     const handleFilterSelected = () => {
-        category.isSelected = !category.isSelected;
         handleFilter(category);
     };
 
@@ -16,7 +15,7 @@ export function Filter({ category }: { category: GenericStructure }) {
                 <button
                     onClick={handleFilterSelected}
                     className={
-                        category.isSelected
+                        category.isFiltered
                             ? "filter_icon active"
                             : "filter_icon"
                     }

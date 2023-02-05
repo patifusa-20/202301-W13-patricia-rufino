@@ -7,6 +7,7 @@ export function Allergens() {
     const { allergens } = useContext(ProductsContext);
     return (
         <>
+            <label className="add-product__label">Alérgenos</label>
             <ul className="allergens">
                 {allergens.map((item) => {
                     return <Allergen allergen={item} key={item.id}></Allergen>;

@@ -3,4 +3,5 @@ export type GenericStructure = {
     name: string;
     icon: string;
     isSelected: boolean;
+    isFiltered?: boolean;
 };

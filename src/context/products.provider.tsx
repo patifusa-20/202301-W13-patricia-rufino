@@ -13,11 +13,15 @@ export function ProductsContextProvider({
         allergens,
         category,
         categories,
+        showModal,
         handleFilter,
         handleAllergen,
+        handleCategory,
+        handleModal,
     } = useGeneric();
 
-    const { products, handleLoad } = useProduct();
+    const { products, handleLoad, handleAdd, handleUpdate, handleDelete } =
+        useProduct();
 
     const context = useMemo(
         () => ({
@@ -26,9 +30,15 @@ export function ProductsContextProvider({
             allergens,
             category,
             categories,
+            showModal,
             handleFilter,
             handleAllergen,
+            handleCategory,
             handleLoad,
+            handleAdd,
+            handleModal,
+            handleUpdate,
+            handleDelete,
         }),
         [
             products,
@@ -36,9 +46,15 @@ export function ProductsContextProvider({
             allergens,
             category,
             categories,
+            showModal,
             handleFilter,
             handleAllergen,
+            handleCategory,
             handleLoad,
+            handleAdd,
+            handleModal,
+            handleUpdate,
+            handleDelete,
         ]
     );
 

@@ -2,12 +2,15 @@ import { GenericStructure } from "../types/generic.type";
 import { ProductStructure } from "../types/product.type";
 
 export class ProductModel implements ProductStructure {
+    id: string;
     constructor(
-        public id: string,
-        public name: string,
-        public price: string,
+        public productName: string,
         public image: string,
-        public category: GenericStructure,
-        public allergens: Array<GenericStructure>
-    ) {}
+        public price: string,
+        public category: string,
+        public allergens: Array<GenericStructure>,
+        public isExtImage: boolean
+    ) {
+        this.id = "temporal-id";
+    }
 }
