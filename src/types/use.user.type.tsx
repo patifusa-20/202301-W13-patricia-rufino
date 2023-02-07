@@ -1,7 +1,8 @@
 import { UserStructure } from "./user.type";
 
 export type UseUserStructure = {
-    user: UserStructure;
+    userLogged: UserStructure;
     login: () => void;
     logout: () => void;
+    handleLoadUser: (user: UserStructure) => void;
 };

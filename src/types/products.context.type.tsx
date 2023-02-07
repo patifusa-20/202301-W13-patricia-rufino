@@ -1,9 +1,10 @@
 import { GenericStructure } from "./generic.type";
+import { MenuStructure } from "./menu.type";
 import { ProductStructure } from "./product.type";
 import { UserStructure } from "./user.type";
 
 export type ProductsContextStructure = {
-    user: UserStructure;
+    userLogged: UserStructure;
     products: Array<ProductStructure>;
     allergen: GenericStructure;
     allergens: Array<GenericStructure>;
@@ -18,4 +19,7 @@ export type ProductsContextStructure = {
     handleModal: () => void;
     handleUpdate: (product: Partial<ProductStructure>) => void;
     handleDelete: (id: ProductStructure["id"]) => void;
+    login: () => void;
+    handleLoadUser: (user: UserStructure) => void;
+    handleMenu: () => void;
 };

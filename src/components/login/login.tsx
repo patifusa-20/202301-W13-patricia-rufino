@@ -1,6 +1,9 @@
+import { useContext } from "react";
+import { ProductsContext } from "../../context/products.context";
 import { useUser } from "../../hooks/use.user";
 export function Login() {
-    const { login, logout } = useUser();
+    const { login } = useContext(ProductsContext);
+    const { logout } = useUser();
 
     const handleLogin = () => {
         login();

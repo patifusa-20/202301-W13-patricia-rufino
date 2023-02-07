@@ -3,29 +3,35 @@ import { auth } from "../firebase.config";
 import { UserRepo } from "../repository/users.repo";
 import { UserStructure } from "../types/user.type";
 import { MenuRepo } from "../repository/menus.repo";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { ProductStructure } from "../types/product.type";
 import { useNavigate } from "react-router-dom";
-import { MenuStructure } from "../types/menu.type";
 import { UseUserStructure } from "../types/use.user.type";
+import { MenuStructure } from "../types/menu.type";
 export function useUser(): UseUserStructure {
     const repoMenu = new MenuRepo();
     const repoUser = new UserRepo();
 
     const navigate = useNavigate();
 
+    const menuUser: MenuStructure = {
+        id: "",
+        name: "",
+        products: [] as Array<ProductStructure>,
+    };
+
     const state = {
         user: {
             userName: "",
             id: "",
             token: "",
-            menu: { id: "", products: [] as Array<ProductStructure> },
-        },
+            menu: menuUser,
+        } as UserStructure,
     };
 
     const initialStateUser = state.user;
 
-    const [user, setUser] = useState(initialStateUser);
+    const [userLogged, setUser] = useState(initialStateUser);
 
     const login = async () => {
         const provider = new GoogleAuthProvider();
@@ -35,41 +41,39 @@ export function useUser(): UseUserStructure {
         state.user.id = userCredentials.user.uid;
         state.user.userName = userCredentials.user.displayName as string;
         state.user.token = await userCredentials.user.getIdToken();
-
-        await handleLoadUser();
+        const currentUser = state.user;
+        setUser(currentUser);
+        handleLoadUser(currentUser);
     };
 
     const handleAddUser = async (user: UserStructure) => {
         const userMenu = await repoMenu.create(user.menu);
-        state.user.menu = userMenu;
+        user.menu.id = userMenu.name;
         await repoUser.create(user);
         navigate("/products");
     };
 
-    //const userWithAccount = usersLoad.find((user:UserStructure) => user.id === state.user.id);
-    const getUsers = async (usersLoad: Array<UserStructure>) => {
-        if (
-            usersLoad.find((user: UserStructure) => user.id === state.user.id)
-        ) {
-            setUser(
-                usersLoad.find(
-                    (user: UserStructure) => user.id === state.user.id
-                ) as UserStructure
-            );
+    const getUsers = async (
+        usersLoad: Array<UserStructure>,
+        currentUser: UserStructure
+    ) => {
+        const userWithAccount = usersLoad.find(
+            (user: UserStructure) => user.id === currentUser.id
+        );
+        if (userWithAccount) {
             navigate("/products");
         } else {
-            handleAddUser(state.user);
-            setUser(state.user as UserStructure);
+            handleAddUser(currentUser);
         }
     };
 
-    const handleLoadUser = useCallback(async () => {
+    const handleLoadUser = useCallback(async (currentUser: UserStructure) => {
         let usersLoad: Array<UserStructure>;
         try {
             usersLoad = await repoUser.load();
-            getUsers(usersLoad);
+            getUsers(usersLoad, currentUser);
         } catch {
-            handleAddUser(state.user);
+            handleAddUser(currentUser);
         }
     }, []);
 
@@ -82,5 +86,5 @@ export function useUser(): UseUserStructure {
         console.log("user logout");
     };
 
-    return { user, login, logout };
+    return { userLogged, handleLoadUser, login, logout };
 }
