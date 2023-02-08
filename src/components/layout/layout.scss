@@ -1,6 +1,13 @@
 @import "../../scss/variables.scss";
 @import "../../scss/mixins.scss";
 
+h1 {
+    font-size: 1rem;
+}
+h2 {
+    font-size: 1.5rem;
+}
+
 .primary-btn {
     background-color: $btn-color;
     color: $primary-dark-color;

@@ -2,10 +2,17 @@
 @import "../../scss/mixins.scss";
 
 header {
+    @include flexbox(flex, space-between, center);
     background-color: $secondary-color;
     color: $secondary-dark-color;
     font-size: 0.5rem;
     padding: 0.5rem;
+    min-height: 50px;
+    h1 {
+        margin: 0;
+        padding-left: 0.5rem;
+        color: $secondary-dark-color;
+    }
     span {
         background-color: $secondary-dark-color;
         color: $secondary-color;
