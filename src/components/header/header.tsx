@@ -8,10 +8,10 @@ export function Header() {
     const auth = getAuth();
     const currentUser = auth.currentUser;
 
-    const { showModal, handleModal } = useContext(ProductsContext);
+    const { showDrawer, handleDrawer } = useContext(ProductsContext);
 
-    const handleClickModal = () => {
-        handleModal();
+    const handleClickDrawer = () => {
+        handleDrawer();
     };
 
     return (
@@ -25,14 +25,14 @@ export function Header() {
                 <button
                     type="button"
                     className="icon-btn"
-                    onClick={handleClickModal}
+                    onClick={handleClickDrawer}
                 >
                     <img src="./assets/icons/icon-user.svg"></img>
                 </button>
             ) : (
                 ""
             )}
-            {showModal ? <Drawer></Drawer> : ""}
+            {showDrawer ? <Drawer></Drawer> : ""}
         </header>
     );
 }

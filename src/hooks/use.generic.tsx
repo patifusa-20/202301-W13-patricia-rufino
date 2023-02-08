@@ -23,6 +23,9 @@ export function useGeneric(): UseGenericStructure {
     const initialStateModal = false;
     const [showModal, setModal] = useState(initialStateModal);
 
+    const initialStateDrawer = false;
+    const [showDrawer, setDrawer] = useState(initialStateDrawer);
+
     const handleFilter = (filter: GenericStructure) => {
         categories.forEach((item) => (item.isFiltered = false));
         filter.isFiltered = true;
@@ -41,6 +44,10 @@ export function useGeneric(): UseGenericStructure {
         setModal(!showModal);
     };
 
+    const handleDrawer = () => {
+        setDrawer(!showDrawer);
+    };
+
     useEffect(() => {
         category.isFiltered = true;
         category.isSelected = true;
@@ -52,9 +59,11 @@ export function useGeneric(): UseGenericStructure {
         category,
         categories,
         showModal,
+        showDrawer,
         handleFilter,
         handleAllergen,
         handleCategory,
         handleModal,
+        handleDrawer,
     };
 }

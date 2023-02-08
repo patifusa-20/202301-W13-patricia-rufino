@@ -165,3 +165,33 @@ describe(`Given useGeneric (custom hook)
         expect(await screen.findByText("Show modal")).toBeInTheDocument();
     });
 });
+
+describe(`Given useGeneric (custom hook)
+            render with a virtual component`, () => {
+    let TestComponent: () => JSX.Element;
+    let button: HTMLElement;
+    beforeEach(() => {
+        TestComponent = () => {
+            const { handleDrawer } = useGeneric();
+            return (
+                <>
+                    <div>
+                        <button onClick={() => handleDrawer()}>
+                            Show drawer
+                        </button>
+                    </div>
+                </>
+            );
+        };
+        render(
+            <BrowserRouter>
+                <TestComponent />
+            </BrowserRouter>
+        );
+        button = screen.getByRole("button");
+    });
+    test("Then its function handleDrawer should be used", async () => {
+        userEvent.click(button);
+        expect(await screen.findByText("Show drawer")).toBeInTheDocument();
+    });
+});

@@ -22,7 +22,13 @@ describe("Given Modal component", () => {
         let inputElement: HTMLInputElement;
         beforeEach(() => {
             (ExtImages as jest.Mock).mockImplementation(() => {
-                return <p>Mock External images</p>;
+                return (
+                    <ul>
+                        <li onClick={handleSelectExtImage}>
+                            Mock external image
+                        </li>
+                    </ul>
+                );
             });
             render(
                 <ProductsContext.Provider value={mockContext}>
@@ -51,7 +57,7 @@ describe("Given Modal component", () => {
         });
         test("Then button could be used to fire event on click", async () => {
             userEvent.click(buttonElements[1]);
-            const element = await screen.findByText("Mock External images");
+            const element = await screen.findByText("Mock external image");
             expect(element).toBeInTheDocument();
         });
         test("Then input file could be used to attach a image", async () => {

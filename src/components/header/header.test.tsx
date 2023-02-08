@@ -9,13 +9,13 @@ import { Header } from "./header";
 jest.mock("firebase/auth");
 jest.mock("../drawer/drawer");
 
-const handleModal = jest.fn();
+const handleDrawer = jest.fn();
 describe("Given Header component", () => {
     describe("When it has been render and user is logged", () => {
-        const showModal = true;
+        const showDrawer = true;
         const mockContext = {
-            showModal,
-            handleModal,
+            showDrawer,
+            handleDrawer,
         } as unknown as ProductsContextStructure;
         beforeEach(() => {
             (getAuth as jest.Mock).mockImplementation(() => {
@@ -43,7 +43,7 @@ describe("Given Header component", () => {
         test("If user is logged, then user button could be used for send the function received in context", () => {
             const elementBtn: HTMLButtonElement = screen.getByRole("button");
             userEvent.click(elementBtn);
-            expect(handleModal).toHaveBeenCalled();
+            expect(handleDrawer).toHaveBeenCalled();
         });
         test("Then drawer component should be in the screen", () => {
             const elementText = screen.getByText("Mock drawer");
@@ -51,10 +51,10 @@ describe("Given Header component", () => {
         });
     });
     describe("When it has been render and user is NOT logged", () => {
-        const showModal = false;
+        const showDrawer = false;
         const mockContext = {
-            showModal,
-            handleModal,
+            showDrawer,
+            handleDrawer,
         } as unknown as ProductsContextStructure;
         beforeEach(() => {
             (getAuth as jest.Mock).mockImplementation(() => {

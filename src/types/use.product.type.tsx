@@ -7,5 +7,5 @@ export type UseProductStructure = {
     handleUpdate: (product: Partial<ProductStructure>) => void;
     handleDelete: (id: ProductStructure["id"]) => void;
     handleMenu: () => void;
-    handleLoadNotUserMenu: (idMenu: string) => void;
+    handleLoadMenuNotLoggedUser: (idMenu: string) => void;
 };

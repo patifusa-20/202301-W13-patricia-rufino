@@ -7,8 +7,10 @@ export type UseGenericStructure = {
     category: GenericStructure;
     categories: Array<GenericStructure>;
     showModal: boolean;
+    showDrawer: boolean;
     handleFilter: (category: GenericStructure) => void;
     handleAllergen: (allergen: GenericStructure) => void;
     handleCategory: (category: GenericStructure) => void;
     handleModal: () => void;
+    handleDrawer: () => void;
 };

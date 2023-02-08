@@ -1,12 +1,14 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { ProductsContext } from "../../context/products.context";
 import "./drawer.scss";
 
 export function Drawer() {
-    const { userLogged, handleModal, logout } = useContext(ProductsContext);
+    const { userLogged, handleDrawer, logout } = useContext(ProductsContext);
+    const navigate = useNavigate();
 
-    const handleClickModal = () => {
-        handleModal();
+    const handleClickDrawer = () => {
+        handleDrawer();
     };
 
     const handleLogout = () => {
@@ -14,6 +16,8 @@ export function Drawer() {
         userLogged.userName = "";
         userLogged.id = "";
         userLogged.token = "";
+        handleDrawer();
+        navigate("/");
     };
 
     return (
@@ -22,7 +26,7 @@ export function Drawer() {
                 <div className="drawer">
                     <div className="drawer__header">
                         <h3>Perfil de usuario</h3>
-                        <button type="button" onClick={handleClickModal}>
+                        <button type="button" onClick={handleClickDrawer}>
                             <img
                                 src="../../assets/icons/icon-close.svg"
                                 alt="Close modal"
