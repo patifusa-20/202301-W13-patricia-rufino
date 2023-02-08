@@ -10,7 +10,11 @@ export default function ProductsPage() {
     return (
         <>
             <section>
-                <h1>Hola {userName}</h1>
+                {currentUser === null ? (
+                    <h1>Bienvenido</h1>
+                ) : (
+                    <h1>Hola {userName}</h1>
+                )}
                 <Filters></Filters>
                 <Products></Products>
             </section>
