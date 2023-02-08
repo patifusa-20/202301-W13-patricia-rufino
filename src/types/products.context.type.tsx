@@ -1,5 +1,4 @@
 import { GenericStructure } from "./generic.type";
-import { MenuStructure } from "./menu.type";
 import { ProductStructure } from "./product.type";
 import { UserStructure } from "./user.type";
 
@@ -20,6 +19,8 @@ export type ProductsContextStructure = {
     handleUpdate: (product: Partial<ProductStructure>) => void;
     handleDelete: (id: ProductStructure["id"]) => void;
     login: () => void;
+    logout: () => void;
     handleLoadUser: (user: UserStructure) => void;
     handleMenu: () => void;
+    handleLoadNotUserMenu: (idMenu: string) => void;
 };

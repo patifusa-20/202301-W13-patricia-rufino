@@ -28,9 +28,10 @@ export function ProductsContextProvider({
         handleUpdate,
         handleDelete,
         handleMenu,
+        handleLoadNotUserMenu,
     } = useProduct();
 
-    const { userLogged, login, handleLoadUser } = useUser();
+    const { userLogged, login, logout, handleLoadUser } = useUser();
 
     const context = useMemo(
         () => ({
@@ -50,8 +51,10 @@ export function ProductsContextProvider({
             handleUpdate,
             handleDelete,
             login,
+            logout,
             handleLoadUser,
             handleMenu,
+            handleLoadNotUserMenu,
         }),
         [
             userLogged,
@@ -70,8 +73,10 @@ export function ProductsContextProvider({
             handleUpdate,
             handleDelete,
             login,
+            logout,
             handleLoadUser,
             handleMenu,
+            handleLoadNotUserMenu,
         ]
     );
 

@@ -1,4 +1,3 @@
-import { MenuStructure } from "./menu.type";
 import { ProductStructure } from "./product.type";
 
 export type UseProductStructure = {
@@ -8,4 +7,5 @@ export type UseProductStructure = {
     handleUpdate: (product: Partial<ProductStructure>) => void;
     handleDelete: (id: ProductStructure["id"]) => void;
     handleMenu: () => void;
+    handleLoadNotUserMenu: (idMenu: string) => void;
 };

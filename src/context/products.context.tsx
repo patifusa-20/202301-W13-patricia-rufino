@@ -47,10 +47,16 @@ export const initialContext: ProductsContextStructure = {
     login: async () => {
         //
     },
+    logout: async () => {
+        //
+    },
     handleLoadUser: async () => {
         //
     },
     handleMenu: async () => {
+        //
+    },
+    handleLoadNotUserMenu: async (idMenu: string) => {
         //
     },
 };
