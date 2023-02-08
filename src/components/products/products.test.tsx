@@ -81,9 +81,6 @@ describe('Given "Products" component', () => {
         test(`Then it should be render the data`, async () => {
             const elementList = await screen.findByRole("list"); // <ul />
             expect(elementList).toBeInTheDocument();
-
-            // const elementItem = await screen.findByText(/Mock Product/i);
-            // expect(elementItem).toBeInTheDocument();
         });
     });
 });

@@ -17,11 +17,7 @@ export class UserRepo implements RepositoryUsers<UserStructure> {
         if (!resp.ok)
             throw new Error(`Error ${resp.status}: ${resp.statusText}`);
         const response = await resp.json();
-        // for (const key in response) {
-        //     response[key].id = key;
-        // }
         return Object.values(response);
-        //return response;
     }
 
     async create(payload: Partial<UserStructure>): Promise<UserStructure> {

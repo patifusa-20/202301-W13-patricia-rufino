@@ -87,11 +87,6 @@ const mockUser = {
     menu: [],
 };
 const getLoggedUser = jest.fn();
-//const handleMenu = jest.fn();
-const mockGetLoggedUser = (getLoggedUser as jest.Mock).mockResolvedValue(
-    mockUser
-);
-const dataUserLogged = mockUser;
 
 describe(`Given useProduct (custom hook)
             render with a virtual component`, () => {
@@ -166,11 +161,9 @@ describe(`Given useProduct (custom hook)
         buttons = screen.getAllByRole("button");
     });
     describe(`When the repo is working OK`, () => {
-        const handleMenu = jest.fn();
         test("Then its function handleLoad should be add Products to the state", async () => {
             userEvent.click(buttons[0]);
             await act(async () => {
-                // expect(handleMenu).toHaveBeenCalled();
                 expect(
                     await screen.findByText(mockProduct.productName)
                 ).toBeInTheDocument();
@@ -223,7 +216,6 @@ describe(`Given useProduct (custom hook)
         test("Then its function handleLoadMenu should be render user menu", async () => {
             userEvent.click(buttons[5]);
             waitFor(async () => {
-                //expect(MenuRepo.prototype.load).toHaveBeenCalled();
                 expect(getLoggedUser).toHaveBeenCalled();
             });
         });

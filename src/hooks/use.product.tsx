@@ -20,7 +20,7 @@ export function useProduct(): UseProductStructure {
 
     const handleLoadMenuNotLoggedUser = async (idMenu: string) => {
         const menusLoad = await repoMenu.load();
-        const menuPath = (await menusLoad).find(
+        const menuPath = menusLoad.find(
             (menu) => menu.id === idMenu
         ) as MenuStructure;
         setProducts(menuPath.products);
@@ -65,7 +65,7 @@ export function useProduct(): UseProductStructure {
                     : (menuUser.products = []);
             updatedMenu.push(newProduct);
             await repoMenu.update(menuUser as Partial<MenuStructure>);
-            setProducts(updatedMenu as ProductStructure[]);
+            setProducts(updatedMenu);
         }
     };
 
@@ -102,7 +102,7 @@ export function useProduct(): UseProductStructure {
                 menuUser.products !== undefined
                     ? menuUser.products
                     : (menuUser.products = []);
-            setProducts(productsUser as ProductStructure[]);
+            setProducts(productsUser);
         }
     }, []);
 
