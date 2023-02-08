@@ -18,6 +18,16 @@ export function useProduct(): UseProductStructure {
 
     const [products, setProducts] = useState(initialProductState);
 
+    const handleLoadNotUserMenu = async (idMenu: string) => {
+        console.log("El ID del menu es " + idMenu);
+        const menusLoad = await repoMenu.load();
+        const menuPath = (await menusLoad).find(
+            (menu) => menu.id === idMenu
+        ) as MenuStructure;
+        console.log(menuPath);
+        setProducts(menuPath.products);
+    };
+
     const getLoggedUser = async () => {
         const usersLoad = await repoUser.load();
         const auth = getAuth();
@@ -27,10 +37,12 @@ export function useProduct(): UseProductStructure {
             const dataUserLogged = usersLoad.find(
                 (user) => user.id === currentUser.uid
             ) as UserStructure;
+            console.log(
+                "El usuario " + currentUser.displayName + " está logueado"
+            );
             return dataUserLogged;
         } else {
-            console.log("Sesión caducada");
-            navigate("/");
+            console.log("El usuario no se ha logueado");
         }
     };
 
@@ -42,21 +54,21 @@ export function useProduct(): UseProductStructure {
             const menuUser = (await menus).find(
                 (menu) => menu.id === idMenuUser
             ) as MenuStructure;
-            return await menuUser;
+            return menuUser;
         }
     };
 
     const handleMenuAddProduct = async (newProduct: ProductStructure) => {
         const menuUser = await handleMenu();
         if (menuUser !== undefined) {
-            menuUser.products !== undefined
-                ? menuUser.products
-                : (menuUser.products = []);
+            const updatedMenu =
+                menuUser.products !== undefined
+                    ? menuUser.products
+                    : (menuUser.products = []);
+            updatedMenu.push(newProduct);
+            await repoMenu.update(menuUser as Partial<MenuStructure>);
+            setProducts(updatedMenu as ProductStructure[]);
         }
-        menuUser?.products.push(newProduct);
-        const updatedMenu = menuUser?.products;
-        await repoMenu.update(menuUser as Partial<MenuStructure>);
-        setProducts(updatedMenu as ProductStructure[]);
     };
 
     const handleMenuUpdateProduct = async (
@@ -86,9 +98,14 @@ export function useProduct(): UseProductStructure {
     };
 
     const handleLoad = useCallback(async () => {
-        const productsLoad = await handleMenu();
-        const productsUser = productsLoad?.products;
-        setProducts(productsUser as ProductStructure[]);
+        const menuUser = await handleMenu();
+        if (menuUser !== undefined) {
+            const productsUser =
+                menuUser.products !== undefined
+                    ? menuUser.products
+                    : (menuUser.products = []);
+            setProducts(productsUser as ProductStructure[]);
+        }
     }, []);
 
     const handleAdd = async function (product: ProductStructure) {
@@ -125,5 +142,6 @@ export function useProduct(): UseProductStructure {
         handleUpdate,
         handleDelete,
         handleMenu,
+        handleLoadNotUserMenu,
     };
 }
