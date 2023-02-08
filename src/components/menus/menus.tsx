@@ -1,21 +1,10 @@
-import { useCallback, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { UserRepo } from "../../repository/users.repo";
-import { UserStructure } from "../../types/user.type";
+import { ProductsContext } from "../../context/products.context";
 import "./menus.scss";
 
 export function Menus() {
-    const repoUser = new UserRepo();
-
-    const initialStateUsers: Array<UserStructure> = [];
-
-    const [users, setUsers] = useState(initialStateUsers);
-
-    const handleUsersMenu = useCallback(async () => {
-        const usersLoad = await repoUser.load();
-        setUsers(usersLoad);
-        return usersLoad;
-    }, []);
+    const { users, handleUsersMenu } = useContext(ProductsContext);
 
     useEffect(() => {
         handleUsersMenu();

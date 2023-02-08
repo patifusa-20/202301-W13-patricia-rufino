@@ -4,8 +4,14 @@
 .menus {
     @include flexbox(flex, center, stretch);
     flex-direction: column;
+    flex-wrap: wrap;
     gap: 1rem;
+    margin: 0 auto;
     margin-top: 1rem;
+
+    @media (min-width: 600px) {
+        flex-direction: row;
+    }
 
     &__card {
         @include flexbox(flex, stretch, flex-end);
@@ -15,6 +21,8 @@
         min-height: 150px;
         background-position: bottom;
         background-size: cover;
+        min-width: 300px;
+        max-width: 600px;
         p {
             background-color: rgba(0, 0, 0, 0.7);
             padding: 1rem;

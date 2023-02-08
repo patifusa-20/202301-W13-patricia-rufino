@@ -1,14 +1,13 @@
 import { getAuth } from "firebase/auth";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Login } from "../../components/login/login";
 import { Menus } from "../../components/menus/menus";
+import { ProductsContext } from "../../context/products.context";
 
 export default function HomePage() {
-    const auth = getAuth();
-    const currentUser = auth.currentUser;
-    const userName = currentUser?.displayName;
-    console.log(currentUser);
-    console.log("El usuario " + userName + " está logado");
+    const { userLogged } = useContext(ProductsContext);
+
     return (
         <>
             <section>
@@ -17,7 +16,7 @@ export default function HomePage() {
                     Diseña y actualiza fácilmente la carta digital de tu
                     restaurante
                 </h2>
-                {currentUser === null ? (
+                {userLogged.id.length <= 0 ? (
                     <Login></Login>
                 ) : (
                     <Link to={"./products"}>

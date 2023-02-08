@@ -6,7 +6,7 @@ import { NewProduct } from "../new.product/new.product";
 import { useLocation } from "react-router-dom";
 
 export function Products() {
-    const { category, products, handleLoad, handleLoadNotUserMenu } =
+    const { category, products, handleLoad, handleLoadMenuNotLoggedUser } =
         useContext(ProductsContext);
 
     const location = useLocation();
@@ -18,7 +18,7 @@ export function Products() {
     useEffect(() => {
         if (location.pathname !== "/products") {
             const idMenu = location.pathname.split("/")[2];
-            handleLoadNotUserMenu(idMenu);
+            handleLoadMenuNotLoggedUser(idMenu);
         }
         handleLoad();
     }, [handleLoad]);

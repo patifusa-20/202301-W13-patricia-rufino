@@ -3,19 +3,25 @@ import { auth } from "../firebase.config";
 import { UserRepo } from "../repository/users.repo";
 import { UserStructure } from "../types/user.type";
 import { MenuRepo } from "../repository/menus.repo";
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useState } from "react";
 import { ProductStructure } from "../types/product.type";
 import { useNavigate } from "react-router-dom";
 import { UseUserStructure } from "../types/use.user.type";
 import { MenuStructure } from "../types/menu.type";
-import { ProductsContext } from "../context/products.context";
 export function useUser(): UseUserStructure {
     const repoMenu = new MenuRepo();
     const repoUser = new UserRepo();
 
-    const { handleModal } = useContext(ProductsContext);
-
     const navigate = useNavigate();
+
+    const initialStateUsers: Array<UserStructure> = [];
+    const [users, setUsers] = useState(initialStateUsers);
+
+    const handleUsersMenu = useCallback(async () => {
+        const usersLoad = await repoUser.load();
+        setUsers(usersLoad);
+        return usersLoad;
+    }, []);
 
     const menuUser: MenuStructure = {
         id: "",
@@ -67,25 +73,23 @@ export function useUser(): UseUserStructure {
     };
 
     const handleLoadUser = useCallback(async (currentUser: UserStructure) => {
-        let usersLoad: Array<UserStructure>;
-        try {
-            usersLoad = await repoUser.load();
-            getUsers(usersLoad, currentUser);
-        } catch {
-            handleAddUser(currentUser);
-        }
+        const usersLoad: Array<UserStructure> = await repoUser.load();
+        usersLoad
+            ? getUsers(usersLoad, currentUser)
+            : handleAddUser(currentUser);
     }, []);
 
-    const logout = async () => {
-        await signOut(auth)
-            .then(() => {
-                handleModal();
-                navigate("/");
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+    const logout = () => {
+        signOut(auth);
+        console.log("El usuario ha cerrado la sesión con logout");
     };
 
-    return { userLogged, handleLoadUser, login, logout };
+    return {
+        userLogged,
+        users,
+        handleUsersMenu,
+        handleLoadUser,
+        login,
+        logout,
+    };
 }

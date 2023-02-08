@@ -10,7 +10,7 @@ export function Login() {
     return (
         <>
             <button type="button" className="primary-btn" onClick={handleLogin}>
-                Login
+                Iniciar sesión con Google
             </button>
         </>
     );

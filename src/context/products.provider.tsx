@@ -15,10 +15,12 @@ export function ProductsContextProvider({
         category,
         categories,
         showModal,
+        showDrawer,
         handleFilter,
         handleAllergen,
         handleCategory,
         handleModal,
+        handleDrawer,
     } = useGeneric();
 
     const {
@@ -28,55 +30,70 @@ export function ProductsContextProvider({
         handleUpdate,
         handleDelete,
         handleMenu,
-        handleLoadNotUserMenu,
+        handleLoadMenuNotLoggedUser,
     } = useProduct();
 
-    const { userLogged, login, logout, handleLoadUser } = useUser();
+    const {
+        userLogged,
+        users,
+        handleUsersMenu,
+        login,
+        logout,
+        handleLoadUser,
+    } = useUser();
 
     const context = useMemo(
         () => ({
             userLogged,
+            users,
+            handleUsersMenu,
             products,
             allergen,
             allergens,
             category,
             categories,
             showModal,
+            showDrawer,
             handleFilter,
             handleAllergen,
             handleCategory,
             handleLoad,
             handleAdd,
             handleModal,
+            handleDrawer,
             handleUpdate,
             handleDelete,
             login,
             logout,
             handleLoadUser,
             handleMenu,
-            handleLoadNotUserMenu,
+            handleLoadMenuNotLoggedUser,
         }),
         [
             userLogged,
+            users,
+            handleUsersMenu,
             products,
             allergen,
             allergens,
             category,
             categories,
             showModal,
+            showDrawer,
             handleFilter,
             handleAllergen,
             handleCategory,
             handleLoad,
             handleAdd,
             handleModal,
+            handleDrawer,
             handleUpdate,
             handleDelete,
             login,
             logout,
             handleLoadUser,
             handleMenu,
-            handleLoadNotUserMenu,
+            handleLoadMenuNotLoggedUser,
         ]
     );
 

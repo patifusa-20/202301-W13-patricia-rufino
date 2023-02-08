@@ -29,7 +29,7 @@ const mockProduct2 = new ProductModel(
 const mockProducts = [mockProduct, mockProduct2];
 
 const handleLoad = jest.fn();
-const handleLoadNotUserMenu = jest.fn();
+const handleLoadMenuNotLoggedUser = jest.fn();
 
 describe('Given "Products" component', () => {
     describe("When it load the data from useContext and the data is undefined", () => {
@@ -37,7 +37,7 @@ describe('Given "Products" component', () => {
             category: mockCategory,
             products: undefined,
             handleLoad,
-            handleLoadNotUserMenu,
+            handleLoadMenuNotLoggedUser,
         } as unknown as ProductsContextStructure;
         beforeEach(() => {
             (Product as jest.Mock).mockImplementation(() => {
@@ -64,7 +64,7 @@ describe('Given "Products" component', () => {
             category: mockCategory,
             products: mockProducts,
             handleLoad,
-            handleLoadNotUserMenu,
+            handleLoadMenuNotLoggedUser,
         } as unknown as ProductsContextStructure;
         beforeEach(() => {
             (Product as jest.Mock).mockImplementation(() => {

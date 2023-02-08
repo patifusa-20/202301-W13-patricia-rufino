@@ -4,23 +4,27 @@ import { UserStructure } from "./user.type";
 
 export type ProductsContextStructure = {
     userLogged: UserStructure;
+    users: Array<UserStructure>;
+    handleUsersMenu: () => void;
     products: Array<ProductStructure>;
     allergen: GenericStructure;
     allergens: Array<GenericStructure>;
     category: GenericStructure;
     categories: Array<GenericStructure>;
     showModal: boolean;
+    showDrawer: boolean;
     handleFilter: (category: GenericStructure) => void;
     handleAllergen: (allergen: GenericStructure) => void;
     handleCategory: (category: GenericStructure) => void;
     handleLoad: () => void;
     handleAdd: (product: ProductStructure) => void;
     handleModal: () => void;
+    handleDrawer: () => void;
     handleUpdate: (product: Partial<ProductStructure>) => void;
     handleDelete: (id: ProductStructure["id"]) => void;
     login: () => void;
     logout: () => void;
     handleLoadUser: (user: UserStructure) => void;
     handleMenu: () => void;
-    handleLoadNotUserMenu: (idMenu: string) => void;
+    handleLoadMenuNotLoggedUser: (idMenu: string) => void;
 };

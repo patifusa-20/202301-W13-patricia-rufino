@@ -1,16 +1,20 @@
 import { render, screen } from "@testing-library/react";
-import { getAuth } from "firebase/auth";
-import { BrowserRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router-dom";
 import { Login } from "../../components/login/login";
 import { Menus } from "../../components/menus/menus";
+import { ProductsContext } from "../../context/products.context";
+import { ProductsContextStructure } from "../../types/products.context.type";
 import HomePage from "./home.page";
 
 jest.mock("../../components/login/login");
 jest.mock("../../components/menus/menus");
-jest.mock("firebase/auth");
 
 describe("Given HomePage component", () => {
     describe("When it has been render with logged user", () => {
+        const userLogged = { id: "Mock user" };
+        const mockContext = {
+            userLogged,
+        } as unknown as ProductsContextStructure;
         beforeEach(() => {
             (Login as jest.Mock).mockImplementation(() => {
                 return <p>Mock Login</p>;
@@ -18,15 +22,12 @@ describe("Given HomePage component", () => {
             (Menus as jest.Mock).mockImplementation(() => {
                 return <p>Mock Menus</p>;
             });
-            (getAuth as jest.Mock).mockImplementation(() => {
-                return {
-                    currentUser: { displayName: "Mock name user logged" },
-                };
-            });
             render(
-                <BrowserRouter>
-                    <HomePage />
-                </BrowserRouter>
+                <MemoryRouter>
+                    <ProductsContext.Provider value={mockContext}>
+                        <HomePage />
+                    </ProductsContext.Provider>
+                </MemoryRouter>
             );
         });
         test("Then the heading should be in the screen", () => {
@@ -45,6 +46,10 @@ describe("Given HomePage component", () => {
         });
     });
     describe("When it has been render with NOT logged user", () => {
+        const userLogged = { id: "" };
+        const mockContext = {
+            userLogged,
+        } as unknown as ProductsContextStructure;
         beforeEach(() => {
             (Login as jest.Mock).mockImplementation(() => {
                 return <p>Mock Login</p>;
@@ -52,15 +57,12 @@ describe("Given HomePage component", () => {
             (Menus as jest.Mock).mockImplementation(() => {
                 return <p>Mock Menus</p>;
             });
-            (getAuth as jest.Mock).mockImplementation(() => {
-                return {
-                    currentUser: null,
-                };
-            });
             render(
-                <BrowserRouter>
-                    <HomePage />
-                </BrowserRouter>
+                <MemoryRouter>
+                    <ProductsContext.Provider value={mockContext}>
+                        <HomePage />
+                    </ProductsContext.Provider>
+                </MemoryRouter>
             );
         });
         test("Then the text in Menus component should be in the screen", () => {

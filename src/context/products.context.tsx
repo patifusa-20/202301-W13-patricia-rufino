@@ -14,12 +14,14 @@ export const initialContext: ProductsContextStructure = {
         token: "",
         menu: { id: "", name: "", products: [] },
     },
+    users: [],
     products: [],
     allergen: new GenericModel("", ""),
     allergens: allergensData,
     category: new GenericModel("", ""),
     categories: categoriesData,
     showModal: false,
+    showDrawer: false,
     handleFilter: async () => {
         //
     },
@@ -36,6 +38,9 @@ export const initialContext: ProductsContextStructure = {
         //
     },
     handleModal: async () => {
+        //
+    },
+    handleDrawer: async () => {
         //
     },
     handleUpdate: async (product: Partial<ProductStructure>) => {
@@ -56,7 +61,10 @@ export const initialContext: ProductsContextStructure = {
     handleMenu: async () => {
         //
     },
-    handleLoadNotUserMenu: async (idMenu: string) => {
+    handleLoadMenuNotLoggedUser: async (idMenu: string) => {
+        //
+    },
+    handleUsersMenu: async () => {
         //
     },
 };

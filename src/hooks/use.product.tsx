@@ -18,13 +18,11 @@ export function useProduct(): UseProductStructure {
 
     const [products, setProducts] = useState(initialProductState);
 
-    const handleLoadNotUserMenu = async (idMenu: string) => {
-        console.log("El ID del menu es " + idMenu);
+    const handleLoadMenuNotLoggedUser = async (idMenu: string) => {
         const menusLoad = await repoMenu.load();
         const menuPath = (await menusLoad).find(
             (menu) => menu.id === idMenu
         ) as MenuStructure;
-        console.log(menuPath);
         setProducts(menuPath.products);
     };
 
@@ -142,6 +140,6 @@ export function useProduct(): UseProductStructure {
         handleUpdate,
         handleDelete,
         handleMenu,
-        handleLoadNotUserMenu,
+        handleLoadMenuNotLoggedUser,
     };
 }
