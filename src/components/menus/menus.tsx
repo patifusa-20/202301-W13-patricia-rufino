@@ -6,6 +6,13 @@ import "./menus.scss";
 export function Menus() {
     const { users, handleUsersMenu } = useContext(ProductsContext);
 
+    const getSiglas = (userName: string) => {
+        const divideName = userName.split(" ");
+        const firstWord = divideName[0].split("");
+        const secondWord = divideName[1].split("");
+        return firstWord[0] + "." + secondWord[0];
+    };
+
     useEffect(() => {
         handleUsersMenu();
     }, [handleUsersMenu]);
@@ -24,7 +31,7 @@ export function Menus() {
                                         backgroundImage: `url(./assets/img/bg-menu.jpg)`,
                                     }}
                                 >
-                                    <p>{user.userName}</p>
+                                    <p>{getSiglas(user.userName)}</p>
                                 </div>
                             </Link>
                         </li>
