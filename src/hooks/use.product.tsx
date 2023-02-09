@@ -134,7 +134,7 @@ export function useProduct(): UseProductStructure {
     };
 
     useEffect(() => {
-        products;
+        handleLoad();
     }, []);
 
     return {

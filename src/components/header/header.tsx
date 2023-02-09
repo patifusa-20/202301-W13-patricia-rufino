@@ -11,8 +11,12 @@ export function Header() {
         handleDrawer();
     };
 
+    const isLogged = () => {
+        return userLogged.id.length <= 0;
+    };
+
     useEffect(() => {
-        userLogged;
+        isLogged();
     }, [userLogged]);
 
     return (
@@ -22,7 +26,7 @@ export function Header() {
                     <span>MIY</span> - Menu it yourself
                 </h1>
             </Link>
-            {userLogged.id.length <= 0 ? (
+            {isLogged() ? (
                 ""
             ) : (
                 <button

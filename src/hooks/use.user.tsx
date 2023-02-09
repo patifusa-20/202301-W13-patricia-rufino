@@ -93,7 +93,7 @@ export function useUser(): UseUserStructure {
             setUser(currentUser);
             handleLoadUser(currentUser);
         } else {
-            setUser(userLogged);
+            setUser({ ...userLogged });
         }
     };
 
