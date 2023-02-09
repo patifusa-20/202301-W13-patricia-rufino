@@ -26,14 +26,14 @@ export function ExtImages({
 
     return (
         <>
-            <h2>Unsplash Images</h2>
+            <h2>Imágenes de Unsplash</h2>
             <ul className="custom-list">
                 {images.map((image) => {
                     return (
                         <li key={image.id}>
                             <img
                                 src={image.urls.small}
-                                alt="image"
+                                alt={queryImage}
                                 onClick={handleSelectExtImage}
                                 id={image.id}
                             />

@@ -8,12 +8,20 @@ import { ProductStructure } from "../types/product.type";
 import { ProductsContextStructure } from "../types/products.context.type";
 
 export const initialContext: ProductsContextStructure = {
+    userLogged: {
+        id: "",
+        userName: "",
+        token: "",
+        menu: { id: "", name: "", products: [] },
+    },
+    users: [],
     products: [],
     allergen: new GenericModel("", ""),
     allergens: allergensData,
     category: new GenericModel("", ""),
     categories: categoriesData,
     showModal: false,
+    showDrawer: false,
     handleFilter: async () => {
         //
     },
@@ -32,10 +40,31 @@ export const initialContext: ProductsContextStructure = {
     handleModal: async () => {
         //
     },
+    handleDrawer: async () => {
+        //
+    },
     handleUpdate: async (product: Partial<ProductStructure>) => {
         //
     },
     handleDelete: async (id: ProductStructure["id"]) => {
+        //
+    },
+    login: async () => {
+        //
+    },
+    logout: async () => {
+        //
+    },
+    handleLoadUser: async () => {
+        //
+    },
+    handleMenu: async () => {
+        //
+    },
+    handleLoadMenuNotLoggedUser: async (idMenu: string) => {
+        //
+    },
+    handleUsersMenu: async () => {
         //
     },
 };

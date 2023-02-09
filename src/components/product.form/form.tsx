@@ -43,7 +43,7 @@ export function ProductForm({
     const handleSelectExtImage = (ev: SyntheticEvent) => {
         const element = ev.target as HTMLImageElement;
         form.isExtImage = true;
-        setFormData({ ...form, [element.alt]: element.src });
+        setFormData({ ...form, image: element.src });
         handleModal();
     };
 

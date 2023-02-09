@@ -13,7 +13,7 @@ describe("Given AddPage component", () => {
         test("Then the label should be in the screen", () => {
             render(<AddPage />);
             const element = screen.getByRole("heading", {
-                name: "Add product",
+                name: "Añadir nuevo producto",
             });
             expect(element).toBeInTheDocument();
         });

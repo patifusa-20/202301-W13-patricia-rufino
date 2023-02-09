@@ -1,0 +1,43 @@
+@import "../../scss/variables.scss";
+@import "../../scss/mixins.scss";
+
+.menus {
+    @include flexbox(flex, center, stretch);
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 0 auto;
+    margin-top: 1rem;
+
+    @media (min-width: 600px) {
+        flex-direction: row;
+    }
+
+    &__card {
+        @include flexbox(flex, stretch, flex-end);
+        background-color: rgba(0, 0, 0, 0.3);
+        color: $text-color;
+        border-radius: 1rem;
+        min-height: 150px;
+        background-position: bottom;
+        background-size: cover;
+        min-width: 300px;
+        max-width: 600px;
+        p {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 1rem;
+            border-radius: 1rem;
+            width: 100%;
+        }
+    }
+    li:nth-child(1) {
+        .menus__card {
+            background-position: center;
+        }
+    }
+    li:nth-child(2) {
+        .menus__card {
+            background-position: top;
+        }
+    }
+}

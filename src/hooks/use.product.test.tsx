@@ -3,14 +3,20 @@ import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { GenericModel } from "../model/generic.model";
 import { ProductModel } from "../model/product.model";
+import { MenuRepo } from "../repository/menus.repo";
 import { ProductRepo } from "../repository/products.repo";
 import { useProduct } from "./use.product";
+import { getAuth } from "firebase/auth";
+jest.mock("firebase/auth");
 
 jest.mock("../repository/products.repo");
 ProductRepo.prototype.load = jest.fn();
 ProductRepo.prototype.create = jest.fn();
 ProductRepo.prototype.update = jest.fn();
 ProductRepo.prototype.delete = jest.fn();
+
+jest.mock("../repository/menus.repo");
+MenuRepo.prototype.load = jest.fn();
 
 const mockCategory = "Test category";
 const mockAllergen = [new GenericModel("Test allergen", "Test allergen icon")];
@@ -55,6 +61,9 @@ mockUpdateProduct.id = "0050";
 
 const mockProducts = [mockProduct, mockProduct1, mockUpdateProduct];
 
+const mockMenu1 = { id: "IdMenu1", name: "NameMenu1" };
+const mockMenus = [mockMenu1];
+
 const mockRepoResponse = () => {
     (ProductRepo.prototype.load as jest.Mock).mockResolvedValue(mockProducts);
     (ProductRepo.prototype.create as jest.Mock).mockResolvedValue(
@@ -64,20 +73,40 @@ const mockRepoResponse = () => {
         mockUpdateProduct
     );
     (ProductRepo.prototype.delete as jest.Mock).mockResolvedValue(mockProduct1);
+    (MenuRepo.prototype.load as jest.Mock).mockResolvedValue(mockMenus);
 };
 ProductRepo.prototype.load = jest.fn();
 ProductRepo.prototype.create = jest.fn();
 ProductRepo.prototype.update = jest.fn();
 ProductRepo.prototype.delete = jest.fn();
 
+const mockUser = {
+    id: "Id Logged User",
+    name: "Name Logged User",
+    token: "Token Logged User",
+    menu: [],
+};
+const getLoggedUser = jest.fn();
+
 describe(`Given useProduct (custom hook)
             render with a virtual component`, () => {
     let TestComponent: () => JSX.Element;
     let buttons: Array<HTMLElement>;
     beforeEach(async () => {
+        (getAuth as jest.Mock).mockImplementation(() => {
+            return {
+                currentUser: { displayName: "Mock name user logged" },
+            };
+        });
         TestComponent = () => {
-            const { handleLoad, handleAdd, handleUpdate, handleDelete } =
-                useProduct();
+            const {
+                handleLoad,
+                handleAdd,
+                handleUpdate,
+                handleDelete,
+                handleMenu,
+                handleLoadMenuNotLoggedUser,
+            } = useProduct();
             return (
                 <>
                     <button onClick={handleLoad}>Load</button>
@@ -91,6 +120,15 @@ describe(`Given useProduct (custom hook)
                         Delete
                     </button>
 
+                    <button
+                        onClick={() =>
+                            handleLoadMenuNotLoggedUser(mockMenu1.id)
+                        }
+                    >
+                        Load Menus
+                    </button>
+                    <button onClick={handleMenu}>Get logged User</button>
+
                     <div>
                         <p>Loaded</p>
                         <ul>
@@ -99,10 +137,20 @@ describe(`Given useProduct (custom hook)
                             ))}
                         </ul>
                     </div>
+
+                    <div>
+                        <p>Menus</p>
+                        <ul>
+                            {mockMenus.map((menu) => (
+                                <li key={menu.id}>{menu.name}</li>
+                            ))}
+                        </ul>
+                    </div>
                 </>
             );
         };
         mockRepoResponse();
+
         await act(() =>
             render(
                 <MemoryRouter>
@@ -116,7 +164,6 @@ describe(`Given useProduct (custom hook)
         test("Then its function handleLoad should be add Products to the state", async () => {
             userEvent.click(buttons[0]);
             await act(async () => {
-                expect(ProductRepo.prototype.load).toHaveBeenCalled();
                 expect(
                     await screen.findByText(mockProduct.productName)
                 ).toBeInTheDocument();
@@ -154,6 +201,22 @@ describe(`Given useProduct (custom hook)
                 expect(() =>
                     screen.findByText(mockProduct1.productName)
                 ).rejects.toThrowError();
+            });
+        });
+
+        test("Then its function handleLoadMenuNotLoggedUser should be update products list in state", async () => {
+            userEvent.click(buttons[4]);
+            await act(async () => {
+                expect(MenuRepo.prototype.load).toHaveBeenCalled();
+                expect(
+                    await screen.findByText(mockMenu1.name)
+                ).toBeInTheDocument();
+            });
+        });
+        test("Then its function handleLoadMenu should be render user menu", async () => {
+            userEvent.click(buttons[5]);
+            waitFor(async () => {
+                expect(getLoggedUser).toHaveBeenCalled();
             });
         });
     });

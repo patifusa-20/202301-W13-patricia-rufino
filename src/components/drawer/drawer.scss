@@ -1,0 +1,37 @@
+@import "../../scss/variables.scss";
+@import "../../scss/mixins.scss";
+
+.drawer__back {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.7);
+    @include flexbox(flex, flex-end, stretch);
+}
+
+.drawer {
+    background-color: $primary-color;
+    width: 80%;
+    border-radius: 3rem 0 0 0;
+    max-height: 100vh;
+    font-size: 1rem;
+    &__header {
+        @include flexbox(flex, space-between, center);
+        padding: 1rem 3rem;
+        button {
+            background-color: transparent;
+            img {
+                width: 2.5rem;
+            }
+        }
+    }
+    &__body {
+        padding: 1rem 0;
+        button {
+            width: auto;
+        }
+    }
+}

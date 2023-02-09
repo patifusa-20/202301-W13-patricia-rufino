@@ -36,7 +36,7 @@ describe('Given "External Images" component', () => {
             expect(elementList).toBeInTheDocument();
         });
         test("Then images could be used to fire event on click", async () => {
-            const elementImg = await screen.findAllByAltText("image");
+            const elementImg = await screen.findAllByAltText(mockQuery);
             userEvent.click(elementImg[0]);
             act(() => {
                 expect(mockHandleSelectExtImage).toHaveBeenCalled();
