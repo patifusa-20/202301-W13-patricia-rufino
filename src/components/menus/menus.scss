@@ -30,12 +30,12 @@
             width: 100%;
         }
     }
-    li:nth-child(1) {
+    li:nth-child(3n) {
         .menus__card {
             background-position: center;
         }
     }
-    li:nth-child(2) {
+    li:nth-child(2n) {
         .menus__card {
             background-position: top;
         }
