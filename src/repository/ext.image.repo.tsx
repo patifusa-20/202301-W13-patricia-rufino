@@ -3,7 +3,7 @@ import { RepositoryImages } from "../types/repo.images.type";
 
 export class ImageRepo implements RepositoryImages<ImageStructure> {
     constructor(
-        public url = "https://api.unsplash.com/search/photos?lang=es&per_page=21&query="
+        public url = "https://api.unsplash.com/search/photos?lang=es&per_page=33&query="
     ) {
         //
     }

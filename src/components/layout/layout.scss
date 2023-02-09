@@ -1,6 +1,9 @@
 @import "../../scss/variables.scss";
 @import "../../scss/mixins.scss";
 
+main {
+    padding-top: 1rem;
+}
 h1 {
     font-size: 1rem;
 }
@@ -97,6 +100,9 @@ h3 {
     .icon-btn {
         margin: 2rem 0 1rem 0;
         align-self: flex-end;
+    }
+    .primary-btn {
+        max-width: 100%;
     }
 }
 

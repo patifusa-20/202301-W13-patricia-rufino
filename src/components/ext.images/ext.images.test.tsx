@@ -29,7 +29,6 @@ describe('Given "External Images" component', () => {
                         queryImage={mockQuery}
                     ></ExtImages>
                 );
-                screen.debug();
             });
         });
         test("Then images should be render", async () => {
