@@ -33,7 +33,7 @@ describe('Given "Menus" component', () => {
             const elementList = await screen.findByRole("list"); // <ul />
             expect(elementList).toBeInTheDocument();
 
-            const elementItem = await screen.findByText(mockUser1.userName);
+            const elementItem = await screen.findByText("N.u");
             expect(elementItem).toBeInTheDocument();
         });
     });
