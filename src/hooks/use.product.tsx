@@ -1,5 +1,5 @@
 import { getAuth } from "firebase/auth";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MenuRepo } from "../repository/menus.repo";
 import { ProductRepo } from "../repository/products.repo";
@@ -132,6 +132,10 @@ export function useProduct(): UseProductStructure {
         handleMenuDeleteProduct(id);
         navigate("products");
     };
+
+    useEffect(() => {
+        products;
+    }, []);
 
     return {
         products,

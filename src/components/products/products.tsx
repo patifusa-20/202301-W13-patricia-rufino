@@ -19,9 +19,10 @@ export function Products() {
         if (location.pathname !== "/products") {
             const idMenu = location.pathname.split("/")[2];
             handleLoadMenuNotLoggedUser(idMenu);
+        } else {
+            handleLoad();
         }
-        handleLoad();
-    }, [handleLoad]);
+    }, []);
 
     return (
         <>
