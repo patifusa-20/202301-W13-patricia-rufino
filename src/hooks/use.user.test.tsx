@@ -2,7 +2,7 @@ import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { MenuRepo } from "../repository/menus.repo";
-import { signOut, signInWithPopup } from "firebase/auth";
+import { signOut, signInWithRedirect } from "firebase/auth";
 import { UserRepo } from "../repository/users.repo";
 import { useUser } from "./use.user";
 
@@ -46,7 +46,9 @@ describe(`Given useProduct (custom hook)
         (UserRepo.prototype.create as jest.Mock).mockResolvedValue(mockAddUser);
         (MenuRepo.prototype.load as jest.Mock).mockResolvedValue(mockMenus);
         (MenuRepo.prototype.create as jest.Mock).mockResolvedValue(mockMenus);
-        (signInWithPopup as jest.Mock).mockResolvedValue(mockUserCredentials);
+        (signInWithRedirect as jest.Mock).mockResolvedValue(
+            mockUserCredentials
+        );
         (signOut as jest.Mock).mockResolvedValue(mockUserCredentials);
     };
     UserRepo.prototype.load = jest.fn();
@@ -98,7 +100,7 @@ describe(`Given useProduct (custom hook)
             userEvent.click(buttons[0]);
             userEvent.click(buttons[2]);
             await act(async () => {
-                expect(signInWithPopup).toHaveBeenCalled();
+                expect(signInWithRedirect).toHaveBeenCalled();
             });
         });
 

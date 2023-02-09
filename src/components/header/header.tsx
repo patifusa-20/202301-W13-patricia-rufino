@@ -1,18 +1,19 @@
-import { getAuth } from "firebase/auth";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ProductsContext } from "../../context/products.context";
 import { Drawer } from "../drawer/drawer";
 import "./header.scss";
 export function Header() {
-    const auth = getAuth();
-    const currentUser = auth.currentUser;
-
-    const { showDrawer, handleDrawer } = useContext(ProductsContext);
+    const { userLogged, showDrawer, handleDrawer } =
+        useContext(ProductsContext);
 
     const handleClickDrawer = () => {
         handleDrawer();
     };
+
+    useEffect(() => {
+        userLogged;
+    }, [userLogged]);
 
     return (
         <header aria-label="title">
@@ -21,7 +22,9 @@ export function Header() {
                     <span>MIY</span> - Menu it yourself
                 </h1>
             </Link>
-            {currentUser !== null ? (
+            {userLogged.id.length <= 0 ? (
+                ""
+            ) : (
                 <button
                     type="button"
                     className="icon-btn"
@@ -29,8 +32,6 @@ export function Header() {
                 >
                     <img src="./assets/icons/icon-user.svg"></img>
                 </button>
-            ) : (
-                ""
             )}
             {showDrawer ? <Drawer></Drawer> : ""}
         </header>

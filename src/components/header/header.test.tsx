@@ -1,28 +1,23 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { getAuth } from "firebase/auth";
 import { MemoryRouter as Router } from "react-router";
 import { ProductsContext } from "../../context/products.context";
 import { ProductsContextStructure } from "../../types/products.context.type";
 import { Drawer } from "../drawer/drawer";
 import { Header } from "./header";
-jest.mock("firebase/auth");
 jest.mock("../drawer/drawer");
 
 const handleDrawer = jest.fn();
 describe("Given Header component", () => {
     describe("When it has been render and user is logged", () => {
+        const userLogged = { id: "Mock user" };
         const showDrawer = true;
         const mockContext = {
+            userLogged,
             showDrawer,
             handleDrawer,
         } as unknown as ProductsContextStructure;
         beforeEach(() => {
-            (getAuth as jest.Mock).mockImplementation(() => {
-                return {
-                    currentUser: { displayName: "Mock name user logged" },
-                };
-            });
             (Drawer as jest.Mock).mockImplementation(() => {
                 return <p>Mock drawer</p>;
             });
@@ -51,17 +46,14 @@ describe("Given Header component", () => {
         });
     });
     describe("When it has been render and user is NOT logged", () => {
+        const userLogged = { id: "" };
         const showDrawer = false;
         const mockContext = {
+            userLogged,
             showDrawer,
             handleDrawer,
         } as unknown as ProductsContextStructure;
         beforeEach(() => {
-            (getAuth as jest.Mock).mockImplementation(() => {
-                return {
-                    currentUser: null,
-                };
-            });
             (Drawer as jest.Mock).mockImplementation(() => {
                 return <p>Mock drawer</p>;
             });

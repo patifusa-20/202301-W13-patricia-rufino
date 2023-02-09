@@ -1,9 +1,14 @@
-import { signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+import {
+    signInWithRedirect,
+    GoogleAuthProvider,
+    signOut,
+    getRedirectResult,
+} from "firebase/auth";
 import { auth } from "../firebase.config";
 import { UserRepo } from "../repository/users.repo";
 import { UserStructure } from "../types/user.type";
 import { MenuRepo } from "../repository/menus.repo";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ProductStructure } from "../types/product.type";
 import { useNavigate } from "react-router-dom";
 import { UseUserStructure } from "../types/use.user.type";
@@ -40,15 +45,7 @@ export function useUser(): UseUserStructure {
 
     const login = async () => {
         const provider = new GoogleAuthProvider();
-        const userCredentials = await signInWithPopup(auth, provider);
-
-        // Actualizamos los datos en el estado para indicar que se acaba de logar tal usuario
-        userLogged.id = userCredentials.user.uid;
-        userLogged.userName = userCredentials.user.displayName as string;
-        userLogged.token = await userCredentials.user.getIdToken();
-        const currentUser = userLogged;
-        setUser(currentUser);
-        handleLoadUser(currentUser);
+        signInWithRedirect(auth, provider);
     };
 
     const handleAddUser = async (user: UserStructure) => {
@@ -83,6 +80,26 @@ export function useUser(): UseUserStructure {
         signOut(auth);
         console.log("El usuario ha cerrado la sesión con logout");
     };
+
+    const handleDataLogin = async () => {
+        const userCredentials = await getRedirectResult(auth);
+        // Actualizamos los datos en el estado para indicar que se acaba de logar tal usuario
+        if (userCredentials !== null) {
+            userLogged.id = await userCredentials.user.uid;
+            userLogged.userName = (await userCredentials.user
+                .displayName) as string;
+            userLogged.token = await userCredentials.user.getIdToken();
+            const currentUser = userLogged;
+            setUser(currentUser);
+            handleLoadUser(currentUser);
+        } else {
+            setUser(userLogged);
+        }
+    };
+
+    useEffect(() => {
+        handleDataLogin();
+    }, []);
 
     return {
         userLogged,
