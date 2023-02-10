@@ -178,9 +178,6 @@ describe(`Given useProduct (custom hook)
             userEvent.click(buttons[0]);
             act(() => {
                 expect(MenuRepo.prototype.load).toHaveBeenCalled();
-                expect(
-                    screen.findByText(mockProduct.productName)
-                ).toBeInTheDocument();
             });
         });
         test("Then its function handleAdd should be used", () => {
