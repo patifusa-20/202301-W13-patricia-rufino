@@ -32,22 +32,17 @@ export function useProduct(): UseProductStructure {
         const currentUser = auth.currentUser;
 
         if (currentUser !== null) {
-            const dataUserLogged = usersLoad.find(
+            const dataLoggedUser = usersLoad.find(
                 (user) => user.id === currentUser.uid
             ) as UserStructure;
-            console.log(
-                "El usuario " + currentUser.displayName + " está logueado"
-            );
-            return dataUserLogged;
-        } else {
-            console.log("El usuario no se ha logueado");
+            return dataLoggedUser;
         }
     };
 
     const handleMenu = async () => {
-        const dataUserLogged = await getLoggedUser();
-        if (dataUserLogged !== undefined) {
-            const idMenuUser = dataUserLogged.menu.id;
+        const dataLoggedUser = await getLoggedUser();
+        if (dataLoggedUser !== undefined) {
+            const idMenuUser = dataLoggedUser.menu.id;
             const menus = repoMenu.load();
             const menuUser = (await menus).find(
                 (menu) => menu.id === idMenuUser
@@ -127,8 +122,11 @@ export function useProduct(): UseProductStructure {
     };
 
     const handleDelete = async function (id: ProductStructure["id"]) {
-        setProducts(products.filter((item) => item.id !== id));
         await repo.delete(id);
+        const productsWithoutDeleted = products.filter(
+            (item) => item.id !== id
+        );
+        setProducts(productsWithoutDeleted);
         handleMenuDeleteProduct(id);
         navigate("products");
     };

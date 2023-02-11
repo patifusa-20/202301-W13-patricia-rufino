@@ -85,7 +85,7 @@ export function useUser(): UseUserStructure {
         const userCredentials = await getRedirectResult(auth);
         // Actualizamos los datos en el estado para indicar que se acaba de logar tal usuario
         if (userCredentials !== null) {
-            userLogged.id = await userCredentials.user.uid;
+            userLogged.id = userCredentials.user.uid;
             userLogged.userName = (await userCredentials.user
                 .displayName) as string;
             userLogged.token = await userCredentials.user.getIdToken();

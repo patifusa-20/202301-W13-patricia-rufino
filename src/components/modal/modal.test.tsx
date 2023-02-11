@@ -2,10 +2,7 @@ import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ProductsContext } from "../../context/products.context";
 import { ProductsContextStructure } from "../../types/products.context.type";
-import { ExtImages } from "../ext.images/ext.images";
 import { Modal } from "./modal";
-
-jest.mock("../ext.images/ext.images");
 
 describe("Given Modal component", () => {
     const handleModal = jest.fn();
@@ -21,15 +18,6 @@ describe("Given Modal component", () => {
         let buttonElements: Array<HTMLElement>;
         let inputElement: HTMLInputElement;
         beforeEach(() => {
-            (ExtImages as jest.Mock).mockImplementation(() => {
-                return (
-                    <ul>
-                        <li onClick={handleSelectExtImage}>
-                            Mock external image
-                        </li>
-                    </ul>
-                );
-            });
             render(
                 <ProductsContext.Provider value={mockContext}>
                     <Modal
@@ -49,16 +37,18 @@ describe("Given Modal component", () => {
             expect(title).toBeInTheDocument();
         });
 
-        test("Then button could be used for send the function received in props", () => {
+        test("Then CLOSE button could be used for send the function received in context", () => {
             userEvent.click(buttonElements[0]);
             act(() => {
                 expect(handleModal).toHaveBeenCalled();
             });
         });
-        test("Then button could be used to fire event on click", async () => {
+        test("Then Unsplash button could be used to fire event on click", () => {
             userEvent.click(buttonElements[1]);
-            const element = await screen.findByText("Mock external image");
-            expect(element).toBeInTheDocument();
+            act(() => {
+                const element = screen.getByText(/Imágenes de Unsplash/i);
+                expect(element).toBeInTheDocument();
+            });
         });
         test("Then input file could be used to attach a image", async () => {
             const mockImageFile = new File(["hello"], "hello.jpg", {

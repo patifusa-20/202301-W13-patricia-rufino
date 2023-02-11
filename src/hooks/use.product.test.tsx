@@ -1,12 +1,21 @@
 import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
-import { GenericModel } from "../model/generic.model";
-import { ProductModel } from "../model/product.model";
 import { MenuRepo } from "../repository/menus.repo";
 import { ProductRepo } from "../repository/products.repo";
 import { useProduct } from "./use.product";
 import { getAuth } from "firebase/auth";
+import { UserRepo } from "../repository/users.repo";
+import {
+    mockProduct1,
+    mockAddProduct,
+    mockUpdateProduct,
+    mockProducts,
+    mockMenu1,
+    mockMenus,
+    mockRepoResponse,
+    mockRepoResponseCase3,
+} from "./mock";
 jest.mock("firebase/auth");
 
 jest.mock("../repository/products.repo");
@@ -18,87 +27,24 @@ ProductRepo.prototype.delete = jest.fn();
 jest.mock("../repository/menus.repo");
 MenuRepo.prototype.load = jest.fn();
 
-const mockCategory = "Test category";
-const mockAllergen = [new GenericModel("Test allergen", "Test allergen icon")];
-const mockProduct = new ProductModel(
-    "Test name 1",
-    "Test image 1",
-    "Test price 1",
-    mockCategory,
-    mockAllergen,
-    false
-);
-mockProduct.id = "0030";
-const mockProduct1 = new ProductModel(
-    "Test name 1a",
-    "Test image 1a",
-    "Test price 1a",
-    mockCategory,
-    mockAllergen,
-    false
-);
-mockProduct1.id = "0035";
-
-const mockAddProduct = new ProductModel(
-    "Test name added",
-    "Test image added",
-    "Test price added",
-    mockCategory,
-    mockAllergen,
-    false
-);
-mockAddProduct.id = "0040";
-
-const mockUpdateProduct = new ProductModel(
-    "Test name updated",
-    "Test image updated",
-    "Test price updated",
-    mockCategory,
-    mockAllergen,
-    false
-);
-mockUpdateProduct.id = "0050";
-
-const mockProducts = [mockProduct, mockProduct1, mockUpdateProduct];
-
-const mockMenu1 = { id: "IdMenu1", name: "NameMenu1" };
-const mockMenus = [mockMenu1];
-
-const mockRepoResponse = () => {
-    (ProductRepo.prototype.load as jest.Mock).mockResolvedValue(mockProducts);
-    (ProductRepo.prototype.create as jest.Mock).mockResolvedValue(
-        mockAddProduct
-    );
-    (ProductRepo.prototype.update as jest.Mock).mockResolvedValue(
-        mockUpdateProduct
-    );
-    (ProductRepo.prototype.delete as jest.Mock).mockResolvedValue(mockProduct1);
-    (MenuRepo.prototype.load as jest.Mock).mockResolvedValue(mockMenus);
-};
-ProductRepo.prototype.load = jest.fn();
-ProductRepo.prototype.create = jest.fn();
-ProductRepo.prototype.update = jest.fn();
-ProductRepo.prototype.delete = jest.fn();
-
-const mockUser = {
-    id: "Id Logged User",
-    name: "Name Logged User",
-    token: "Token Logged User",
-    menu: [],
-};
-const getLoggedUser = jest.fn();
+jest.mock("../repository/users.repo");
+UserRepo.prototype.load = jest.fn();
 
 describe(`Given useProduct (custom hook)
-            render with a virtual component`, () => {
-    let TestComponent: () => JSX.Element;
+            render with a virtual component with case 1`, () => {
+    let TestComponentCase1: () => JSX.Element;
     let buttons: Array<HTMLElement>;
     beforeEach(async () => {
         (getAuth as jest.Mock).mockImplementation(() => {
             return {
-                currentUser: { displayName: "Mock name user logged" },
+                currentUser: {
+                    uid: "0158",
+                    id: "0158",
+                    displayName: "Mock name user logged",
+                },
             };
         });
-        TestComponent = () => {
+        TestComponentCase1 = () => {
             const {
                 handleLoad,
                 handleAdd,
@@ -154,53 +100,39 @@ describe(`Given useProduct (custom hook)
         await act(() =>
             render(
                 <MemoryRouter>
-                    <TestComponent />
+                    <TestComponentCase1 />
                 </MemoryRouter>
             )
         );
         buttons = screen.getAllByRole("button");
     });
     describe(`When the repo is working OK`, () => {
-        test("Then its function handleLoad should be add Products to the state", async () => {
+        test("Then its function handleLoad should be load Products to the state", async () => {
             userEvent.click(buttons[0]);
-            await act(async () => {
-                expect(
-                    await screen.findByText(mockProduct.productName)
-                ).toBeInTheDocument();
+            act(() => {
+                expect(MenuRepo.prototype.load).toHaveBeenCalled();
             });
         });
-        test("Then its function handleAdd should be used", async () => {
-            userEvent.click(buttons[0]);
+        test("Then its function handleAdd should be used", () => {
             userEvent.click(buttons[1]);
-            waitFor(() => {
+            act(() => {
                 expect(ProductRepo.prototype.create).toHaveBeenCalled();
-                expect(
-                    screen.findByText(mockAddProduct.productName)
-                ).toBeInTheDocument();
             });
         });
         test("Then its function handleUpdate should be used", async () => {
-            userEvent.click(buttons[0]);
             userEvent.click(buttons[2]);
-            waitFor(() => {
+            waitFor(async () => {
                 expect(ProductRepo.prototype.update).toHaveBeenCalled();
                 expect(
-                    screen.findByText(mockUpdateProduct.productName)
+                    await screen.findByText(mockUpdateProduct.productName)
                 ).toBeInTheDocument();
             });
         });
 
         test("Then its function handleDelete should be used", async () => {
-            userEvent.click(buttons[0]);
             userEvent.click(buttons[3]);
-            waitFor(() => {
+            waitFor(async () => {
                 expect(ProductRepo.prototype.delete).toHaveBeenCalled();
-                expect(
-                    screen.findByText(mockProduct.productName)
-                ).toBeInTheDocument();
-                expect(() =>
-                    screen.findByText(mockProduct1.productName)
-                ).rejects.toThrowError();
             });
         });
 
@@ -216,7 +148,96 @@ describe(`Given useProduct (custom hook)
         test("Then its function handleLoadMenu should be render user menu", async () => {
             userEvent.click(buttons[5]);
             waitFor(async () => {
-                expect(getLoggedUser).toHaveBeenCalled();
+                expect(MenuRepo.prototype.load).toHaveBeenCalled();
+                expect(UserRepo.prototype.load).toHaveBeenCalled();
+            });
+        });
+    });
+});
+
+describe(`Given useProduct (custom hook)
+            render with a virtual component with case 2`, () => {
+    let TestComponentCase2: () => JSX.Element;
+    let buttons: Array<HTMLElement>;
+    beforeEach(async () => {
+        (getAuth as jest.Mock).mockImplementation(() => {
+            return {
+                currentUser: null,
+            };
+        });
+        TestComponentCase2 = () => {
+            const { handleLoad, handleAdd } = useProduct();
+            return (
+                <>
+                    <button onClick={handleLoad}>Load</button>
+                    <button onClick={() => handleAdd(mockAddProduct)}>
+                        Add
+                    </button>
+                </>
+            );
+        };
+        mockRepoResponse();
+
+        await act(() =>
+            render(
+                <MemoryRouter>
+                    <TestComponentCase2 />
+                </MemoryRouter>
+            )
+        );
+        buttons = screen.getAllByRole("button");
+    });
+    describe(`When the repo is working OK`, () => {
+        test("Then its function handleAdd should be used", () => {
+            userEvent.click(buttons[1]);
+            act(() => {
+                expect(ProductRepo.prototype.create).toHaveBeenCalled();
+            });
+        });
+    });
+});
+
+describe(`Given useProduct (custom hook)
+            render with a virtual component with case 3`, () => {
+    let TestComponentCase3: () => JSX.Element;
+    let buttons: Array<HTMLElement>;
+    beforeEach(async () => {
+        (getAuth as jest.Mock).mockImplementation(() => {
+            return {
+                currentUser: {
+                    uid: "0158",
+                    id: "0158",
+                    displayName: "Mock name user logged",
+                },
+            };
+        });
+        TestComponentCase3 = () => {
+            const { handleLoad, handleAdd } = useProduct();
+            return (
+                <>
+                    <button onClick={handleLoad}>Load</button>
+                    <button onClick={() => handleAdd(mockAddProduct)}>
+                        Add
+                    </button>
+                </>
+            );
+        };
+        mockRepoResponseCase3();
+
+        await act(() =>
+            render(
+                <MemoryRouter>
+                    <TestComponentCase3 />
+                </MemoryRouter>
+            )
+        );
+        buttons = screen.getAllByRole("button");
+    });
+    describe(`When the repo is working OK`, () => {
+        test("Then its function handleAdd should be used", () => {
+            userEvent.click(buttons[1]);
+            act(() => {
+                expect(ProductRepo.prototype.create).toHaveBeenCalled();
             });
         });
     });

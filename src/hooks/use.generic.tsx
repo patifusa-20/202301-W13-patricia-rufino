@@ -48,9 +48,14 @@ export function useGeneric(): UseGenericStructure {
         setDrawer(!showDrawer);
     };
 
+    const handleError = (error: Error) => {
+        return `${error} Ups, algo no ha ido bien. Por favor, inténtalo de nuevo`;
+    };
+
     useEffect(() => {
-        category.isFiltered = true;
-        category.isSelected = true;
+        // Pendiente de forfirmar su uso
+        // category.isFiltered = true;
+        // category.isSelected = true;
     }, []);
 
     return {
@@ -65,5 +70,6 @@ export function useGeneric(): UseGenericStructure {
         handleCategory,
         handleModal,
         handleDrawer,
+        handleError,
     };
 }

@@ -8,6 +8,7 @@ import { Allergens } from "../allergens/allergens";
 import { Categories } from "../categories/categories";
 import { Modal } from "../modal/modal";
 import { useLocation } from "react-router-dom";
+import { useGeneric } from "../../hooks/use.generic";
 
 export function ProductForm({
     formData,
@@ -25,6 +26,8 @@ export function ProductForm({
         handleDelete,
         handleModal,
     } = useContext(ProductsContext);
+
+    const { handleError } = useGeneric();
 
     const [form, setFormData] = useState(formData);
 
@@ -90,7 +93,7 @@ export function ProductForm({
                     setFormData({ ...form });
                 })
                 .catch((error) => {
-                    console.log(error);
+                    handleError(error);
                 });
         };
         form.isExtImage ? handleAdd(addProduct) : addLocalImage();
