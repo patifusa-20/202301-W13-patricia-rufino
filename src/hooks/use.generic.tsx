@@ -49,7 +49,7 @@ export function useGeneric(): UseGenericStructure {
     };
 
     const handleError = (error: Error) => {
-        const isError = true;
+        return `${error} Ups, algo no ha ido bien. Por favor, inténtalo de nuevo`;
     };
 
     useEffect(() => {
