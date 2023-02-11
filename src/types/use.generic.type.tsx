@@ -13,4 +13,5 @@ export type UseGenericStructure = {
     handleCategory: (category: GenericStructure) => void;
     handleModal: () => void;
     handleDrawer: () => void;
+    handleError: (error: Error) => void;
 };
