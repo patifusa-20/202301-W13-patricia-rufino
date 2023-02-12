@@ -1,0 +1,33 @@
+@import "../../scss/variables.scss";
+@import "../../scss/mixins.scss";
+
+.add-product {
+    @include flexbox(flex, center, stretch);
+    flex-direction: column;
+    max-width: 400px;
+    margin: auto;
+    text-align: left;
+    &__label {
+        display: block;
+        margin-top: 1rem;
+        margin-bottom: 0.4rem;
+    }
+    &__input {
+        min-height: 40px;
+        width: 100%;
+        padding: 0.3rem 1rem;
+        border-radius: 0.8rem;
+    }
+    > div:nth-child(2) {
+        input {
+            width: 30%;
+        }
+    }
+    .icon-btn {
+        align-self: flex-end;
+    }
+    .primary-btn {
+        margin-top: 2rem;
+        max-width: 100%;
+    }
+}

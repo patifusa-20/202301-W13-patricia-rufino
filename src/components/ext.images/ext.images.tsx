@@ -26,7 +26,12 @@ export function ExtImages({
 
     return (
         <>
-            <h2>Imágenes de Unsplash</h2>
+            <div className="custom-header">
+                <h2>Colección Unsplash</h2>
+                <h4 className="custom-header__subtitle">
+                    Imágenes encontradas para <span>{queryImage}</span>
+                </h4>
+            </div>
             <ul className="custom-list">
                 {images.map((image) => {
                     return (

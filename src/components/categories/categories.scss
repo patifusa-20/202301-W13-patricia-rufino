@@ -15,8 +15,13 @@
         padding: 0.4rem 0.9rem;
         text-transform: capitalize;
         letter-spacing: 1px;
+        transition: all 0.5s;
 
         &.active {
+            background-color: $secondary-dark-color;
+            color: $secondary-color;
+        }
+        &:hover {
             background-color: $secondary-dark-color;
             color: $secondary-color;
         }

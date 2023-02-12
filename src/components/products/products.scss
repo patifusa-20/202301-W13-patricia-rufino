@@ -67,4 +67,8 @@
         width: 60%;
         opacity: 0.4;
     }
+    & + p {
+        padding: 1rem 0;
+        display: block;
+    }
 }
