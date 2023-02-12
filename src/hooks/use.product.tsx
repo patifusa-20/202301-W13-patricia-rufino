@@ -1,5 +1,5 @@
 import { getAuth } from "firebase/auth";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { MenuRepo } from "../repository/menus.repo";
 import { ProductRepo } from "../repository/products.repo";
@@ -8,6 +8,9 @@ import { MenuStructure } from "../types/menu.type";
 import { ProductStructure } from "../types/product.type";
 import { UseProductStructure } from "../types/use.product.type";
 import { UserStructure } from "../types/user.type";
+import * as actionCreator from "../reducers/products/action.creators";
+import { productReducer } from "../reducers/products/product.reducer";
+
 export function useProduct(): UseProductStructure {
     const repoUser = new UserRepo();
     const repoMenu = new MenuRepo();
@@ -16,14 +19,17 @@ export function useProduct(): UseProductStructure {
 
     const navigate = useNavigate();
 
-    const [products, setProducts] = useState(initialProductState);
+    const [products, dispatch] = useReducer(
+        productReducer,
+        initialProductState
+    );
 
     const handleLoadMenuNotLoggedUser = async (idMenu: string) => {
         const menusLoad = await repoMenu.load();
         const menuPath = menusLoad.find(
             (menu) => menu.id === idMenu
         ) as MenuStructure;
-        setProducts(menuPath.products);
+        dispatch(actionCreator.productLoadActionCreator(menuPath.products));
     };
 
     const getLoggedUser = async () => {
@@ -60,7 +66,7 @@ export function useProduct(): UseProductStructure {
                     : (menuUser.products = []);
             updatedMenu.push(newProduct);
             await repoMenu.update(menuUser as Partial<MenuStructure>);
-            setProducts(updatedMenu);
+            dispatch(actionCreator.productLoadActionCreator(updatedMenu));
         }
     };
 
@@ -75,7 +81,11 @@ export function useProduct(): UseProductStructure {
         (menuUser as MenuStructure).products =
             updateProductsUser as ProductStructure[];
         await repoMenu.update(menuUser as Partial<MenuStructure>);
-        setProducts(updateProductsUser as ProductStructure[]);
+        dispatch(
+            actionCreator.productLoadActionCreator(
+                updateProductsUser as ProductStructure[]
+            )
+        );
     };
 
     const handleMenuDeleteProduct = async (id: ProductStructure["id"]) => {
@@ -87,7 +97,11 @@ export function useProduct(): UseProductStructure {
         (menuUser as MenuStructure).products =
             updateProductsUser as ProductStructure[];
         await repoMenu.update(menuUser as Partial<MenuStructure>);
-        setProducts(updateProductsUser as ProductStructure[]);
+        dispatch(
+            actionCreator.productLoadActionCreator(
+                updateProductsUser as ProductStructure[]
+            )
+        );
     };
 
     const handleLoad = useCallback(async () => {
@@ -97,38 +111,35 @@ export function useProduct(): UseProductStructure {
                 menuUser.products !== undefined
                     ? menuUser.products
                     : (menuUser.products = []);
-            setProducts(productsUser);
+            dispatch(actionCreator.productLoadActionCreator(productsUser));
         }
     }, []);
 
     const handleAdd = async function (product: ProductStructure) {
-        setProducts([...products, product]);
+        dispatch(actionCreator.productAddActionCreator(product));
         const newIdProduct = await repo.create(product);
         product.id = Object.values(newIdProduct)[0] as unknown as string;
         handleMenuAddProduct({ ...product });
 
         navigate("products");
+        handleLoad();
     };
 
     const handleUpdate = async function (product: Partial<ProductStructure>) {
-        setProducts(
-            products.map((item) =>
-                item.id === product.id ? { ...item, ...product } : item
-            )
-        );
-        await repo.update(product);
+        const updatedProduct = await repo.update(product);
+        dispatch(actionCreator.productUpdateActionCreator(updatedProduct));
+
         handleMenuUpdateProduct(product);
         navigate("products");
+        handleLoad();
     };
 
     const handleDelete = async function (id: ProductStructure["id"]) {
-        await repo.delete(id);
-        const productsWithoutDeleted = products.filter(
-            (item) => item.id !== id
-        );
-        setProducts(productsWithoutDeleted);
+        const finalId = await repo.delete(id);
+        dispatch(actionCreator.productDeleteActionCreator(finalId));
         handleMenuDeleteProduct(id);
         navigate("products");
+        handleLoad();
     };
 
     useEffect(() => {
