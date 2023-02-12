@@ -12,7 +12,18 @@ export function Product({ product }: { product: ProductStructure }) {
                     >
                         <p>{product.price}€</p>
                     </div>
-                    <p className="card_title">{product.productName}</p>
+                    <div className="card_bottom">
+                        <p className="card_title">{product.productName}</p>
+                        <div className="card_allergens">
+                            {product.allergens?.map((item) => {
+                                return (
+                                    <span key={item.id}>
+                                        <img src={item.icon} alt={item.name} />
+                                    </span>
+                                );
+                            })}
+                        </div>
+                    </div>
                 </Link>
             </li>
         </>

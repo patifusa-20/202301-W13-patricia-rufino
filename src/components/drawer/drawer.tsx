@@ -34,6 +34,10 @@ export function Drawer() {
                         </button>
                     </div>
                     <div className="drawer__body">
+                        <h2>Hola {userLogged.userName}</h2>
+                        <p>
+                            Actualmente tienes la siguiente opción disponible:
+                        </p>
                         <button
                             type="button"
                             className="primary-btn"

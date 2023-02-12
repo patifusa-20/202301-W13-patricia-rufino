@@ -15,9 +15,23 @@
 .drawer {
     background-color: $primary-color;
     width: 80%;
+    @media screen and (min-width: 768px) {
+        width: 30%;
+    }
     border-radius: 3rem 0 0 0;
     max-height: 100vh;
     font-size: 1rem;
+    animation: drawerAnim 0.5s forwards;
+    @keyframes drawerAnim {
+        0% {
+            opacity: 0;
+            transform: translateX(2rem);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0rem);
+        }
+    }
     &__header {
         @include flexbox(flex, space-between, center);
         padding: 1rem 3rem;
@@ -29,7 +43,9 @@
         }
     }
     &__body {
-        padding: 1rem 0;
+        padding: 0 3rem;
+        text-align: left;
+        color: $text-color;
         button {
             width: auto;
         }

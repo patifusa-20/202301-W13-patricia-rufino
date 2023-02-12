@@ -15,6 +15,7 @@
     max-width: 200px;
     border-radius: 15%;
     box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s;
     &_image {
         position: relative;
         background-size: cover;
@@ -28,13 +29,35 @@
             background-color: $secondary-color;
             color: $secondary-dark-color;
             padding: 0.3rem 1rem;
+            border-radius: 5rem 0 0 5rem;
+            box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
         }
     }
-    &_title {
+    &_bottom {
         padding: 1rem;
+    }
+    &_title {
+        display: inline;
         font-size: 1rem;
         color: $secondary-dark-color;
         text-align: center;
+    }
+    &_allergens {
+        position: relative;
+        top: 0.2rem;
+        display: inline;
+        span {
+            display: inline-block;
+            width: 18px;
+        }
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+    &:hover {
+        box-shadow: 3px 3px 8px rgba(0, 0, 0, 0);
+        background-color: darken($secondary-color, 3%);
     }
 }
 
