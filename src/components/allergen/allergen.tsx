@@ -6,9 +6,9 @@ export function Allergen({ allergen }: { allergen: GenericStructure }) {
     const { handleAllergen } = useContext(ProductsContext);
 
     const handleAllergenSelected = () => {
-        allergen.isSelected = !allergen.isSelected;
         handleAllergen(allergen);
     };
+
     return (
         <>
             <li className="allergen">

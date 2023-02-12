@@ -13,6 +13,7 @@ const handleAdd = jest.fn();
 const handleModal = jest.fn().mockReturnValue(!showModal);
 const handleUpdate = jest.fn();
 const handleDelete = jest.fn();
+const handleFilter = jest.fn();
 
 export const mockContext = {
     category,
@@ -23,6 +24,7 @@ export const mockContext = {
     showModal,
     handleDelete,
     handleModal,
+    handleFilter,
 } as unknown as ProductsContextStructure;
 
 export const mockFormData = {

@@ -1,6 +1,7 @@
 import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { getDownloadURL } from "firebase/storage";
+import { SyntheticEvent } from "react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { ProductsContext } from "../../context/products.context";
 import { Allergens } from "../allergens/allergens";
@@ -89,7 +90,7 @@ describe("Given Form component", () => {
     });
 });
 
-describe("Given Form component to Test Case 2, external image", () => {
+describe("Given Form component to Test Case 2, local image", () => {
     beforeEach(() => {
         (Categories as jest.Mock).mockImplementation(() => {
             return <p>Mock Categories</p>;
@@ -126,11 +127,11 @@ describe("Given Form component to Test Case 2, external image", () => {
             buttonElements = screen.getAllByRole("button");
         });
         test("Then button  could be used for send the function received in context", () => {
-            userEvent.click(buttonElements[0]);
+            userEvent.click(buttonElements[1]);
             // Pendiente de seguir validando
-            // act(() => {
-            //     expect(mockContext.handleAdd).toHaveBeenCalled();
-            // });
+            act(() => {
+                expect(mockContext.handleAdd).toHaveBeenCalled();
+            });
         });
     });
 });
@@ -178,3 +179,46 @@ describe("Given Form component in Test Case 3", () => {
         });
     });
 });
+
+// describe(`Given functions provided in virtual component
+//             render`, () => {
+//     let TestComponent: () => JSX.IntrinsicClassAttributes;
+//     let buttons: Array<HTMLElement>;
+//     beforeEach(async () => {
+
+//         TestComponent = ({
+//             handleFileInput,
+//             handleSelectExtImage,
+//         }: {
+//             handleSelectExtImage: (ev: SyntheticEvent) => void;
+//             handleFileInput: (ev: SyntheticEvent) => void;
+//         }) => {
+//             return (
+//                 <>
+//                     <button onClick={handleFileInput}>Load</button>
+//                     <button onClick={() => handleSelectExtImage(ev)}>Add</button>
+//                 </>
+//             );
+//         };
+
+//         await act(() =>
+//             render(
+//                 <MemoryRouter>
+//                     <TestComponent
+//                         handleSelectExtImage={handleSelectExtImage}
+//                         handleFileInput={handleFileInput}
+//                     ></TestComponent>
+//                 </MemoryRouter>
+//             )
+//         );
+//         buttons = screen.getAllByRole("button");
+//     });
+//     describe(`When the repo is working OK`, () => {
+//         test("Then its function handleAdd should be used", () => {
+//             userEvent.click(buttons[1]);
+//             act(() => {
+//                 expect(ProductRepo.prototype.create).toHaveBeenCalled();
+//             });
+//         });
+//     });
+// });

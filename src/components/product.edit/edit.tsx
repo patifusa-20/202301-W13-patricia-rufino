@@ -9,6 +9,7 @@ export function Edit({ product }: { product: ProductStructure }) {
         price: product.price,
         isExtImage: product.isExtImage,
         category: product.category,
+        allergens: product.allergens,
     };
 
     return (
