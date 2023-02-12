@@ -1,24 +1,29 @@
 import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { ProductsContext } from "../context/products.context";
-import { allergensData } from "../data/allergens.data";
 import { GenericStructure } from "../types/generic.type";
 import { UseGenericStructure } from "../types/use.generic.type";
 
 export function useGeneric(): UseGenericStructure {
-    const { category: categorySelected, categories } =
-        useContext(ProductsContext);
+    const {
+        category: categorySelected,
+        categories: categoriesContext,
+        allergens,
+    } = useContext(ProductsContext);
 
     const location = useLocation();
 
     const defaultCategory =
-        location.pathname === "/add-product" ? categories[1] : categorySelected;
+        location.pathname === "/add-product"
+            ? categoriesContext[0]
+            : categorySelected;
 
-    const allergens = allergensData;
     const initialAllergenState = allergens[0];
     const [allergen, setAllergen] = useState(initialAllergenState);
 
     const [category, setCategory] = useState(defaultCategory);
+
+    const [categories, setCategoriesUpdated] = useState(categoriesContext);
 
     const initialStateModal = false;
     const [showModal, setModal] = useState(initialStateModal);
@@ -27,17 +32,23 @@ export function useGeneric(): UseGenericStructure {
     const [showDrawer, setDrawer] = useState(initialStateDrawer);
 
     const handleFilter = (filter: GenericStructure) => {
-        categories.forEach((item) => (item.isFiltered = false));
-        filter.isFiltered = true;
-        setCategory({ ...filter });
+        setCategory({ ...filter, isFiltered: true });
+
+        setCategoriesUpdated(
+            categories.map((item) =>
+                item.id === filter.id
+                    ? { ...item, isFiltered: true }
+                    : { ...item, isFiltered: false }
+            )
+        );
     };
     const handleAllergen = (allergen: GenericStructure) => {
+        allergen.isSelected = !allergen.isSelected;
         setAllergen({ ...allergen });
     };
     const handleCategory = (category: GenericStructure) => {
         categories.forEach((item) => (item.isSelected = false));
-        category.isSelected = true;
-        setCategory({ ...category });
+        setCategory({ ...category, isSelected: true });
     };
 
     const handleModal = () => {
@@ -53,9 +64,8 @@ export function useGeneric(): UseGenericStructure {
     };
 
     useEffect(() => {
-        // Pendiente de forfirmar su uso
-        // category.isFiltered = true;
-        // category.isSelected = true;
+        setCategory({ ...category, isFiltered: true });
+        handleFilter(category);
     }, []);
 
     return {
