@@ -1,7 +1,6 @@
 import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { getDownloadURL } from "firebase/storage";
-import { SyntheticEvent } from "react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { ProductsContext } from "../../context/products.context";
 import { Allergens } from "../allergens/allergens";
@@ -180,12 +179,12 @@ describe("Given Form component in Test Case 3", () => {
     });
 });
 
+// Pendiente de validar test
 // describe(`Given functions provided in virtual component
 //             render`, () => {
 //     let TestComponent: () => JSX.IntrinsicClassAttributes;
 //     let buttons: Array<HTMLElement>;
 //     beforeEach(async () => {
-
 //         TestComponent = ({
 //             handleFileInput,
 //             handleSelectExtImage,
