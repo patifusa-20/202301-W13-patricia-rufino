@@ -3,28 +3,34 @@ import {
     GoogleAuthProvider,
     signOut,
     getRedirectResult,
+    UserCredential,
 } from "firebase/auth";
 import { auth } from "../firebase.config";
 import { UserRepo } from "../repository/users.repo";
 import { UserStructure } from "../types/user.type";
 import { MenuRepo } from "../repository/menus.repo";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useReducer, useState } from "react";
 import { ProductStructure } from "../types/product.type";
 import { useNavigate } from "react-router-dom";
 import { UseUserStructure } from "../types/use.user.type";
 import { MenuStructure } from "../types/menu.type";
+import * as actionCreator from "../reducers/users/action.creators";
+import { userReducer } from "../reducers/users/user.reducer";
+import { useGeneric } from "./use.generic";
 export function useUser(): UseUserStructure {
     const repoMenu = new MenuRepo();
     const repoUser = new UserRepo();
 
     const navigate = useNavigate();
+    const { handleError } = useGeneric();
 
-    const initialStateUsers: Array<UserStructure> = [];
-    const [users, setUsers] = useState(initialStateUsers);
+    const initialUsersState: Array<UserStructure> = [];
+
+    const [users, dispatch] = useReducer(userReducer, initialUsersState);
 
     const handleUsersMenu = useCallback(async () => {
         const usersLoad = await repoUser.load();
-        setUsers(usersLoad);
+        dispatch(actionCreator.userLoadActionCreator(usersLoad));
         return usersLoad;
     }, []);
 
@@ -42,11 +48,6 @@ export function useUser(): UseUserStructure {
     };
 
     const [userLogged, setUser] = useState(initialStateUser);
-
-    const login = async () => {
-        const provider = new GoogleAuthProvider();
-        signInWithRedirect(auth, provider);
-    };
 
     const handleAddUser = async (user: UserStructure) => {
         const userMenu = await repoMenu.create(user.menu);
@@ -82,19 +83,26 @@ export function useUser(): UseUserStructure {
     };
 
     const handleDataLogin = async () => {
-        const userCredentials = await getRedirectResult(auth);
-        // Actualizamos los datos en el estado para indicar que se acaba de logar tal usuario
-        if (userCredentials !== null) {
-            userLogged.id = userCredentials.user.uid;
-            userLogged.userName = (await userCredentials.user
-                .displayName) as string;
-            userLogged.token = await userCredentials.user.getIdToken();
+        try {
+            const userCredentials = await getRedirectResult(auth);
+            userLogged.id = (userCredentials as UserCredential).user.uid;
+            userLogged.userName = (userCredentials as UserCredential).user
+                .displayName as string;
+            userLogged.token = await (
+                userCredentials as UserCredential
+            ).user.getIdToken();
             const currentUser = userLogged;
             setUser(currentUser);
             handleLoadUser(currentUser);
-        } else {
-            setUser({ ...userLogged });
+            navigate("/products");
+        } catch (error) {
+            handleError(error as Error);
         }
+    };
+
+    const login = async () => {
+        const provider = new GoogleAuthProvider();
+        signInWithRedirect(auth, provider);
     };
 
     useEffect(() => {

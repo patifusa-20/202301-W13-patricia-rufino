@@ -15,8 +15,19 @@
     background-color: $primary-color;
     width: 100%;
     border-radius: 3rem 3rem 0 0;
-    overflow-y: scroll;
+    overflow-y: auto;
     max-height: 100vh;
+    animation: modalAnim 0.5s forwards;
+    @keyframes modalAnim {
+        0% {
+            opacity: 0;
+            transform: translateY(2rem);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0rem);
+        }
+    }
     &__header {
         @include flexbox(flex, space-between, center);
         padding: 1rem 3rem;
@@ -28,7 +39,18 @@
         }
     }
     &__body {
-        padding: 1rem 0;
+        padding: 0 3rem 1rem;
+        @include flexbox(flex, center, center);
+        flex-direction: column;
+        @media screen and (min-width: 768px) {
+            gap: 2rem;
+            flex-direction: row;
+        }
+        h4 {
+            font-weight: normal;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
         input {
             background-color: $secondary-color;
             color: $secondary-dark-color;
@@ -37,6 +59,11 @@
             margin: 1rem auto;
             box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
             font-size: 1rem;
+            transition: all 0.5s;
+            &:hover {
+                box-shadow: 3px 3px 8px rgba(0, 0, 0, 0);
+                background-color: darken($secondary-color, 3%);
+            }
         }
     }
 }

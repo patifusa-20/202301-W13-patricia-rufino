@@ -4,7 +4,7 @@ import { ProductStructure } from "../../types/product.type";
 import { ProductForm } from "../product.form/form";
 
 export function Add() {
-    const { category } = useContext(ProductsContext);
+    const { category, allergens } = useContext(ProductsContext);
 
     const initialFormData: Partial<ProductStructure> = {
         productName: "",
@@ -12,6 +12,7 @@ export function Add() {
         price: "",
         isExtImage: false,
         category: category.name,
+        allergens: allergens.map((item) => ({ ...item, isSelected: false })),
     };
 
     return (

@@ -9,6 +9,7 @@ import { Categories } from "../categories/categories";
 import { Modal } from "../modal/modal";
 import { useLocation } from "react-router-dom";
 import { useGeneric } from "../../hooks/use.generic";
+import "./form.scss";
 
 export function ProductForm({
     formData,
@@ -21,6 +22,7 @@ export function ProductForm({
         category,
         allergens,
         showModal,
+        handleFilter,
         handleAdd,
         handleUpdate,
         handleDelete,
@@ -98,6 +100,7 @@ export function ProductForm({
         };
         form.isExtImage ? handleAdd(addProduct) : addLocalImage();
         setFormData(formData);
+        handleFilter(category);
     };
 
     const addLocalImage = () => {
@@ -124,6 +127,7 @@ export function ProductForm({
         form.category = category.name;
         form.isExtImage ? handleUpdate(form) : addLocalImage();
         setFormData({ ...formData });
+        handleFilter(category);
     };
 
     const handleClickDelete = () => {
@@ -180,7 +184,7 @@ export function ProductForm({
                 </div>
                 <button
                     type="button"
-                    className="icon-btn"
+                    className="icon-btn image-btn"
                     onClick={handleClickModal}
                 >
                     <img src="../../assets/icons/icon-image.svg"></img>

@@ -5,7 +5,6 @@ import { MemoryRouter as Router } from "react-router";
 import { getAuth } from "firebase/auth";
 
 jest.mock("firebase/auth");
-//jest.mock("../layout/layout");
 
 test("renders the name of the application", async () => {
     (getAuth as jest.Mock).mockImplementation(() => {

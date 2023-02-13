@@ -39,31 +39,42 @@ export function Modal({
                         </button>
                     </div>
                     <div className="modal__body">
-                        <p>¿De dónde quieres elegir la imagen?</p>
-                        <input
-                            type="file"
-                            name="image"
-                            id="image"
-                            accept="image/png, image/jpeg"
-                            onChange={handleFileInput}
-                            data-testid="inputFile"
-                        />
-                        <button
-                            type="button"
-                            className="secondary-btn"
-                            onClick={handleExtImageBtn}
-                        >
-                            Seleccionar imagen de la colección de
-                            <span>UnSplash</span>
-                        </button>
-                        {showExtImages ? (
-                            <ExtImages
-                                handleSelectExtImage={handleSelectExtImage}
-                                queryImage={queryImage}
-                            ></ExtImages>
-                        ) : (
-                            ""
-                        )}
+                        <div>
+                            <h4>
+                                Elige una imagen para tu producto desde tu
+                                dispositivo
+                            </h4>
+                            <input
+                                type="file"
+                                name="image"
+                                id="image"
+                                accept="image/png, image/jpeg"
+                                onChange={handleFileInput}
+                                data-testid="inputFile"
+                            />
+                        </div>
+                        <div>
+                            <h4>
+                                O si lo prefieres, puedes elegirla de la
+                                colección de UnSplash
+                            </h4>
+                            <button
+                                type="button"
+                                className="secondary-btn"
+                                onClick={handleExtImageBtn}
+                            >
+                                Seleccionar imagen desde
+                                <span>UnSplash</span>
+                            </button>
+                            {showExtImages ? (
+                                <ExtImages
+                                    handleSelectExtImage={handleSelectExtImage}
+                                    queryImage={queryImage}
+                                ></ExtImages>
+                            ) : (
+                                ""
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

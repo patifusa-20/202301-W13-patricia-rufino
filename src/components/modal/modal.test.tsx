@@ -46,7 +46,7 @@ describe("Given Modal component", () => {
         test("Then Unsplash button could be used to fire event on click", () => {
             userEvent.click(buttonElements[1]);
             act(() => {
-                const element = screen.getByText(/Imágenes de Unsplash/i);
+                const element = screen.getByText(/Imágenes encontradas para/i);
                 expect(element).toBeInTheDocument();
             });
         });

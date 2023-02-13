@@ -1,10 +1,32 @@
 @import "../../scss/variables.scss";
 @import "../../scss/mixins.scss";
 
+.modal__body .custom-header {
+    h4 {
+        margin: 0;
+        padding: 0;
+    }
+}
+.custom-header {
+    color: $secondary-dark-color;
+    border: 2px solid $secondary-dark-color;
+    border-bottom: 0;
+    border-radius: 1rem 1rem 0 0;
+    padding: 0 1rem;
+    span {
+        font-weight: 600;
+        letter-spacing: 1px;
+        padding-left: 0.3rem;
+    }
+}
 .custom-list {
     @include flexbox(flex, center, center);
     flex-wrap: wrap;
     gap: 1rem;
+    padding-top: 1rem;
+    border: 2px solid $secondary-dark-color;
+    border-top: 0;
+    border-bottom: 0;
     li {
         width: 25%;
         img {

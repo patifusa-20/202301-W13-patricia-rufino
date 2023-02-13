@@ -7,7 +7,7 @@ import { UserRepo } from "../repository/users.repo";
 const mockCategory = "Test category";
 const mockAllergen = [new GenericModel("Test allergen", "Test allergen icon")];
 
-const mockProduct = new ProductModel(
+export const mockProduct = new ProductModel(
     "Test name 1",
     "Test image 1",
     "Test price 1",
@@ -59,19 +59,19 @@ const mockMenu2 = {
 };
 export const mockMenus2 = [mockMenu2];
 
-const mockUser = {
+export const mockUser = {
     id: "0158",
-    name: "Name Logged User",
+    userName: "Name Logged User",
     token: "Token Logged User",
-    menu: { id: "0508" },
+    menu: mockMenu2,
 };
-const mockUser2 = {
+export const mockUser2 = {
     id: "0325",
-    name: "Name Logged User2",
+    userName: "Name Logged User2",
     token: "Token Logged User2",
-    menu: { id: "0509" },
+    menu: mockMenu2,
 };
-const mockUsers = [mockUser, mockUser2];
+export const mockUsers = [mockUser, mockUser2];
 
 export const mockRepoResponse = () => {
     (ProductRepo.prototype.load as jest.Mock).mockResolvedValue(mockProducts);

@@ -18,7 +18,7 @@ export const initialContext: ProductsContextStructure = {
     products: [],
     allergen: new GenericModel("", ""),
     allergens: allergensData,
-    category: new GenericModel("", ""),
+    category: categoriesData[0],
     categories: categoriesData,
     showModal: false,
     showDrawer: false,

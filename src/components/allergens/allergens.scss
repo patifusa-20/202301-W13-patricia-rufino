@@ -16,8 +16,12 @@
         border-radius: 25%;
         width: 3rem;
         padding: 0.7rem;
+        transition: all 0.5s;
 
         &.active {
+            background-color: $secondary-dark-color;
+        }
+        &:hover {
             background-color: $secondary-dark-color;
         }
     }
