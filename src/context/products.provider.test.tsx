@@ -6,7 +6,7 @@ import * as useUser from "../hooks/use.user";
 import { ProductsContextProvider } from "./products.provider";
 
 describe("Given ProductsContextProvider", () => {
-    describe.skip("When we use it", () => {
+    describe("When we use it", () => {
         test("Then it should call the custom hook useGeneric", () => {
             const spyuseGeneric = jest.spyOn(useGeneric, "useGeneric");
             render(
