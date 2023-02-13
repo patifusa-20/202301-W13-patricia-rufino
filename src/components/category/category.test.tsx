@@ -24,7 +24,6 @@ describe('Given "Category" component', () => {
     });
     describe("When a Category is selected", () => {
         test("Then className active exist", async () => {
-            //mockCategory.isSelected = true;
             mockCategory.name = category.name;
             render(
                 <ProductsContext.Provider value={mockContext}>
@@ -34,9 +33,6 @@ describe('Given "Category" component', () => {
             const CategorySelected = screen.getByRole("button");
             expect(CategorySelected).toHaveClass("active");
         });
-        // test("Then it should change boolean", () => {
-        //     expect(mockCategory).toHaveProperty("isSelected", true);
-        // });
     });
     describe("When data are provided in the component", () => {
         test("Then user could interact with them", async () => {
