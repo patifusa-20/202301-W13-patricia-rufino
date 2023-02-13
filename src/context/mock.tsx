@@ -65,26 +65,3 @@ export const mockProduct1 = new ProductModel(
 );
 mockProduct1.id = "0035";
 export const mockProducts = [mockProduct, mockProduct1];
-
-export const mockMenu1 = { id: "0508", name: "NameMenu1" };
-export const mockMenus = [mockMenu1];
-const mockMenu2 = {
-    id: "0508",
-    name: "NameMenu2",
-    products: [mockProduct, mockProduct1],
-};
-export const mockMenus2 = [mockMenu2];
-
-export const mockUser = {
-    id: "0158",
-    userName: "Name Logged User",
-    token: "Token Logged User",
-    menu: mockMenu2,
-};
-export const mockUser2 = {
-    id: "0325",
-    userName: "Name Logged User2",
-    token: "Token Logged User2",
-    menu: mockMenu2,
-};
-export const mockUsers = [mockUser, mockUser2];
