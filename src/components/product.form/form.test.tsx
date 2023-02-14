@@ -1,6 +1,7 @@
 import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { getDownloadURL } from "firebase/storage";
+import { SyntheticEvent } from "react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { ProductsContext } from "../../context/products.context";
 import { Allergens } from "../allergens/allergens";
@@ -53,14 +54,16 @@ describe("Given Form component", () => {
         beforeEach(() => {
             inputElements = screen.getAllByRole("textbox"); // <input>
         });
-        test("Then form could be used for type content", () => {
-            expect(inputElements[0]).toBeInTheDocument();
-            expect(inputElements[1]).toBeInTheDocument();
-            userEvent.type(inputElements[0], mockProductName);
-            userEvent.type(inputElements[1], mockPrice);
-            waitFor(() => {
-                expect(inputElements[0]).toHaveValue(mockProductName);
-                expect(inputElements[1]).toHaveValue(mockPrice);
+        act(() => {
+            test("Then form could be used for type content", () => {
+                expect(inputElements[0]).toBeInTheDocument();
+                expect(inputElements[1]).toBeInTheDocument();
+                userEvent.type(inputElements[0], mockProductName);
+                userEvent.type(inputElements[1], mockPrice);
+                waitFor(() => {
+                    expect(inputElements[0]).toHaveValue(mockProductName);
+                    expect(inputElements[1]).toHaveValue(mockPrice);
+                });
             });
         });
     });
@@ -103,22 +106,27 @@ describe("Given Form component to Test Case 2, local image", () => {
                 reject({ error: "error" });
             });
         });
-        render(
-            <MemoryRouter initialEntries={["/add-product"]} initialIndex={0}>
-                <ProductsContext.Provider value={mockContext}>
-                    <Routes>
-                        <Route
-                            path={"/add-product"}
-                            element={
-                                <ProductForm
-                                    formData={mockFormDataCase2}
-                                ></ProductForm>
-                            }
-                        ></Route>
-                    </Routes>
-                </ProductsContext.Provider>
-            </MemoryRouter>
-        );
+        act(() => {
+            render(
+                <MemoryRouter
+                    initialEntries={["/add-product"]}
+                    initialIndex={0}
+                >
+                    <ProductsContext.Provider value={mockContext}>
+                        <Routes>
+                            <Route
+                                path={"/add-product"}
+                                element={
+                                    <ProductForm
+                                        formData={mockFormDataCase2}
+                                    ></ProductForm>
+                                }
+                            ></Route>
+                        </Routes>
+                    </ProductsContext.Provider>
+                </MemoryRouter>
+            );
+        });
     });
     describe("When data are provided in the form", () => {
         let buttonElements: Array<HTMLElement>;
@@ -173,32 +181,41 @@ describe("Given Form component in Test Case 3", () => {
         test("Then button GUARDAR CAMBIOS could be used for send the function received in context", () => {
             userEvent.click(buttonElements[1]);
             // Pendiente de seguir validando
-            //expect(mockContext.handleAdd).toHaveBeenCalled();
+            //expect(mockContext.handleModal).toHaveBeenCalled();
             //expect(getDownloadURL).rejects.toEqual({ error: "error" });
         });
     });
 });
 
-// Pendiente de validar test
-// describe(`Given functions provided in virtual component
-//             render`, () => {
-//     let TestComponent: () => JSX.IntrinsicClassAttributes;
+// Pendiente de seguir validando
+// describe(`Given functions provided by props in virtual component`, () => {
+//     let TestComponent: ({
+//         handleSelectExtImage,
+//         handleFileInput,
+//     }: {
+//         handleSelectExtImage: (ev: SyntheticEvent) => void;
+//         handleFileInput: (ev: SyntheticEvent) => void;
+//     }) => JSX.Element;
 //     let buttons: Array<HTMLElement>;
 //     beforeEach(async () => {
 //         TestComponent = ({
-//             handleFileInput,
 //             handleSelectExtImage,
+//             handleFileInput,
 //         }: {
 //             handleSelectExtImage: (ev: SyntheticEvent) => void;
 //             handleFileInput: (ev: SyntheticEvent) => void;
 //         }) => {
 //             return (
 //                 <>
-//                     <button onClick={handleFileInput}>Load</button>
-//                     <button onClick={() => handleSelectExtImage(ev)}>Add</button>
+//                     <button onClick={()=> handleFileInput}>Input file</button>
+//                     <button onClick={() => handleSelectExtImage}>
+//                         Select external image
+//                     </button>
 //                 </>
 //             );
 //         };
+
+//         const inst =
 
 //         await act(() =>
 //             render(
