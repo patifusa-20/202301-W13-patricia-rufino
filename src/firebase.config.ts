@@ -3,12 +3,12 @@ import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyATLWK1n7_cjMpnfwdgPGKSfnXSYM8rqI4",
-    authDomain: "digital-menu-app-5cd01.firebaseapp.com",
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
     projectId: "digital-menu-app-5cd01",
     storageBucket: "digital-menu-app-5cd01.appspot.com",
-    messagingSenderId: "555789150324",
-    appId: "1:555789150324:web:20fca5e38322ac6d910921",
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_APP_ID,
 };
 
 // Initialize Firebase
