@@ -115,7 +115,7 @@ export function ProductForm({
                     setFormData(formData);
                 })
                 .catch((error) => {
-                    console.log(error);
+                    handleError(error);
                 });
         } else {
             handleUpdate(form);

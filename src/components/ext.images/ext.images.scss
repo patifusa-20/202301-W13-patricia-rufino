@@ -20,17 +20,16 @@
     }
 }
 .custom-list {
-    @include flexbox(flex, center, center);
-    flex-wrap: wrap;
-    gap: 1rem;
+    columns: 3 160px;
     padding-top: 1rem;
     border: 2px solid $secondary-dark-color;
     border-top: 0;
     border-bottom: 0;
     li {
-        width: 25%;
+        display: inline-block;
+        margin-bottom: 1rem;
         img {
-            width: 100%;
+            max-width: 100%;
             height: auto;
         }
     }

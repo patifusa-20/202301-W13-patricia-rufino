@@ -1,44 +1,16 @@
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { useContext } from "react";
-import { GenericStructure } from "../types/generic.type";
+import * as mocks from "./mock";
+import { mockUsers, mockUser } from "../hooks/mock";
 import { initialContext, ProductsContext } from "./products.context";
 
-const mockCategory: GenericStructure = {
-    id: "1",
-    name: "Test category",
-    icon: "Test icon",
-    isSelected: true,
-};
-const mockCategory2: GenericStructure = {
-    id: "2",
-    name: "Test category 2",
-    icon: "Test icon 2",
-    isSelected: false,
-};
-
-const mockCategory3: GenericStructure = {
-    id: "5",
-    name: "Test category 3",
-    icon: "Test icon 3",
-    isSelected: false,
-};
-
-const mockAllergen: GenericStructure = {
-    id: "3",
-    name: "Test allergen",
-    icon: "Test icon",
-    isSelected: true,
-};
-const mockAllergen2: GenericStructure = {
-    id: "4",
-    name: "Test allergen 2",
-    icon: "Test icon 2",
-    isSelected: false,
-};
-
-initialContext.categories = [mockCategory, mockCategory2, mockCategory3];
-initialContext.allergens = [mockAllergen, mockAllergen2];
+initialContext.categories = mocks.mockCategories;
+initialContext.allergens = mocks.mockAllergens;
+initialContext.products = mocks.mockProducts;
+initialContext.users = mockUsers;
+initialContext.userLogged = mockUser;
+initialContext.allergen = mocks.mockAllergen;
+initialContext.category = mocks.mockCategory;
 
 describe("Given the context ProductsContext", () => {
     let TestComponent: () => JSX.Element;
@@ -46,33 +18,49 @@ describe("Given the context ProductsContext", () => {
         beforeEach(() => {
             TestComponent = () => {
                 const {
+                    userLogged,
+                    users,
+                    products,
+                    allergen,
                     allergens,
+                    category,
                     categories,
+                    handleLoad,
+                    handleMenu,
+                    handleLoadMenuNotLoggedUser,
+                    handleUsersMenu,
+                    handleAdd,
+                    handleUpdate,
+                    handleDelete,
+                    handleDrawer,
                     handleFilter,
                     handleAllergen,
                     handleCategory,
                     handleModal,
                 } = useContext(ProductsContext);
-                handleFilter(mockCategory);
-                handleAllergen(mockCategory);
-                handleCategory(mockCategory);
+
+                handleFilter(mocks.mockCategory);
+                handleAllergen(mocks.mockAllergen);
+                handleCategory(mocks.mockCategory);
                 handleModal();
+                handleDrawer();
+                handleLoad();
+                handleAdd(mocks.mockProduct);
+                handleUpdate(mocks.mockProduct);
+                handleDelete(mocks.mockProduct.id);
+                handleMenu();
+                handleLoadMenuNotLoggedUser(mocks.mockMenu.id);
+                handleUsersMenu();
+
                 return (
                     <>
-                        <p>{categories[0].name}</p>
-                        <p>{allergens[0].name}</p>
-                        <button onClick={() => handleModal()}>
-                            Show modal
-                        </button>
-                        <button onClick={() => handleCategory(mockCategory2)}>
-                            {categories[1].name}
-                        </button>
-                        <button onClick={() => handleAllergen(mockAllergen)}>
-                            {allergens[1].name}
-                        </button>
-                        <button onClick={() => handleFilter(mockCategory3)}>
-                            {categories[2].name}
-                        </button>
+                        <p>{allergens[1].name}</p>
+                        <p>{categories[1].name}</p>
+                        <p>{allergen.name}</p>
+                        <p>{category.name}</p>
+                        <p>{products[0].productName}</p>
+                        <p>{users[1].userName}</p>
+                        <p>{userLogged.userName}</p>
                     </>
                 );
             };
@@ -83,27 +71,40 @@ describe("Given the context ProductsContext", () => {
                     <TestComponent></TestComponent>
                 </ProductsContext.Provider>
             );
-            const element = screen.getByText(initialContext.categories[0].name);
-            expect(element).toBeInTheDocument();
+            const elementCategory = screen.getByText(
+                initialContext.categories[1].name
+            );
+            expect(elementCategory).toBeInTheDocument();
 
-            const buttons = screen.getAllByRole("button");
-            userEvent.click(buttons[0]);
-            expect(await screen.findByText("Show modal")).toBeInTheDocument();
+            const elementAllergen = screen.getByText(
+                initialContext.allergens[1].name
+            );
+            expect(elementAllergen).toBeInTheDocument();
 
-            userEvent.click(buttons[1]);
-            expect(
-                await screen.findByText(initialContext.categories[1].name)
-            ).toBeInTheDocument();
+            const elementProduct = screen.getByText(
+                initialContext.products[0].productName
+            );
+            expect(elementProduct).toBeInTheDocument();
 
-            userEvent.click(buttons[2]);
-            expect(
-                await screen.findByText(initialContext.allergens[1].name)
-            ).toBeInTheDocument();
+            const elementUser = screen.getByText(
+                initialContext.users[1].userName
+            );
+            expect(elementUser).toBeInTheDocument();
 
-            userEvent.click(buttons[3]);
-            expect(
-                await screen.findByText(initialContext.categories[2].name)
-            ).toBeInTheDocument();
+            const elementUser1 = screen.getByText(
+                initialContext.userLogged.userName
+            );
+            expect(elementUser1).toBeInTheDocument();
+
+            const elementAllergen1 = screen.getByText(
+                initialContext.allergen.name
+            );
+            expect(elementAllergen1).toBeInTheDocument();
+
+            const elementCategory1 = screen.getByText(
+                initialContext.category.name
+            );
+            expect(elementCategory1).toBeInTheDocument();
         });
     });
 });

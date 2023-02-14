@@ -61,9 +61,7 @@ export function useProduct(): UseProductStructure {
         const menuUser = await handleMenu();
         if (menuUser !== undefined) {
             const updatedMenu =
-                menuUser.products !== undefined
-                    ? menuUser.products
-                    : (menuUser.products = []);
+                menuUser.products !== undefined ? menuUser.products : [];
             updatedMenu.push(newProduct);
             await repoMenu.update(menuUser as Partial<MenuStructure>);
             dispatch(actionCreator.productLoadActionCreator(updatedMenu));
@@ -108,9 +106,7 @@ export function useProduct(): UseProductStructure {
         const menuUser = await handleMenu();
         if (menuUser !== undefined) {
             const productsUser =
-                menuUser.products !== undefined
-                    ? menuUser.products
-                    : (menuUser.products = []);
+                menuUser.products !== undefined ? menuUser.products : [];
             dispatch(actionCreator.productLoadActionCreator(productsUser));
         }
     }, []);
