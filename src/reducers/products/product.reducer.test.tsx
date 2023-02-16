@@ -1,4 +1,8 @@
-import { mockProducts, mockProduct1, mockProduct } from "../../hooks/mock";
+import {
+    mockProducts,
+    mockProduct1,
+    mockProduct,
+} from "../../hooks/mocks.use.products";
 import { ProductStructure } from "../../types/product.type";
 import { ProductAction } from "./action.creators";
 import * as actionCreator from "./action.creators";

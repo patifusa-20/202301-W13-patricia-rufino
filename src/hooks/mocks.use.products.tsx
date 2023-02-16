@@ -3,6 +3,7 @@ import { ProductModel } from "../model/product.model";
 import { MenuRepo } from "../repository/menus.repo";
 import { ProductRepo } from "../repository/products.repo";
 import { UserRepo } from "../repository/users.repo";
+import { ProductStructure } from "../types/product.type";
 
 const mockCategory = "Test category";
 const mockAllergen = [new GenericModel("Test allergen", "Test allergen icon")];
@@ -50,14 +51,36 @@ mockUpdateProduct.id = "0050";
 
 export const mockProducts = [mockProduct, mockProduct1, mockUpdateProduct];
 
-export const mockMenu1 = { id: "0508", name: "NameMenu1" };
-export const mockMenus = [mockMenu1];
-const mockMenu2 = {
+export const mockProducts1: Array<ProductStructure> = [];
+
+export const mockMenu1 = {
     id: "0508",
+    name: "NameMenu1",
+    products: [mockProduct, mockProduct1],
+};
+
+const mockMenu2 = {
+    id: "0510",
     name: "NameMenu2",
     products: [mockProduct, mockProduct1],
 };
+
+const mockMenu3 = {
+    id: "0510",
+    name: "NameMenu2",
+    products: undefined,
+};
+
+const mockMenu4 = {
+    id: "0510",
+    name: "NameMenu2",
+    products: [mockAddProduct],
+};
+
+export const mockMenus = [mockMenu1, mockMenu2];
 export const mockMenus2 = [mockMenu2];
+export const mockMenus3 = [mockMenu3];
+export const mockMenus4 = [mockMenu4];
 
 export const mockUser = {
     id: "0158",
@@ -90,5 +113,13 @@ export const mockRepoResponseCase3 = () => {
     (ProductRepo.prototype.load as jest.Mock).mockResolvedValue(mockProducts);
     (ProductRepo.prototype.create as jest.Mock).mockResolvedValue(mockNewObj);
     (MenuRepo.prototype.load as jest.Mock).mockResolvedValue(mockMenus2);
+    (UserRepo.prototype.load as jest.Mock).mockResolvedValue(mockUsers);
+};
+
+export const mockRepoResponseCase4 = () => {
+    (ProductRepo.prototype.load as jest.Mock).mockResolvedValue(mockProducts1);
+    (ProductRepo.prototype.create as jest.Mock).mockResolvedValue(mockNewObj);
+    (MenuRepo.prototype.load as jest.Mock).mockResolvedValue(mockMenus3);
+    (MenuRepo.prototype.update as jest.Mock).mockResolvedValue(mockMenus4);
     (UserRepo.prototype.load as jest.Mock).mockResolvedValue(mockUsers);
 };

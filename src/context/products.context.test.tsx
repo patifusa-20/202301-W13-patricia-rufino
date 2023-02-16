@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { useContext } from "react";
 import * as mocks from "./mock";
-import { mockUsers, mockUser } from "../hooks/mock";
+import { mockUsers, mockUser } from "../hooks/mocks.use.products";
 import { initialContext, ProductsContext } from "./products.context";
 
 initialContext.categories = mocks.mockCategories;
