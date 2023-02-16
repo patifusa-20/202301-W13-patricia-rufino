@@ -6,7 +6,7 @@ import { ProductRepo } from "../repository/products.repo";
 import { useProduct } from "./use.product";
 import { getAuth } from "firebase/auth";
 import { UserRepo } from "../repository/users.repo";
-import * as mocksProducts from "./mocks.use.products";
+import * as mocks from "./mocks.use.products";
 jest.mock("firebase/auth");
 
 jest.mock("../repository/products.repo");
@@ -48,31 +48,21 @@ describe(`Given useProduct (custom hook)
             return (
                 <>
                     <button onClick={handleLoad}>Load</button>
-                    <button
-                        onClick={() => handleAdd(mocksProducts.mockAddProduct)}
-                    >
+                    <button onClick={() => handleAdd(mocks.mockAddProduct)}>
                         Add
                     </button>
                     <button
-                        onClick={() =>
-                            handleUpdate(mocksProducts.mockUpdateProduct)
-                        }
+                        onClick={() => handleUpdate(mocks.mockUpdateProduct)}
                     >
                         Update
                     </button>
-                    <button
-                        onClick={() =>
-                            handleDelete(mocksProducts.mockProduct1.id)
-                        }
-                    >
+                    <button onClick={() => handleDelete(mocks.mockProduct1.id)}>
                         Delete
                     </button>
 
                     <button
                         onClick={() =>
-                            handleLoadMenuNotLoggedUser(
-                                mocksProducts.mockMenu1.id
-                            )
+                            handleLoadMenuNotLoggedUser(mocks.mockMenu1.id)
                         }
                     >
                         Load Menus
@@ -82,7 +72,7 @@ describe(`Given useProduct (custom hook)
                     <div>
                         <p>Loaded</p>
                         <ul>
-                            {mocksProducts.mockProducts.map((product) => (
+                            {mocks.mockProducts.map((product) => (
                                 <li key={product.id}>{product.productName}</li>
                             ))}
                         </ul>
@@ -91,7 +81,7 @@ describe(`Given useProduct (custom hook)
                     <div>
                         <p>Menus</p>
                         <ul>
-                            {mocksProducts.mockMenus.map((menu) => (
+                            {mocks.mockMenus.map((menu) => (
                                 <li key={menu.id}>{menu.name}</li>
                             ))}
                         </ul>
@@ -99,7 +89,7 @@ describe(`Given useProduct (custom hook)
                 </>
             );
         };
-        mocksProducts.mockRepoResponse();
+        mocks.mockRepoResponse();
 
         await act(() =>
             render(
@@ -129,22 +119,18 @@ describe(`Given useProduct (custom hook)
             waitFor(async () => {
                 expect(ProductRepo.prototype.update).toHaveBeenCalled();
                 expect(
-                    await screen.findByText(
-                        mocksProducts.mockUpdateProduct.productName
-                    )
+                    await screen.findByText(mocks.mockUpdateProduct.productName)
                 ).toBeInTheDocument();
             });
         });
 
         test("If product id is not equal to items id, then its function handleUpdate should be used", async () => {
-            mocksProducts.mockUpdateProduct.id = "0035";
+            mocks.mockUpdateProduct.id = "0035";
             userEvent.click(buttons[2]);
             waitFor(async () => {
                 expect(ProductRepo.prototype.update).toHaveBeenCalled();
                 expect(
-                    await screen.findByText(
-                        mocksProducts.mockUpdateProduct.productName
-                    )
+                    await screen.findByText(mocks.mockUpdateProduct.productName)
                 ).toBeInTheDocument();
             });
         });
@@ -161,7 +147,7 @@ describe(`Given useProduct (custom hook)
             await act(async () => {
                 expect(MenuRepo.prototype.load).toHaveBeenCalled();
                 expect(
-                    await screen.findByText(mocksProducts.mockMenu1.name)
+                    await screen.findByText(mocks.mockMenu1.name)
                 ).toBeInTheDocument();
             });
         });
@@ -190,15 +176,13 @@ describe(`Given useProduct (custom hook)
             return (
                 <>
                     <button onClick={handleLoad}>Load</button>
-                    <button
-                        onClick={() => handleAdd(mocksProducts.mockAddProduct)}
-                    >
+                    <button onClick={() => handleAdd(mocks.mockAddProduct)}>
                         Add
                     </button>
                 </>
             );
         };
-        mocksProducts.mockRepoResponse();
+        mocks.mockRepoResponse();
 
         await act(() =>
             render(
@@ -238,15 +222,13 @@ describe(`Given useProduct (custom hook)
             return (
                 <>
                     <button onClick={handleLoad}>Load</button>
-                    <button
-                        onClick={() => handleAdd(mocksProducts.mockAddProduct)}
-                    >
+                    <button onClick={() => handleAdd(mocks.mockAddProduct)}>
                         Add
                     </button>
                 </>
             );
         };
-        mocksProducts.mockRepoResponseCase3();
+        mocks.mockRepoResponseCase3();
 
         await act(() =>
             render(
@@ -283,29 +265,26 @@ describe(`Given useProduct (custom hook)
         });
         TestComponentCase4 = () => {
             const { handleLoad, handleAdd } = useProduct();
+
             return (
                 <>
                     <button onClick={handleLoad}>Load</button>
-                    <button
-                        onClick={() => handleAdd(mocksProducts.mockAddProduct)}
-                    >
+                    <button onClick={() => handleAdd(mocks.mockAddProduct)}>
                         Add
                     </button>
-                    <div>
-                        <ul>
-                            {mocksProducts.mockProducts1.length > 0
-                                ? mocksProducts.mockProducts1.map((product) => (
-                                      <li key={product.id}>
-                                          {product.productName}
-                                      </li>
-                                  ))
-                                : "User without products added"}
-                        </ul>
-                    </div>
+                    <ul>
+                        {mocks.mockProducts1.length > 0
+                            ? mocks.mockProducts1.map((product) => (
+                                  <li key={product.id}>
+                                      {product.productName}
+                                  </li>
+                              ))
+                            : "User without products added"}
+                    </ul>
                 </>
             );
         };
-        mocksProducts.mockRepoResponseCase4();
+        mocks.mockRepoResponseCase4();
 
         await act(() =>
             render(
@@ -320,14 +299,14 @@ describe(`Given useProduct (custom hook)
         test("Then its function handleLoad should be used", () => {
             userEvent.click(buttons[0]);
             expect(
-                screen.queryByText(mocksProducts.mockProduct1.productName)
+                screen.queryByText(mocks.mockProduct1.productName)
             ).not.toBeInTheDocument();
         });
         test("Then its function handleAdd should be used", () => {
             userEvent.click(buttons[1]);
             waitFor(() => {
                 expect(
-                    screen.findByText(mocksProducts.mockAddProduct.productName)
+                    screen.findByText(mocks.mockAddProduct.productName)
                 ).toBeInTheDocument();
             });
         });
