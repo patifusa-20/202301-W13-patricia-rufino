@@ -9,8 +9,8 @@ export default function HomePage() {
 
     return (
         <>
+            <h1>Crea el menú de tu restaurante</h1>
             <section>
-                <h1>Crea el menú de tu restaurante</h1>
                 <h2>
                     Diseña y actualiza fácilmente la carta digital de tu
                     restaurante

@@ -10,12 +10,12 @@ export default function ProductsPage() {
 
     return (
         <>
+            {location.pathname !== "/products" ? (
+                <h1>Bienvenido</h1>
+            ) : (
+                <h1>Hola {userLogged.userName}</h1>
+            )}
             <section>
-                {location.pathname !== "/products" ? (
-                    <h1>Bienvenido</h1>
-                ) : (
-                    <h1>Hola {userLogged.userName}</h1>
-                )}
                 <Filters></Filters>
                 <Products></Products>
             </section>

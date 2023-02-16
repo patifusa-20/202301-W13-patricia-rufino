@@ -3,7 +3,7 @@
 
 .filters {
     @include flexbox(flex, center, center);
-    gap: 2rem;
+    gap: 4%;
 }
 
 .filter {
