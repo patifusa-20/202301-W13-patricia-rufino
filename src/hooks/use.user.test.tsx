@@ -5,56 +5,24 @@ import { MenuRepo } from "../repository/menus.repo";
 import { signOut, signInWithRedirect } from "firebase/auth";
 import { UserRepo } from "../repository/users.repo";
 import { useUser } from "./use.user";
+import * as mocksUsers from "./mocks.use.users";
 
 jest.mock("firebase/auth");
 jest.mock("../firebase.config");
+
 jest.mock("../repository/users.repo");
+UserRepo.prototype.load = jest.fn();
+UserRepo.prototype.create = jest.fn();
+
 jest.mock("../repository/menus.repo");
+MenuRepo.prototype.load = jest.fn();
+MenuRepo.prototype.create = jest.fn();
 
-const mockCurrentUser = {
-    id: "Id Current User",
-    userName: "Name Current User",
-    token: "Token Current User",
-    menu: { id: "idMenu", name: "nameMenu", products: [] },
-};
-const mockAddUser = {
-    id: "Id Add User",
-    userName: "Name Add User",
-    token: "Token Add User",
-    menu: { id: "idMenu", name: "nameMenu", products: [] },
-};
-
-const mockUsers = [mockCurrentUser, mockAddUser];
-
-const mockUserCredentials = {
-    user: {
-        uid: "Mock UID user logged",
-        displayName: "Mock display name",
-        getIdToken: jest.fn(),
-    },
-};
-
-const mockMenu1 = { id: "IdMenu1", name: "NameMenu1" };
-const mockMenus = [mockMenu1];
-
-describe(`Given useProduct (custom hook)
+describe(`Given useUser (custom hook)
             render with a virtual component`, () => {
     let TestComponent: () => JSX.Element;
     let buttons: Array<HTMLElement>;
-    const mockRepoResponse = () => {
-        (UserRepo.prototype.load as jest.Mock).mockResolvedValue(mockUsers);
-        (UserRepo.prototype.create as jest.Mock).mockResolvedValue(mockAddUser);
-        (MenuRepo.prototype.load as jest.Mock).mockResolvedValue(mockMenus);
-        (MenuRepo.prototype.create as jest.Mock).mockResolvedValue(mockMenus);
-        (signInWithRedirect as jest.Mock).mockResolvedValue(
-            mockUserCredentials
-        );
-        (signOut as jest.Mock).mockResolvedValue(mockUserCredentials);
-    };
-    UserRepo.prototype.load = jest.fn();
-    UserRepo.prototype.create = jest.fn();
-    MenuRepo.prototype.load = jest.fn();
-    MenuRepo.prototype.create = jest.fn();
+
     beforeEach(async () => {
         TestComponent = () => {
             const { handleUsersMenu, handleLoadUser, login, logout } =
@@ -62,7 +30,11 @@ describe(`Given useProduct (custom hook)
             return (
                 <>
                     <button onClick={handleUsersMenu}>Load</button>
-                    <button onClick={() => handleLoadUser(mockCurrentUser)}>
+                    <button
+                        onClick={() =>
+                            handleLoadUser(mocksUsers.mockCurrentUser)
+                        }
+                    >
                         Load users
                     </button>
                     <button onClick={login}>Login</button>
@@ -71,7 +43,7 @@ describe(`Given useProduct (custom hook)
                 </>
             );
         };
-        mockRepoResponse();
+        mocksUsers.mockRepoResponse();
 
         await act(() =>
             render(
@@ -109,6 +81,49 @@ describe(`Given useProduct (custom hook)
             userEvent.click(buttons[3]);
             await act(async () => {
                 expect(signOut).toHaveBeenCalled();
+            });
+        });
+    });
+});
+
+describe(`Given useUser (custom hook)
+            render with a virtual component`, () => {
+    let TestComponentCase2: () => JSX.Element;
+    let buttons: Array<HTMLElement>;
+
+    beforeEach(async () => {
+        TestComponentCase2 = () => {
+            const { handleUsersMenu, handleLoadUser } = useUser();
+            return (
+                <>
+                    <button onClick={handleUsersMenu}>Load</button>
+                    <button
+                        onClick={() =>
+                            handleLoadUser(mocksUsers.mockCurrentUser)
+                        }
+                    >
+                        Load users
+                    </button>
+                </>
+            );
+        };
+        mocksUsers.mockRepoResponse1();
+
+        await act(() =>
+            render(
+                <MemoryRouter>
+                    <TestComponentCase2 />
+                </MemoryRouter>
+            )
+        );
+        buttons = screen.getAllByRole("button");
+    });
+    describe(`When it's loaded user repository and it's falsy`, () => {
+        test("Then a menu should be created in menu repository", async () => {
+            userEvent.click(buttons[0]);
+            userEvent.click(buttons[1]);
+            await act(async () => {
+                expect(MenuRepo.prototype.create).toHaveBeenCalled();
             });
         });
     });
