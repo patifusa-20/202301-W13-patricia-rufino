@@ -265,7 +265,8 @@ describe(`Given useProduct (custom hook)
         });
         TestComponentCase4 = () => {
             const { handleLoad, handleAdd } = useProduct();
-
+            const productsLength = mocks.mockProducts1.length;
+            const products = mocks.mockProducts1;
             return (
                 <>
                     <button onClick={handleLoad}>Load</button>
@@ -273,11 +274,13 @@ describe(`Given useProduct (custom hook)
                         Add
                     </button>
                     <ul>
-                        {mocks.mockProducts1.length > 0
-                            ? mocks.mockProducts1.map((item) => (
-                                  <li key={item.id}>{item.productName}</li>
-                              ))
-                            : "User without products added"}
+                        {productsLength > 0 ? (
+                            products.map((item) => (
+                                <li key={item.id}>{item.productName}</li>
+                            ))
+                        ) : (
+                            <li>User without products added</li>
+                        )}
                     </ul>
                 </>
             );
