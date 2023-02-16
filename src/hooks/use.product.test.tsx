@@ -274,10 +274,8 @@ describe(`Given useProduct (custom hook)
                     </button>
                     <ul>
                         {mocks.mockProducts1.length > 0
-                            ? mocks.mockProducts1.map((product) => (
-                                  <li key={product.id}>
-                                      {product.productName}
-                                  </li>
+                            ? mocks.mockProducts1.map((item) => (
+                                  <li key={item.id}>{item.productName}</li>
                               ))
                             : "User without products added"}
                     </ul>
