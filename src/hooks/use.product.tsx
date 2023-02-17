@@ -63,6 +63,7 @@ export function useProduct(): UseProductStructure {
             const updatedMenu =
                 menuUser.products !== undefined ? menuUser.products : [];
             updatedMenu.push(newProduct);
+            menuUser.products = updatedMenu;
             await repoMenu.update(menuUser as Partial<MenuStructure>);
             dispatch(actionCreator.productLoadActionCreator(updatedMenu));
         }
