@@ -79,7 +79,6 @@ export function useUser(): UseUserStructure {
 
     const logout = () => {
         signOut(auth);
-        console.log("El usuario ha cerrado la sesión con logout");
     };
 
     const handleDataLogin = async () => {

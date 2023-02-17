@@ -3,7 +3,6 @@
 import { createContext } from "react";
 import { allergensData } from "../data/allergens.data";
 import { categoriesData } from "../data/categories.data";
-import { GenericModel } from "../model/generic.model";
 import { ProductStructure } from "../types/product.type";
 import { ProductsContextStructure } from "../types/products.context.type";
 

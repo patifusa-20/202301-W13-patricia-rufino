@@ -1,4 +1,4 @@
-import { mockUsers, mockUser2, mockUser } from "../../hooks/mock";
+import { mockUsers, mockUser2, mockUser } from "../../hooks/mocks.use.products";
 import { UserStructure } from "../../types/user.type";
 import { UserAction } from "./action.creators";
 import * as actionCreator from "./action.creators";

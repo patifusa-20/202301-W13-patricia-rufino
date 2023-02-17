@@ -1,7 +1,5 @@
 import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { getDownloadURL } from "firebase/storage";
-import { SyntheticEvent } from "react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { ProductsContext } from "../../context/products.context";
 import { Allergens } from "../allergens/allergens";
@@ -92,7 +90,7 @@ describe("Given Form component", () => {
     });
 });
 
-describe("Given Form component to Test Case 2, local image", () => {
+describe("Given Form component to Test Case 2, external image", () => {
     beforeEach(() => {
         (Categories as jest.Mock).mockImplementation(() => {
             return <p>Mock Categories</p>;
@@ -100,12 +98,7 @@ describe("Given Form component to Test Case 2, local image", () => {
         (Allergens as jest.Mock).mockImplementation(() => {
             return <p>Mock Allergens</p>;
         });
-        (getDownloadURL as jest.Mock).mockImplementation(() => {
-            return new Promise((resolve, reject) => {
-                resolve("mockurlimage");
-                reject({ error: "error" });
-            });
-        });
+
         act(() => {
             render(
                 <MemoryRouter
@@ -133,108 +126,11 @@ describe("Given Form component to Test Case 2, local image", () => {
         beforeEach(() => {
             buttonElements = screen.getAllByRole("button");
         });
-        test("Then button  could be used for send the function received in context", () => {
+        test("Then button could be used for send the function received in context", () => {
             userEvent.click(buttonElements[1]);
-            // Pendiente de seguir validando
             act(() => {
                 expect(mockContext.handleAdd).toHaveBeenCalled();
             });
         });
     });
 });
-describe("Given Form component in Test Case 3", () => {
-    beforeEach(() => {
-        (Categories as jest.Mock).mockImplementation(() => {
-            return <p>Mock Categories</p>;
-        });
-        (Allergens as jest.Mock).mockImplementation(() => {
-            return <p>Mock Allergens</p>;
-        });
-        (getDownloadURL as jest.Mock).mockResolvedValue("Download url");
-        act(() => {
-            render(
-                <MemoryRouter
-                    initialEntries={["/add-product"]}
-                    initialIndex={0}
-                >
-                    <ProductsContext.Provider value={mockContext}>
-                        <Routes>
-                            <Route
-                                path={"/add-product"}
-                                element={
-                                    <ProductForm
-                                        formData={mockFormData}
-                                    ></ProductForm>
-                                }
-                            ></Route>
-                        </Routes>
-                    </ProductsContext.Provider>
-                </MemoryRouter>
-            );
-        });
-    });
-    describe("When data are provided in the form", () => {
-        let buttonElements: Array<HTMLElement>;
-        beforeEach(() => {
-            buttonElements = screen.getAllByRole("button");
-        });
-        test("Then button GUARDAR CAMBIOS could be used for send the function received in context", () => {
-            userEvent.click(buttonElements[1]);
-            // Pendiente de seguir validando
-            //expect(mockContext.handleModal).toHaveBeenCalled();
-            //expect(getDownloadURL).rejects.toEqual({ error: "error" });
-        });
-    });
-});
-
-// Pendiente de seguir validando
-// describe(`Given functions provided by props in virtual component`, () => {
-//     let TestComponent: ({
-//         handleSelectExtImage,
-//         handleFileInput,
-//     }: {
-//         handleSelectExtImage: (ev: SyntheticEvent) => void;
-//         handleFileInput: (ev: SyntheticEvent) => void;
-//     }) => JSX.Element;
-//     let buttons: Array<HTMLElement>;
-//     beforeEach(async () => {
-//         TestComponent = ({
-//             handleSelectExtImage,
-//             handleFileInput,
-//         }: {
-//             handleSelectExtImage: (ev: SyntheticEvent) => void;
-//             handleFileInput: (ev: SyntheticEvent) => void;
-//         }) => {
-//             return (
-//                 <>
-//                     <button onClick={()=> handleFileInput}>Input file</button>
-//                     <button onClick={() => handleSelectExtImage}>
-//                         Select external image
-//                     </button>
-//                 </>
-//             );
-//         };
-
-//         const inst =
-
-//         await act(() =>
-//             render(
-//                 <MemoryRouter>
-//                     <TestComponent
-//                         handleSelectExtImage={handleSelectExtImage}
-//                         handleFileInput={handleFileInput}
-//                     ></TestComponent>
-//                 </MemoryRouter>
-//             )
-//         );
-//         buttons = screen.getAllByRole("button");
-//     });
-//     describe(`When the repo is working OK`, () => {
-//         test("Then its function handleAdd should be used", () => {
-//             userEvent.click(buttons[1]);
-//             act(() => {
-//                 expect(ProductRepo.prototype.create).toHaveBeenCalled();
-//             });
-//         });
-//     });
-// });
